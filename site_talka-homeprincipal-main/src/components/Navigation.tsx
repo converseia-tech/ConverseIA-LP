@@ -1,0 +1,231 @@
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+
+const Navigation = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  
+  // Determina qual logo mostrar baseado na rota
+  const getLogo = () => {
+    if (location.pathname === "/direito") {
+      return "/Icon_3_direito.png";
+    } else if (location.pathname === "/conciarge") {
+      return "/logo_azul_conciarge.png";
+    }
+    return "/nova_logo_talka_que_agora_e_converseia.png";
+  };
+
+  // Aplica paleta de cores baseada na rota
+  useEffect(() => {
+    const root = document.documentElement;
+    
+    if (location.pathname === "/direito") {
+      // Paleta roxo/violeta para Direito
+      root.style.setProperty('--color-primary', '139 92 246'); // violet-500
+      root.style.setProperty('--color-accent', '168 85 247'); // purple-500
+      root.style.setProperty('--color-secondary', '147 51 234'); // violet-600
+    } else if (location.pathname === "/conciarge") {
+      // Paleta azul para Conciarge
+      root.style.setProperty('--color-primary', '59 130 246'); // blue-500
+      root.style.setProperty('--color-accent', '96 165 250'); // blue-400
+      root.style.setProperty('--color-secondary', '37 99 235'); // blue-600
+    } else {
+      // Paleta padrão roxa para home e outras páginas
+      root.style.setProperty('--color-primary', '139 92 246'); // violet-500
+      root.style.setProperty('--color-accent', '168 85 247'); // purple-500
+      root.style.setProperty('--color-secondary', '147 51 234'); // violet-600
+    }
+  }, [location.pathname]);
+
+  const navItems = [
+    { name: "Sobre", path: "/sobre" },
+    { name: "Insights", path: "/insights" },
+  ];
+
+  const produtosLinks = [
+    { name: "Agentes IA - Conciarge", path: "/conciarge" },
+    { name: "Agentes IA - Direito", path: "/direito" },
+    { name: "Plataforma", path: "/plataforma" },
+  ];
+
+  const parceriasLinks = [
+    { name: "Parceiros Direito", url: "https://converseia-parceiros.vercel.app" },
+    { name: "Parceiros Clínica", url: "https://parceiros-clinica.vercel.app" },
+  ];
+
+  const documentacaoUrl = "https://converseia.gitbook.io/converseia-docs";
+
+  const isActive = (path: string) => location.pathname === path;
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-18 lg:h-20">
+          {/* Logo com transição */}
+          <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <img 
+              src={getLogo()}
+              alt="ConverseIA" 
+              className="h-8 sm:h-10 lg:h-12 w-auto object-contain transition-all duration-500 ease-in-out"
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`text-sm xl:text-base font-medium transition-all duration-300 hover:text-accent ${
+                  isActive(item.path)
+                    ? "text-accent border-b-2 border-accent pb-1"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            {/* Dropdown Produtos */}
+            <div className="relative group">
+              <button className="text-sm xl:text-base font-medium text-muted-foreground hover:text-foreground transition-all duration-300">
+                Produtos ▾
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-56 bg-card border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                {produtosLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="block px-4 py-3 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <a
+              href={documentacaoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm xl:text-base font-medium text-muted-foreground hover:text-foreground transition-all duration-300"
+            >
+              Documentação
+            </a>
+            
+            {/* Dropdown Parcerias */}
+            <div className="relative group">
+              <button className="text-sm xl:text-base font-medium text-muted-foreground hover:text-foreground transition-all duration-300">
+                Parcerias ▾
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                {parceriasLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-4 py-3 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            <Button asChild size="sm" className="text-sm xl:text-base px-4 xl:px-6">
+              <Link to="/contato">Contato</Link>
+            </Button>
+          </div>
+          <div className="lg:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="lg:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-card rounded-lg mt-2 border border-border mb-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                    isActive(item.path)
+                      ? "text-accent bg-accent/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/20"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {/* Produtos Mobile */}
+              <div className="px-3 py-2 border-t border-border mt-2 pt-2">
+                <p className="text-xs font-semibold text-muted-foreground mb-2">Produtos</p>
+                <div className="space-y-1">
+                  {produtosLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      to={link.path}
+                      className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/20 rounded transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href={documentacaoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 rounded-md transition-colors"
+              >
+                Documentação
+              </a>
+              
+              {/* Parcerias Mobile */}
+              <div className="px-3 py-2 border-t border-border mt-2 pt-2">
+                <p className="text-xs font-semibold text-muted-foreground mb-2">Parcerias</p>
+                <div className="space-y-1">
+                  {parceriasLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/20 rounded transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="px-3 py-2 pt-3">
+                <Button asChild size="sm" className="w-full">
+                  <Link to="/contato" onClick={() => setIsOpen(false)}>
+                    Contato
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navigation;

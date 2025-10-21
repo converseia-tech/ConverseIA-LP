@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TALKA Design System - Corporate & Modern */
+
+@layer base {
+  :root {
+    /* TALKA Brand Colors - Corporate & Tech */
+    --background: 240 100% 6%; /* #0A0020 - Deep space blue */
+    --foreground: 0 0% 100%; /* Pure white */
+
+    --card: 240 95% 8%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 100%;
+
+    --popover: 240 100% 6%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Brand Primary - Gradient Purple */
+    --primary: 260 100% 63%; /* #9742FF */
+    --primary-foreground: 0 0% 100%;
+
+    /* Brand Secondary - Teal */
+    --secondary: 175 100% 39%; /* #00C2A8 */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Brand Accent - Vibrant Blue */
+    --accent: 210 100% 58%; /* #2A8CFF */
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 240 70% 10%;
+    --muted-foreground: 0 0% 85%; /* White with opacity */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 70% 15%;
+    --input: 240 70% 15%;
+    --ring: 260 100% 63%;
+
+    --radius: 0.75rem;
+
+    /* TALKA Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(260 100% 63%), hsl(175 100% 39%));
+    --gradient-accent: linear-gradient(90deg, hsl(260 100% 63%), hsl(210 100% 58%));
+    --gradient-subtle: linear-gradient(180deg, hsl(240 95% 8%), hsl(240 100% 6%));
+
+    /* Corporate Effects */
+    --shadow-glow: 0 0 40px hsl(260 100% 63% / 0.3);
+    --shadow-elegant: 0 10px 30px -10px hsl(240 100% 6% / 0.8);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Gradient Text Effect */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
+
+  .gradient-border {
+    position: relative;
+    background: var(--gradient-primary);
+    border-radius: var(--radius);
+    padding: 2px;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: hsl(var(--background));
+    border-radius: calc(var(--radius) - 1px);
+  }
+
+  /* Corporate Animations */
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes float-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-float-up {
+    animation: float-up 0.8s ease-out forwards;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  button, a, .interactive {
+    transition: var(--transition-smooth);
+  }
+
+  /* Typography enhancements */
+  .text-corporate-lg {
+    @apply text-muted-foreground/90 leading-relaxed;
+  }
+
+  .section-padding {
+    @apply py-20 lg:py-28;
+  }
+}
