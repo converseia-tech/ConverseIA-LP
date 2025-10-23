@@ -17,25 +17,31 @@ const Navigation = () => {
     return "/nova_logo_talka_que_agora_e_converseia.png";
   };
 
-  // Aplica paleta de cores baseada na rota
+  // Aplica paleta de cores baseada na rota - Cores originais dos sites
   useEffect(() => {
     const root = document.documentElement;
     
     if (location.pathname === "/direito") {
-      // Paleta roxo/violeta para Direito
-      root.style.setProperty('--color-primary', '139 92 246'); // violet-500
-      root.style.setProperty('--color-accent', '168 85 247'); // purple-500
-      root.style.setProperty('--color-secondary', '147 51 234'); // violet-600
+      // Paleta AZUL ROYAL ELÉTRICO - Converseia Direito (original: 220 100% 49%)
+      root.style.setProperty('--primary', '220 100% 49%'); // Azul elétrico
+      root.style.setProperty('--primary-foreground', '0 0% 9%');
+      root.style.setProperty('--secondary', '220 100% 64%'); // Azul claro
+      root.style.setProperty('--accent', '220 100% 64%');
+      root.style.setProperty('--ring', '220 100% 49%');
     } else if (location.pathname === "/conciarge") {
-      // Paleta azul para Conciarge
-      root.style.setProperty('--color-primary', '59 130 246'); // blue-500
-      root.style.setProperty('--color-accent', '96 165 250'); // blue-400
-      root.style.setProperty('--color-secondary', '37 99 235'); // blue-600
+      // Paleta TEAL/CIANO PROFISSIONAL - Conciarge (original: 195 96% 30%)
+      root.style.setProperty('--primary', '195 96% 30%'); // Teal escuro
+      root.style.setProperty('--primary-foreground', '0 0% 100%');
+      root.style.setProperty('--secondary', '195 50% 95%');
+      root.style.setProperty('--accent', '195 96% 30%');
+      root.style.setProperty('--ring', '195 96% 30%');
     } else {
-      // Paleta padrão roxa para home e outras páginas
-      root.style.setProperty('--color-primary', '139 92 246'); // violet-500
-      root.style.setProperty('--color-accent', '168 85 247'); // purple-500
-      root.style.setProperty('--color-secondary', '147 51 234'); // violet-600
+      // Paleta ROXO PADRÃO - TALKA/ConverseIA principal (original: 260 100% 63%)
+      root.style.setProperty('--primary', '260 100% 63%'); // Roxo vibrante
+      root.style.setProperty('--primary-foreground', '0 0% 100%');
+      root.style.setProperty('--secondary', '175 100% 39%'); // Teal secundário
+      root.style.setProperty('--accent', '210 100% 58%'); // Azul accent
+      root.style.setProperty('--ring', '260 100% 63%');
     }
   }, [location.pathname]);
 
