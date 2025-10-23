@@ -1,53 +1,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowRight, TrendingUp, Users, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
+import { articles } from "../data/articles";
 
 const Insights = () => {
-  const featuredArticles = [
-    {
-      title: "O Futuro é Autônomo: O Papel dos Agentes de IA na Nova Economia Digital",
-      excerpt: "Explore como os agentes autônomos de IA estão redefinindo a automação empresarial e criando novas possibilidades. Uma análise profunda das tecnologias emergentes que estão moldando o futuro do trabalho.",
-      readTime: "8 min",
-      date: "15 Jan 2024",
-      category: "Inteligência Artificial",
-      featured: true
-    },
-    {
-      title: "Processo Comercial 5.0: Como a Automação Inteligente está Redefinindo as Vendas",
-      excerpt: "Descubra as estratégias que estão transformando o funil de vendas através da inteligência artificial, aumentando conversões e reduzindo o ciclo de vendas.",
-      readTime: "6 min",
-      date: "22 Dez 2023",
-      category: "Vendas & Marketing"
-    },
-    {
-      title: "Estudo de Caso: Aumento de 40% na Eficiência Operacional com a Gestão de Processos Tecnológicos",
-      excerpt: "Análise detalhada de como a otimização de processos gerou resultados mensuráveis para nossos clientes, incluindo metodologias e métricas de sucesso.",
-      readTime: "12 min",
-      date: "10 Dez 2023",
-      category: "Case Study"
-    },
-    {
-      title: "ROI em Automação: Como Medir o Sucesso da Transformação Digital",
-      excerpt: "Um guia prático para definir métricas, acompanhar resultados e maximizar o retorno sobre investimento em projetos de automação empresarial.",
-      readTime: "10 min",
-      date: "28 Nov 2023",
-      category: "ROI & Métricas"
-    },
-    {
-      title: "Ética em IA: Construindo Sistemas Responsáveis para o Futuro",
-      excerpt: "Como implementar inteligência artificial de forma ética e responsável, garantindo transparência, fairness e conformidade regulatória.",
-      readTime: "7 min",
-      date: "15 Nov 2023",
-      category: "Ética & Compliance"
-    },
-    {
-      title: "A Evolução do Atendimento ao Cliente: De Chatbots a Agentes Inteligentes",
-      excerpt: "A jornada tecnológica do atendimento ao cliente e como os agentes de IA estão criando experiências verdadeiramente personalizadas.",
-      readTime: "9 min",
-      date: "02 Nov 2023",
-      category: "Customer Experience"
-    }
-  ];
+  const featuredArticles = articles;
 
   const categories = [
     { name: "Todos", count: 6, icon: TrendingUp },
@@ -134,10 +92,13 @@ const Insights = () => {
 
                     <div className="flex items-center justify-between">
                       <span className="text-accent font-medium">{featuredArticles[0].category}</span>
-                      <button className="flex items-center text-accent hover:text-secondary transition-colors group">
+                      <Link 
+                        to={`/insights/${featuredArticles[0].id}`}
+                        className="flex items-center text-accent hover:text-secondary transition-colors group"
+                      >
                         <span className="font-medium">Ler artigo completo</span>
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -146,7 +107,11 @@ const Insights = () => {
               {/* Articles Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {featuredArticles.slice(1).map((article, index) => (
-                  <div key={index} className="group">
+                  <Link
+                    key={index}
+                    to={`/insights/${article.id}`}
+                    className="group"
+                  >
                     <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 h-full hover:shadow-glow transition-all duration-500 hover:scale-105">
                       {/* Article Metadata */}
                       <div className="flex items-center text-muted-foreground/70 text-sm mb-4 space-x-4">
@@ -183,7 +148,7 @@ const Insights = () => {
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 

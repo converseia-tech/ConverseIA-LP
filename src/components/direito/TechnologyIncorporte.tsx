@@ -3,22 +3,22 @@ import Marquee from 'react-fast-marquee';
 
 export const TechnologyIncorporte = () => {
   return (
-    <div className="flex flex-col gap-12">
-      <p className="text-4xl md:text-5xl text-center font-bold max-w-3xl mx-auto text-white leading-snug">
+    <div className="flex flex-col gap-8 md:gap-12 px-4">
+      <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center font-bold max-w-3xl mx-auto text-white leading-snug px-4">
         Se um é <span className="text-secondary">revolucionário</span>, imagina um time completo disponível para seu cliente{' '}
         <span className="text-secondary">Conversar</span> com a{' '}
         <span className="text-secondary">IA</span> a qualquer momento
       </p>
 
-      <h4 className="text-xl md:text-1xl text-white max-w-md mx-auto text-center font-semibold leading-tight">
+      <h4 className="text-lg sm:text-xl md:text-2xl text-white max-w-md mx-auto text-center font-semibold leading-tight px-4">
         Conheça os cargos que alguns Funcionários da{' '}
         <span className="text-secondary">ConverseIA</span> poderão ocupar:
       </h4>
 
-      <div className="flex flex-col gap-16 items-center">
-        <h2 className="text-4xl font-bold text-white">{TITLE}</h2>
+      <div className="flex flex-col gap-8 md:gap-16 items-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center px-4">{TITLE}</h2>
 
-        <div className="grid base:grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-8 bg-dark-primary rounded-lg shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-4 md:p-8 bg-dark-primary rounded-lg shadow-lg w-full max-w-6xl">
           {CHARGES_AVALIABLE.map((avaliable) => (
             <div
               key={avaliable.title}

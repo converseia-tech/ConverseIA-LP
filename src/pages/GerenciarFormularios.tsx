@@ -14,6 +14,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Table,
   TableBody,
   TableCell,
@@ -47,7 +54,10 @@ import {
   LogOut,
   Copy,
   Check,
-  ExternalLink
+  ExternalLink,
+  Database,
+  RefreshCw,
+  Code
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -92,6 +102,8 @@ const GerenciarFormularios = () => {
   const [fields, setFields] = useState<FormField[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [showSqlDialog, setShowSqlDialog] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   
   // Integration settings
   const [integrationConfig, setIntegrationConfig] = useState<IntegrationConfig>({
@@ -160,6 +172,231 @@ const GerenciarFormularios = () => {
     setCopiedField(field);
     setTimeout(() => setCopiedField(null), 2000);
   };
+
+  const saveSupabaseConfig = () => {
+    // Salvar no localStorage (em produção, usar backend seguro)
+    localStorage.setItem('supabase_config', JSON.stringify({
+      url: integrationConfig.supabaseUrl,
+      anonKey: integrationConfig.supabaseAnonKey,
+      serviceKey: integrationConfig.supabaseServiceKey
+    }));
+    
+    // Mostrar modal com SQL
+    setShowSqlDialog(true);
+  };
+
+  const syncFormFields = async () => {
+    setIsSyncing(true);
+    
+    try {
+      // Aqui você pode implementar a lógica de sincronização
+      // Por exemplo, salvar os campos no localStorage ou fazer uma chamada API
+      
+      const formFields = fields.map(field => ({
+        id: field.id,
+        label: field.label,
+        type: field.type,
+        required: field.required,
+        nicho: field.nicho,
+        step: field.step,
+        order: field.order,
+        options: field.options
+      }));
+      
+      localStorage.setItem('contratacao_fields', JSON.stringify(formFields));
+      
+      alert('✅ Campos sincronizados com sucesso! A página /contratacao agora usará estes campos.');
+      
+    } catch (error) {
+      console.error('Erro ao sincronizar:', error);
+      alert('❌ Erro ao sincronizar campos');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const sqlSchema = `-- ============================================
+-- CONVERSEIA - DATABASE SCHEMA
+-- Execute este SQL no Supabase SQL Editor
+-- ============================================
+
+-- 1. Tabela de campos do formulário
+CREATE TABLE IF NOT EXISTS form_fields (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  label TEXT NOT NULL,
+  type TEXT NOT NULL CHECK (type IN ('text', 'textarea', 'select', 'radio', 'checkbox', 'date', 'file', 'table')),
+  options TEXT[], -- Array de opções para select, radio, checkbox
+  required BOOLEAN DEFAULT false,
+  placeholder TEXT,
+  nicho TEXT CHECK (nicho IN ('Advocacia', 'Clínica', 'Outro', 'Todos')),
+  step INTEGER DEFAULT 1,
+  "order" INTEGER DEFAULT 1,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 2. Tabela de leads/contratações
+CREATE TABLE IF NOT EXISTS leads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome_completo TEXT NOT NULL,
+  email TEXT NOT NULL,
+  telefone TEXT,
+  empresa TEXT,
+  nicho TEXT,
+  form_data JSONB, -- Dados dinâmicos do formulário
+  plano TEXT,
+  valor DECIMAL(10,2),
+  status TEXT DEFAULT 'novo' CHECK (status IN ('novo', 'em_contato', 'qualificado', 'convertido', 'perdido')),
+  origem TEXT DEFAULT 'site',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 3. Tabela de logs de webhooks
+CREATE TABLE IF NOT EXISTS webhook_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lead_id UUID REFERENCES leads(id) ON DELETE CASCADE,
+  webhook_url TEXT NOT NULL,
+  payload JSONB,
+  response_status INTEGER,
+  response_body TEXT,
+  success BOOLEAN DEFAULT false,
+  error_message TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Tabela de usuários admin
+CREATE TABLE IF NOT EXISTS admin_users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  nome TEXT,
+  role TEXT DEFAULT 'admin' CHECK (role IN ('admin', 'viewer')),
+  last_login TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 5. Tabela de uploads de arquivos
+CREATE TABLE IF NOT EXISTS file_uploads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lead_id UUID REFERENCES leads(id) ON DELETE CASCADE,
+  field_id UUID REFERENCES form_fields(id) ON DELETE CASCADE,
+  filename TEXT NOT NULL,
+  file_size INTEGER,
+  mime_type TEXT,
+  storage_path TEXT NOT NULL,
+  uploaded_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- ============================================
+-- ÍNDICES PARA PERFORMANCE
+-- ============================================
+CREATE INDEX IF NOT EXISTS idx_leads_email ON leads(email);
+CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status);
+CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_form_fields_nicho ON form_fields(nicho);
+CREATE INDEX IF NOT EXISTS idx_form_fields_step ON form_fields(step, "order");
+CREATE INDEX IF NOT EXISTS idx_webhook_logs_lead_id ON webhook_logs(lead_id);
+
+-- ============================================
+-- ROW LEVEL SECURITY (RLS)
+-- ============================================
+ALTER TABLE form_fields ENABLE ROW LEVEL SECURITY;
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+ALTER TABLE webhook_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE file_uploads ENABLE ROW LEVEL SECURITY;
+
+-- Política: Permitir leitura pública de form_fields
+CREATE POLICY "Public can view form fields" ON form_fields
+  FOR SELECT USING (true);
+
+-- Política: Permitir inserção pública de leads
+CREATE POLICY "Public can insert leads" ON leads
+  FOR INSERT WITH CHECK (true);
+
+-- Política: Admin pode tudo em leads
+CREATE POLICY "Admin full access to leads" ON leads
+  USING (auth.role() = 'authenticated');
+
+-- Política: Admin pode tudo em form_fields
+CREATE POLICY "Admin full access to form_fields" ON form_fields
+  USING (auth.role() = 'authenticated');
+
+-- ============================================
+-- TRIGGERS PARA UPDATED_AT
+-- ============================================
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_form_fields_updated_at
+  BEFORE UPDATE ON form_fields
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_leads_updated_at
+  BEFORE UPDATE ON leads
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_admin_users_updated_at
+  BEFORE UPDATE ON admin_users
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- ============================================
+-- VIEWS PARA ANALYTICS
+-- ============================================
+CREATE OR REPLACE VIEW leads_by_status AS
+SELECT 
+  status,
+  COUNT(*) as total,
+  COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() as percentage
+FROM leads
+GROUP BY status;
+
+CREATE OR REPLACE VIEW leads_by_nicho AS
+SELECT 
+  nicho,
+  COUNT(*) as total,
+  AVG(valor) as valor_medio
+FROM leads
+WHERE nicho IS NOT NULL
+GROUP BY nicho;
+
+CREATE OR REPLACE VIEW conversion_funnel AS
+SELECT 
+  DATE_TRUNC('day', created_at) as data,
+  COUNT(*) FILTER (WHERE status = 'novo') as novos,
+  COUNT(*) FILTER (WHERE status = 'em_contato') as em_contato,
+  COUNT(*) FILTER (WHERE status = 'qualificado') as qualificados,
+  COUNT(*) FILTER (WHERE status = 'convertido') as convertidos
+FROM leads
+GROUP BY DATE_TRUNC('day', created_at)
+ORDER BY data DESC;
+
+-- ============================================
+-- DADOS INICIAIS (OPCIONAL)
+-- ============================================
+-- Inserir campos padrão do formulário
+INSERT INTO form_fields (label, type, required, nicho, step, "order") VALUES
+  ('Nome Completo', 'text', true, 'Todos', 1, 1),
+  ('E-mail', 'text', true, 'Todos', 1, 2),
+  ('Telefone/WhatsApp', 'text', true, 'Todos', 1, 3),
+  ('Empresa/Escritório', 'text', false, 'Todos', 2, 1),
+  ('Nicho de Atuação', 'select', true, 'Todos', 2, 2)
+ON CONFLICT DO NOTHING;
+
+-- ============================================
+-- CONFIGURAÇÃO COMPLETA! 
+-- Após executar este SQL:
+-- 1. Configure as credenciais no formulário acima
+-- 2. Teste a conexão
+-- 3. Sincronize os campos do formulário
+-- ============================================`;
 
   const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState<FormField | null>(null);
@@ -789,10 +1026,29 @@ const GerenciarFormularios = () => {
                     </div>
                   </div>
 
-                  <div className="pt-4">
-                    <Button className="w-full">
+                  <div className="pt-4 space-y-2">
+                    <Button className="w-full" onClick={saveSupabaseConfig}>
                       <Save className="mr-2 h-4 w-4" />
                       Salvar Configurações do Supabase
+                    </Button>
+                    
+                    <Button 
+                      className="w-full" 
+                      variant="outline"
+                      onClick={syncFormFields}
+                      disabled={isSyncing}
+                    >
+                      {isSyncing ? (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          Sincronizando...
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4" />
+                          Sincronizar Campos com /contratacao
+                        </>
+                      )}
                     </Button>
                   </div>
 
@@ -1014,6 +1270,81 @@ const GerenciarFormularios = () => {
       </main>
 
       <Footer />
+
+      {/* Dialog com SQL Schema */}
+      <Dialog open={showSqlDialog} onOpenChange={setShowSqlDialog}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Database className="h-5 w-5" />
+              SQL Schema - Execute no Supabase
+            </DialogTitle>
+            <DialogDescription>
+              Copie e execute este SQL no SQL Editor do Supabase para criar todas as tabelas necessárias
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="bg-muted p-4 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium">Schema completo (Tabelas, Índices, RLS, Triggers)</span>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    navigator.clipboard.writeText(sqlSchema);
+                    alert('✅ SQL copiado para área de transferência!');
+                  }}
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copiar SQL
+                </Button>
+              </div>
+              <pre className="bg-background p-4 rounded border text-xs overflow-x-auto max-h-96">
+                <code>{sqlSchema}</code>
+              </pre>
+            </div>
+
+            <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+              <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center gap-2">
+                <Code className="h-4 w-4" />
+                Instruções de Instalação
+              </h4>
+              <ol className="text-sm space-y-2 text-blue-800 dark:text-blue-200">
+                <li>1. Acesse seu projeto no <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline">Supabase Dashboard</a></li>
+                <li>2. Vá em <strong>SQL Editor</strong> no menu lateral</li>
+                <li>3. Clique em <strong>"New Query"</strong></li>
+                <li>4. Cole o SQL copiado acima</li>
+                <li>5. Clique em <strong>"Run"</strong> ou pressione Ctrl+Enter</li>
+                <li>6. Verifique que todas as tabelas foram criadas em <strong>Table Editor</strong></li>
+                <li>7. Volte aqui e teste a sincronização de campos</li>
+              </ol>
+            </div>
+
+            <div className="bg-amber-50 dark:bg-amber-950 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
+              <h4 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">⚠️ Importante</h4>
+              <ul className="text-sm space-y-1 text-amber-800 dark:text-amber-200">
+                <li>• Execute este SQL apenas UMA vez por projeto</li>
+                <li>• Certifique-se de estar no projeto correto antes de executar</li>
+                <li>• As políticas RLS estão configuradas para permitir inserção pública de leads</li>
+                <li>• Para operações admin, você precisará estar autenticado no Supabase</li>
+              </ul>
+            </div>
+
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowSqlDialog(false)}>
+                Fechar
+              </Button>
+              <Button onClick={() => {
+                window.open(integrationConfig.supabaseUrl + '/project/_/sql', '_blank');
+              }}>
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Abrir SQL Editor do Supabase
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

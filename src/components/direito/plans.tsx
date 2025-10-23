@@ -20,12 +20,12 @@ export const Plans = () => {
   };
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-white text-center font-bold text-4xl">
+    <div className="space-y-6 md:space-y-8 px-4">
+      <h1 className="text-white text-center font-bold text-2xl sm:text-3xl md:text-4xl px-4">
         Escolha o <span className="text-secondary">plano sob medida</span> para você:
       </h1>
 
-      <div className="flex justify-center flex-wrap gap-4 mb-8">
+      <div className="flex justify-center flex-wrap gap-2 md:gap-4 mb-6 md:mb-8">
         {PLANS_AVALIABLE[0].periods && PLANS_AVALIABLE[0].periods.map((period, index) => (
           <button
             key={period.label}
@@ -34,7 +34,7 @@ export const Plans = () => {
               // Reseta o switch de 'à vista' se voltar para o plano mensal
               if (index === 0) setIsVista(false);
             }}
-            className={`py-2 px-4 rounded-full text-white font-semibold transition-colors duration-300 ${
+            className={`py-2 px-4 md:px-6 rounded-full text-white text-sm md:text-base font-semibold transition-colors duration-300 ${
               selectedPeriodIndex === index 
                 ? 'bg-blue-600'
                 : 'bg-gray-700 hover:bg-gray-600'
@@ -47,21 +47,21 @@ export const Plans = () => {
       
       {/* 3. Switch para o desconto à vista, só aparece em planos semestral ou anual (índice > 0) */}
       {selectedPeriodIndex > 0 && (
-        <div className="flex items-center justify-center space-x-2 my-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:space-x-2 my-4 px-4">
           <Switch 
             id="vista-switch" 
             checked={isVista}
             onCheckedChange={setIsVista}
             className="data-[state=checked]:bg-green-500"
           />
-          <Label htmlFor="vista-switch" className="text-white font-bold text-lg">
+          <Label htmlFor="vista-switch" className="text-white font-bold text-sm sm:text-base md:text-lg text-center sm:text-left">
             Pagar à vista (PIX ou Boleto) e ganhar +5% de desconto
           </Label>
         </div>
       )}
 
-      <div className="flex flex-col gap-8 items-center">
-        <div className="grid base:grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-screen-lg">
+      <div className="flex flex-col gap-6 md:gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-screen-lg">
           {PLANS_AVALIABLE.map((plan, index) => {
             // 4. Lógica de cálculo atualizada
             const currentPeriod = plan.periods ? plan.periods[selectedPeriodIndex] : null;
