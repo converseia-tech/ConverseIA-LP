@@ -169,10 +169,10 @@ const Contact = () => {
                     <div>
                       <p className="text-muted-foreground text-sm">Email</p>
                       <a 
-                        href="mailto:contato@talka.com.br" 
+                        href="mailto:contato@converseia.com.br" 
                         className="text-foreground hover:text-accent transition-colors"
                       >
-                        contato@talka.com.br
+                        contato@converseia.com.br
                       </a>
                     </div>
                   </div>
@@ -184,12 +184,12 @@ const Contact = () => {
                     <div>
                       <p className="text-muted-foreground text-sm">LinkedIn</p>
                       <a 
-                        href="https://linkedin.com/company/talka" 
+                        href="https://www.linkedin.com/company/converseia" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-foreground hover:text-accent transition-colors"
                       >
-                        linkedin.com/company/talka
+                        linkedin.com/company/converseia
                       </a>
                     </div>
                   </div>

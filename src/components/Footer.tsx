@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail, MessageCircle } from "lucide-react";
 
 const Footer = () => {
+  const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Quero%20entender%20mais%20sobre%20a%20solu%C3%A7%C3%A3o%20de%20voc%C3%AAs.&type=phone_number&app_absent=0";
+
   return (
     <footer className="bg-gradient-subtle border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -10,7 +12,7 @@ const Footer = () => {
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <img 
-                src="/lovable-uploads/7cc4cd4d-8aaf-47ac-a7d4-aa8df6d3e4c0.png" 
+                src="/uploads/7cc4cd4d-8aaf-47ac-a7d4-aa8df6d3e4c0.png" 
                 alt="TALKA" 
                 className="h-8 w-auto"
               />
@@ -20,14 +22,23 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="mailto:contato@talka.com.br" 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-green-500 transition-colors"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="h-5 w-5" />
+              </a>
+              <a 
+                href="mailto:contato@converseia.com.br" 
                 className="text-muted-foreground hover:text-accent transition-colors"
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
               </a>
               <a 
-                href="https://linkedin.com/company/talka" 
+                href="https://www.linkedin.com/company/converseia" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-accent transition-colors"
@@ -58,8 +69,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/sobre" className="text-muted-foreground/80 hover:text-accent transition-colors">
-                  Sobre Nós
+                <Link to="/#sobre" className="text-muted-foreground/80 hover:text-accent transition-colors">
+                  Sobre
                 </Link>
               </li>
             </ul>
@@ -70,16 +81,22 @@ const Footer = () => {
             <h3 className="text-foreground font-semibold mb-4">Contato</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/contato" className="text-muted-foreground/80 hover:text-accent transition-colors">
-                  Fale Conosco
-                </Link>
+                <a 
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground/80 hover:text-green-500 transition-colors flex items-center gap-2"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  WhatsApp
+                </a>
               </li>
               <li>
                 <a 
-                  href="mailto:contato@talka.com.br" 
+                  href="mailto:contato@converseia.com.br" 
                   className="text-muted-foreground/80 hover:text-accent transition-colors"
                 >
-                  contato@talka.com.br
+                  contato@converseia.com.br
                 </a>
               </li>
             </ul>

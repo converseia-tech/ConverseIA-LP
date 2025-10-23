@@ -13,20 +13,6 @@ import { FormContact } from '@/components/direito/form-contact';
 const Direito = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    
-    // Chatbot widget
-    (function(e: Document) {
-      const a = e.createElement('ra-chatbot-widget');
-      a.id = 'ra_wc_chatbot';
-      a.setAttribute('slug', 'qs0VjV3e8DoFLrakFnU8jdUHuSzVyp8q7W4SKBkN');
-      e.body.appendChild(a);
-
-      const r = e.createElement('script');
-      r.id = 'ra_chatbot_' + Math.floor(200 * Math.random());
-      r.defer = true;
-      r.src = 'https://sitewidget.net/chatbot-sdk.js';
-      e.body.appendChild(r);
-    })(document);
   }, []);
 
   return (

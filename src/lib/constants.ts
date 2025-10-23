@@ -72,10 +72,10 @@ export const PLANS_AVALIABLE = [
     title: 'Escritório Essencial',
     monthlyPrice: 799, // Preço atualizado
     periods: [
-      // Opção de 1 ano agora é a primeira (índice 0)
-	{ months: 12, discount: 0.20, label: 'Anual', installments: 12 },
-	{ months: 6, discount: 0.10, label: 'Semestral', installments: 6 },
+      // Mensal primeiro (índice 0)
 	{ months: 1, discount: 0, label: 'Mensal', installments: 1 },
+	{ months: 6, discount: 0.10, label: 'Semestral', installments: 6 },
+	{ months: 12, discount: 0.20, label: 'Anual', installments: 12 },
     ],
     list: [
       'Pacote/ plano com os seguintes recursos:',
@@ -90,10 +90,10 @@ export const PLANS_AVALIABLE = [
     title: 'Escritório Avançado',
     monthlyPrice: 1190, // Preço atualizado
     periods: [
-      // Opção de 1 ano agora é a primeira (índice 0)
-      { months: 12, discount: 0.20, label: 'Anual', installments: 12 },
-      { months: 6, discount: 0.10, label: 'Semestral', installments: 6 },
+      // Mensal primeiro (índice 0)
       { months: 1, discount: 0, label: 'Mensal', installments: 1 },
+      { months: 6, discount: 0.10, label: 'Semestral', installments: 6 },
+      { months: 12, discount: 0.20, label: 'Anual', installments: 12 },
     ],
     list: [
       'Todos os recursos do plano - Escritório Essencial',

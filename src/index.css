@@ -149,6 +149,70 @@
     animation: float-up 0.8s ease-out forwards;
   }
 
+  /* Animações 3D personalizadas */
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0) translateZ(0);
+    }
+    50% {
+      transform: translateY(-20px) translateZ(20px);
+    }
+  }
+
+  @keyframes float-slower {
+    0%, 100% {
+      transform: translateY(0) translateZ(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-30px) translateZ(30px) rotate(180deg);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  .animate-float-slower {
+    animation: float-slower 8s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  .animate-shine {
+    animation: shine 3s ease-in-out infinite;
+  }
+
+  .perspective-container {
+    perspective: 2000px;
+    transform-style: preserve-3d;
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 10px 30px rgba(138, 66, 255, 0.3);
+  }
+
   /* Smooth transitions for all interactive elements */
   button, a, .interactive {
     transition: var(--transition-smooth);

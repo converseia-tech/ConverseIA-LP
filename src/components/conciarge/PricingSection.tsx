@@ -178,7 +178,14 @@ const PricingSection = () => {
                     })}
                   </ul>
 
-                  <div className="mt-auto">
+                  <div className="mt-auto space-y-2">
+                    <a
+                      href="/contratacao"
+                      className="inline-flex items-center justify-center w-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group/btn bg-[#20a5c2] text-white rounded-md px-4 py-3"
+                    >
+                      Contratar Agora
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" weight="bold" />
+                    </a>
                     <a
                       href={`https://api.whatsapp.com/send/?phone=558197849998&text=${encodeURIComponent(
                         plan.name.includes('AVANÇADA')
@@ -187,9 +194,9 @@ const PricingSection = () => {
                       )}&type=phone_number&app_absent=0`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center justify-center w-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group/btn ${plan.buttonVariant === 'hero' ? 'bg-[#20a5c2] text-white rounded-md px-4 py-3' : 'bg-white text-primary rounded-md px-4 py-3'}`}
+                      className="inline-flex items-center justify-center w-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group/btn bg-white text-primary border-2 border-primary rounded-md px-4 py-3"
                     >
-                      {plan.buttonText}
+                      Falar com Especialista
                       <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" weight="bold" />
                     </a>
                   </div>
@@ -227,12 +234,19 @@ const PricingSection = () => {
                   <span className="text-sm text-foreground group-hover/item:text-primary transition-colors duration-300">Suporte e gerente de contas dedicado</span>
                 </li>
               </ul>
-              <div className="mt-auto">
+              <div className="mt-auto space-y-2">
+                <a
+                  href="/contratacao"
+                  className="inline-flex items-center justify-center w-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group/btn bg-[#20a5c2] text-white rounded-md px-4 py-3"
+                >
+                  Contratar Agora
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" weight="bold" />
+                </a>
                 <a
                   href={`https://api.whatsapp.com/send/?phone=558197849998&text=${encodeURIComponent("Olá, tudo bem? Quero entender mais sobre a solução de vocês.")}&type=phone_number&app_absent=0`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group/btn bg-[#20a5c2] text-white rounded-md px-4 py-3"
+                  className="inline-flex items-center justify-center w-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group/btn bg-white text-primary border-2 border-primary rounded-md px-4 py-3"
                 >
                   Fale com um especialista
                   <Phone className="ml-2 w-4 h-4 group-hover/btn:scale-110 transition-transform duration-300" weight="bold" />

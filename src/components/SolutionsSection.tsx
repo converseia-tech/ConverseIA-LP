@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink, ArrowRight, FolderKanban, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const SolutionsSection = () => {
+  const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Quero%20entender%20mais%20sobre%20a%20solu%C3%A7%C3%A3o%20de%20voc%C3%AAs.&type=phone_number&app_absent=0";
+
   return (
     <section className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,9 +35,11 @@ const SolutionsSection = () => {
                 de clientes no setor jurídico, garantindo agilidade e precisão.
               </p>
 
-              <Button variant="outline" className="group mt-auto">
-                Conheça a solução
-                <ExternalLink className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+              <Button variant="outline" className="group mt-auto" asChild>
+                <Link to="/direito">
+                  Conheça a solução
+                  <ExternalLink className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -55,9 +60,11 @@ const SolutionsSection = () => {
                 para clínicas e o setor de saúde com um toque de cuidado digital.
               </p>
 
-              <Button variant="outline" className="group mt-auto">
-                Conheça a solução
-                <ExternalLink className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+              <Button variant="outline" className="group mt-auto" asChild>
+                <Link to="/conciarge">
+                  Conheça a solução
+                  <ExternalLink className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -75,9 +82,11 @@ const SolutionsSection = () => {
                 dentro do orçamento e com o impacto esperado.
               </p>
 
-              <Button variant="outline" className="group mt-auto">
-                Saiba mais
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="outline" className="group mt-auto" asChild>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  Saiba mais
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </div>
           </div>
@@ -95,9 +104,11 @@ const SolutionsSection = () => {
                 resolver os problemas específicos da sua operação.
               </p>
 
-              <Button variant="outline" className="group mt-auto">
-                Fale com um especialista
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="outline" className="group mt-auto" asChild>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  Fale com um especialista
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </div>
           </div>

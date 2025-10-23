@@ -5,6 +5,8 @@ import { Brain, MessageSquare, Link as LinkIcon, Bot, Sparkles, Zap, Target, Eye
 import { Link } from "react-router-dom";
 
 const About = () => {
+  const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Quero%20entender%20mais%20sobre%20a%20solu%C3%A7%C3%A3o%20de%20voc%C3%AAs.&type=phone_number&app_absent=0";
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -148,7 +150,9 @@ const About = () => {
                   Criamos Agentes de IA totalmente personalizados para sua operação.
                 </p>
                 <Button asChild size="lg">
-                  <Link to="/contato">Fale com um especialista</Link>
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                    Fale com um especialista
+                  </a>
                 </Button>
               </div>
             </div>
@@ -218,7 +222,9 @@ const About = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link to="/contato">Falar com Especialista</Link>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  Falar com Especialista
+                </a>
               </Button>
               <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <a href="https://converseia.gitbook.io/converseia-docs" target="_blank" rel="noopener noreferrer">

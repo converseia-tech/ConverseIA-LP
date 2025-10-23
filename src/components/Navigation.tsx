@@ -46,7 +46,8 @@ const Navigation = () => {
   }, [location.pathname]);
 
   const navItems = [
-    { name: "Sobre", path: "/sobre" },
+    { name: "Início", path: "/" },
+    { name: "Sobre", path: "/#sobre" },
     { name: "Insights", path: "/insights" },
   ];
 
@@ -63,7 +64,24 @@ const Navigation = () => {
 
   const documentacaoUrl = "https://converseia.gitbook.io/converseia-docs";
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path.includes('#')) {
+      const [pathname, hash] = path.split('#');
+      return location.pathname === (pathname || '/') && location.hash === `#${hash}`;
+    }
+    return location.pathname === path;
+  };
+
+  const handleNavClick = (path: string) => {
+    if (path.includes('#')) {
+      const [, hash] = path.split('#');
+      if (location.pathname === '/') {
+        // Já estamos na home, só fazer scroll
+        const element = document.getElementById(hash);
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
@@ -84,6 +102,7 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.path}
+                onClick={() => handleNavClick(item.path)}
                 className={`text-sm xl:text-base font-medium transition-all duration-300 hover:text-accent ${
                   isActive(item.path)
                     ? "text-accent border-b-2 border-accent pb-1"
@@ -141,8 +160,12 @@ const Navigation = () => {
               </div>
             </div>
             
-            <Button asChild size="sm" className="text-sm xl:text-base px-4 xl:px-6">
+            <Button asChild size="sm" variant="outline" className="text-sm xl:text-base px-4 xl:px-6">
               <Link to="/contato">Contato</Link>
+            </Button>
+            
+            <Button asChild size="sm" className="text-sm xl:text-base px-4 xl:px-6 bg-primary hover:bg-primary/90">
+              <Link to="/contratacao">Contrate Agora</Link>
             </Button>
           </div>
           <div className="lg:hidden">
@@ -219,10 +242,15 @@ const Navigation = () => {
                 </div>
               </div>
               
-              <div className="px-3 py-2 pt-3">
-                <Button asChild size="sm" className="w-full">
+              <div className="px-3 py-2 pt-3 space-y-2">
+                <Button asChild size="sm" variant="outline" className="w-full">
                   <Link to="/contato" onClick={() => setIsOpen(false)}>
                     Contato
+                  </Link>
+                </Button>
+                <Button asChild size="sm" className="w-full bg-primary hover:bg-primary/90">
+                  <Link to="/contratacao" onClick={() => setIsOpen(false)}>
+                    Contrate Agora
                   </Link>
                 </Button>
               </div>

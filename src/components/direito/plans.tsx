@@ -45,7 +45,7 @@ export const Plans = () => {
         ))}
       </div>
       
-      {/* 3. Switch para o desconto à vista, só aparece em planos de 3 meses ou mais */}
+      {/* 3. Switch para o desconto à vista, só aparece em planos semestral ou anual (índice > 0) */}
       {selectedPeriodIndex > 0 && (
         <div className="flex items-center justify-center space-x-2 my-4">
           <Switch 
@@ -120,24 +120,44 @@ export const Plans = () => {
                 </ul>
 
                 {index < 2 && (
-                  <Button
-                    className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 px-6 rounded-full mt-auto shadow-md transform transition-transform hover:scale-105"
-                    asChild
-                  >
-                    <a href="https://forms.gle/83EQjA4E7xEL9kSPA" target="_blank" rel="noreferrer">
-                      Teste grátis 7 dias
-                    </a>
-                  </Button>
-                )}
-
-                {index === 2 && (
-                  <div className="mt-auto">
+                  <div className="mt-auto space-y-2">
                     <Button
-                      className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 px-6 rounded-full shadow-md transform transition-transform hover:scale-105"
+                      className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 px-6 rounded-full shadow-md transform transition-transform hover:scale-105"
+                      asChild
+                    >
+                      <a href="/contratacao">
+                        Contratar Agora
+                      </a>
+                    </Button>
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 px-6 rounded-full shadow-md transform transition-transform hover:scale-105"
+                      variant="outline"
                       asChild
                     >
                       <a href={LINK_CTA_WHATSAPP} target="_blank" rel="noreferrer">
-                        Fale conosco
+                        Falar com Especialista
+                      </a>
+                    </Button>
+                  </div>
+                )}
+
+                {index === 2 && (
+                  <div className="mt-auto space-y-2">
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 px-6 rounded-full shadow-md transform transition-transform hover:scale-105"
+                      asChild
+                    >
+                      <a href="/contratacao">
+                        Contratar Agora
+                      </a>
+                    </Button>
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 px-6 rounded-full shadow-md transform transition-transform hover:scale-105"
+                      variant="outline"
+                      asChild
+                    >
+                      <a href={LINK_CTA_WHATSAPP} target="_blank" rel="noreferrer">
+                        Falar com Especialista
                       </a>
                     </Button>
                   </div>

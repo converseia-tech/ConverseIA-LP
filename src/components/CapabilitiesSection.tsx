@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Cog, Brain } from "lucide-react";
 
 const CapabilitiesSection = () => {
+  const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Quero%20entender%20mais%20sobre%20a%20solu%C3%A7%C3%A3o%20de%20voc%C3%AAs.&type=phone_number&app_absent=0";
+
   return (
     <section className="section-padding bg-gradient-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,9 +32,11 @@ const CapabilitiesSection = () => {
                 automação inteligente.
               </p>
 
-              <Button variant="secondary" className="group">
-                Saiba mais sobre Estratégia
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="secondary" className="group" asChild>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  Saiba mais sobre Estratégia
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </div>
           </div>
@@ -55,9 +59,11 @@ const CapabilitiesSection = () => {
                 trabalho digital para escalar seus resultados.
               </p>
 
-              <Button variant="secondary" className="group">
-                Conheça nossa tecnologia de IA
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="secondary" className="group" asChild>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  Conheça nossa tecnologia de IA
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </div>
           </div>
