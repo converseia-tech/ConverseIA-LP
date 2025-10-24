@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TALKA Design System - Corporate & Modern */
+/* CONVERSEIA Design System - Corporate & Modern */
 
 @layer base {
   :root {
-    /* TALKA Brand Colors - Corporate & Tech */
+    /* CONVERSEIA Brand Colors - Corporate & Tech */
     --background: 240 100% 6%; /* #0A0020 - Deep space blue */
     --foreground: 0 0% 100%; /* Pure white */
 
@@ -40,13 +40,13 @@
 
     --radius: 0.75rem;
 
-    /* TALKA Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(260 100% 63%), hsl(175 100% 39%));
-    --gradient-accent: linear-gradient(90deg, hsl(260 100% 63%), hsl(210 100% 58%));
+    /* CONVERSEIA Gradients */
+    --gradient-primary: linear-gradient(135deg, #9742FF, #9742FF);
+    --gradient-accent: linear-gradient(90deg, #9742FF, #7C3AED);
     --gradient-subtle: linear-gradient(180deg, hsl(240 95% 8%), hsl(240 100% 6%));
 
     /* Corporate Effects */
-    --shadow-glow: 0 0 40px hsl(260 100% 63% / 0.3);
+    --shadow-glow: 0 0 40px rgba(151, 66, 255, 0.3);
     --shadow-elegant: 0 10px 30px -10px hsl(240 100% 6% / 0.8);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }

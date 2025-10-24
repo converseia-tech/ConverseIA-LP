@@ -1,6 +1,6 @@
 # ConverseIA - Site Unificado
 
-Site unificado da ConverseIA com três produtos principais: **Talka/ConverseIA**, **ConverseIA Direito** e **Conciarge**.
+Site unificado da ConverseIA com três produtos principais: **CONVERSEIA/ConverseIA**, **ConverseIA Direito** e **Conciarge**.
 
 ## 🎨 Características
 
@@ -87,6 +87,6 @@ O site muda automaticamente as cores baseado na rota usando CSS custom propertie
 
 ---
 
-**Desenvolvido por**: ConverseIA / TALKA  
+**Desenvolvido por**: ConverseIA / CONVERSEIA  
 **Última atualização**: Outubro 2025
 

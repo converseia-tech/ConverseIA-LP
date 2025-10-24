@@ -13,7 +13,7 @@ const Footer = () => {
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <img 
                 src="/uploads/7cc4cd4d-8aaf-47ac-a7d4-aa8df6d3e4c0.png" 
-                alt="TALKA" 
+                alt="CONVERSEIA" 
                 className="h-8 w-auto"
               />
             </Link>
@@ -105,7 +105,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground/60 text-sm">
-            © {new Date().getFullYear()} TALKA. Todos os direitos reservados.
+            © {new Date().getFullYear()} CONVERSEIA. Todos os direitos reservados.
           </p>
           <p className="text-muted-foreground/60 text-sm mt-2 md:mt-0">
             Inteligência que Transforma. Automação que Libera.

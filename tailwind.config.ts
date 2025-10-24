@@ -64,7 +64,7 @@ export default {
 				}
 			},
 			backgroundImage: {
-				'gradient-talka': 'var(--gradient-primary)',
+				'gradient-CONVERSEIA': 'var(--gradient-primary)',
 				'gradient-accent': 'var(--gradient-accent)',
 				'gradient-subtle': 'var(--gradient-subtle)',
 			},

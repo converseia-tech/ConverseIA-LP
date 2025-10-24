@@ -18,7 +18,7 @@ const CapabilitiesSection = () => {
           <div className="group">
             <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 h-full hover:shadow-glow transition-all duration-500 hover:scale-105">
               <div className="flex items-center mb-6">
-                <div className="p-3 bg-gradient-talka rounded-xl mr-4">
+                <div className="p-3 bg-gradient-CONVERSEIA rounded-xl mr-4">
                   <Cog className="h-8 w-8 text-foreground" />
                 </div>
                 <h3 className="text-2xl font-semibold text-foreground">
@@ -45,7 +45,7 @@ const CapabilitiesSection = () => {
           <div className="group">
             <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 h-full hover:shadow-glow transition-all duration-500 hover:scale-105">
               <div className="flex items-center mb-6">
-                <div className="p-3 bg-gradient-talka rounded-xl mr-4">
+                <div className="p-3 bg-gradient-CONVERSEIA rounded-xl mr-4">
                   <Brain className="h-8 w-8 text-foreground" />
                 </div>
                 <h3 className="text-2xl font-semibold text-foreground">

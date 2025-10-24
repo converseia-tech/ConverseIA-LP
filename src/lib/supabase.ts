@@ -1,18 +1,75 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase credentials not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file');
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
+// Prioriza credenciais do localStorage (configuradas no painel admin)
+// Se não existirem, usa variáveis de ambiente do .env
+const getSupabaseUrl = () => {
+  // Verifica se está no browser antes de acessar localStorage
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const localStorageUrl = localStorage.getItem('supabase_url');
+    if (localStorageUrl) return localStorageUrl;
   }
-});
+  return import.meta.env.VITE_SUPABASE_URL || '';
+};
+
+const getSupabaseAnonKey = () => {
+  // Verifica se está no browser antes de acessar localStorage
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const localStorageKey = localStorage.getItem('supabase_anon_key');
+    if (localStorageKey) return localStorageKey;
+  }
+  return import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+};
+
+// Função para obter cliente Supabase com credenciais atualizadas
+export const getSupabaseClient = () => {
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseAnonKey = getSupabaseAnonKey();
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    // Não loga warning se estiver no servidor (SSR)
+    if (typeof window !== 'undefined') {
+      console.warn('⚠️ Supabase credentials not configured. Please configure in Admin Panel (/admin/formularios) or set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env file');
+    }
+    // Retorna cliente com valores vazios (não funcionará, mas não quebra o app)
+    return createClient('https://placeholder.supabase.co', 'placeholder-key', {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+      }
+    });
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+    }
+  });
+};
+
+// Cliente padrão exportado (criado lazy, só quando necessário)
+let cachedClient: any = null;
+
+export const supabase = new Proxy({} as any, {
+  get(target, prop) {
+    if (!cachedClient) {
+      cachedClient = getSupabaseClient();
+    }
+    return cachedClient[prop];
+  }
+}) as ReturnType<typeof createClient>;
+
+// Função helper para verificar se Supabase está configurado
+export const isSupabaseConfigured = () => {
+  const url = getSupabaseUrl();
+  const key = getSupabaseAnonKey();
+  return !!(url && key && url !== '' && key !== '');
+};
+
+// Função para resetar o cache (útil quando credenciais mudam)
+export const resetSupabaseClient = () => {
+  cachedClient = null;
+};
 
 // Database types
 export interface FormField {
@@ -118,7 +175,8 @@ export interface AdminUser {
 export const formFieldsAPI = {
   // Get all form fields
   async getAll(nicho?: string, step?: number) {
-    let query = supabase
+    const client = getSupabaseClient();
+    let query = client
       .from('form_fields')
       .select('*')
       .order('step', { ascending: true })
@@ -140,7 +198,8 @@ export const formFieldsAPI = {
 
   // Create form field
   async create(field: Omit<FormField, 'id' | 'created_at' | 'updated_at'>) {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    const { data, error } = await client
       .from('form_fields')
       .insert(field)
       .select()
@@ -152,7 +211,8 @@ export const formFieldsAPI = {
 
   // Update form field
   async update(id: string, updates: Partial<FormField>) {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    const { data, error } = await client
       .from('form_fields')
       .update(updates)
       .eq('id', id)
@@ -165,7 +225,8 @@ export const formFieldsAPI = {
 
   // Delete form field
   async delete(id: string) {
-    const { error } = await supabase
+    const client = getSupabaseClient();
+    const { error } = await client
       .from('form_fields')
       .delete()
       .eq('id', id);
@@ -177,7 +238,8 @@ export const formFieldsAPI = {
 export const leadsAPI = {
   // Create lead
   async create(lead: Omit<Lead, 'id' | 'created_at' | 'updated_at'>) {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    const { data, error } = await client
       .from('leads')
       .insert(lead)
       .select()
@@ -189,7 +251,8 @@ export const leadsAPI = {
 
   // Get all leads
   async getAll(filters?: { nicho?: string; status?: string; limit?: number; offset?: number }) {
-    let query = supabase
+    const client = getSupabaseClient();
+    let query = client
       .from('leads')
       .select('*', { count: 'exact' })
       .order('created_at', { ascending: false });
@@ -218,7 +281,8 @@ export const leadsAPI = {
 
   // Get single lead
   async getById(id: string) {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    const { data, error } = await client
       .from('leads')
       .select('*')
       .eq('id', id)
@@ -230,7 +294,8 @@ export const leadsAPI = {
 
   // Update lead
   async update(id: string, updates: Partial<Lead>) {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    const { data, error } = await client
       .from('leads')
       .update(updates)
       .eq('id', id)
@@ -243,7 +308,8 @@ export const leadsAPI = {
 
   // Delete lead
   async delete(id: string) {
-    const { error } = await supabase
+    const client = getSupabaseClient();
+    const { error } = await client
       .from('leads')
       .delete()
       .eq('id', id);
@@ -253,7 +319,8 @@ export const leadsAPI = {
 
   // Get analytics
   async getAnalytics(dateRange?: { start: string; end: string }) {
-    let query = supabase
+    const client = getSupabaseClient();
+    let query = client
       .from('daily_leads_summary')
       .select('*')
       .order('date', { ascending: false });
@@ -274,6 +341,7 @@ export const leadsAPI = {
 export const webhookAPI = {
   // Send to N8N
   async sendToN8N(lead: Lead) {
+    const client = getSupabaseClient();
     const webhookUrl = import.meta.env.VITE_WEBHOOK_N8N_URL;
     if (!webhookUrl) {
       console.warn('N8N webhook URL not configured');
@@ -296,7 +364,7 @@ export const webhookAPI = {
       const responseBody = await response.text();
 
       // Log webhook attempt
-      await supabase.from('webhook_logs').insert({
+      await client.from('webhook_logs').insert({
         lead_id: lead.id,
         webhook_type: 'n8n',
         webhook_url: webhookUrl,
@@ -314,7 +382,7 @@ export const webhookAPI = {
       return response.ok;
     } catch (error: any) {
       // Log error
-      await supabase.from('webhook_logs').insert({
+      await client.from('webhook_logs').insert({
         lead_id: lead.id,
         webhook_type: 'n8n',
         webhook_url: webhookUrl,
@@ -330,6 +398,7 @@ export const webhookAPI = {
 
   // Send to CRM
   async sendToCRM(lead: Lead) {
+    const client = getSupabaseClient();
     const webhookUrl = import.meta.env.VITE_WEBHOOK_CRM_URL;
     if (!webhookUrl) {
       console.warn('CRM webhook URL not configured');
@@ -352,7 +421,7 @@ export const webhookAPI = {
       const responseBody = await response.text();
 
       // Log webhook attempt
-      await supabase.from('webhook_logs').insert({
+      await client.from('webhook_logs').insert({
         lead_id: lead.id,
         webhook_type: 'crm',
         webhook_url: webhookUrl,
@@ -370,7 +439,7 @@ export const webhookAPI = {
       return response.ok;
     } catch (error: any) {
       // Log error
-      await supabase.from('webhook_logs').insert({
+      await client.from('webhook_logs').insert({
         lead_id: lead.id,
         webhook_type: 'crm',
         webhook_url: webhookUrl,
@@ -386,7 +455,8 @@ export const webhookAPI = {
 
   // Get webhook stats
   async getStats() {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    const { data, error } = await client
       .from('webhook_delivery_stats')
       .select('*');
     
@@ -398,17 +468,18 @@ export const webhookAPI = {
 export const storageAPI = {
   // Upload file
   async uploadFile(file: File, leadId: string) {
+    const client = getSupabaseClient();
     const fileExt = file.name.split('.').pop();
     const fileName = `${leadId}/${Date.now()}.${fileExt}`;
 
-    const { data, error } = await supabase.storage
+    const { data, error } = await client.storage
       .from('lead-attachments')
       .upload(fileName, file);
 
     if (error) throw error;
 
     // Log file upload
-    await supabase.from('file_uploads').insert({
+    await client.from('file_uploads').insert({
       lead_id: leadId,
       file_name: file.name,
       file_type: file.type,
@@ -417,7 +488,7 @@ export const storageAPI = {
     });
 
     // Get public URL
-    const { data: urlData } = supabase.storage
+    const { data: urlData } = client.storage
       .from('lead-attachments')
       .getPublicUrl(data.path);
 
@@ -431,7 +502,8 @@ export const storageAPI = {
 
   // Get file URL
   async getFileUrl(path: string) {
-    const { data } = supabase.storage
+    const client = getSupabaseClient();
+    const { data } = client.storage
       .from('lead-attachments')
       .getPublicUrl(path);
 
@@ -442,7 +514,8 @@ export const storageAPI = {
 export const authAPI = {
   // Sign in
   async signIn(email: string, password: string) {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const client = getSupabaseClient();
+    const { data, error } = await client.auth.signInWithPassword({
       email,
       password,
     });
@@ -451,7 +524,7 @@ export const authAPI = {
 
     // Update last login
     if (data.user) {
-      await supabase
+      await client
         .from('admin_users')
         .update({ last_login: new Date().toISOString() })
         .eq('id', data.user.id);
@@ -462,19 +535,21 @@ export const authAPI = {
 
   // Sign out
   async signOut() {
-    const { error } = await supabase.auth.signOut();
+    const client = getSupabaseClient();
+    const { error } = await client.auth.signOut();
     if (error) throw error;
   },
 
   // Get current user
   async getCurrentUser() {
-    const { data: { user }, error } = await supabase.auth.getUser();
+    const client = getSupabaseClient();
+    const { data: { user }, error } = await client.auth.getUser();
     if (error) throw error;
 
     if (!user) return null;
 
     // Get admin user details
-    const { data: adminUser, error: adminError } = await supabase
+    const { data: adminUser, error: adminError } = await client
       .from('admin_users')
       .select('*')
       .eq('id', user.id)
@@ -487,7 +562,8 @@ export const authAPI = {
 
   // Check if authenticated
   async isAuthenticated() {
-    const { data: { session } } = await supabase.auth.getSession();
+    const client = getSupabaseClient();
+    const { data: { session } } = await client.auth.getSession();
     return !!session;
   }
 };

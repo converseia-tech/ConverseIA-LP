@@ -9,23 +9,37 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16 lg:pt-20">
-      {/* Background com efeito 3D */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+      {/* Background com pattern da Converseia */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0A0020] via-[#1a0f3f] to-[#2a1555]" />
+      
+      {/* Pattern overlay da Converseia */}
+      <div 
+        className="absolute inset-0 opacity-30" 
+        style={{
+          backgroundImage: 'url(/pattern.png)',
+          backgroundSize: '400px 400px',
+          backgroundRepeat: 'repeat',
+          mixBlendMode: 'overlay'
+        }}
+      />
+      
+      {/* Gradiente overlay para suavizar */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0020]/50 to-[#0A0020]" />
       
       {/* Elementos 3D de profundidade animados */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Círculos de profundidade */}
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" 
+        {/* Círculos de profundidade com roxo Converseia */}
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#9742FF]/20 rounded-full blur-3xl animate-pulse" 
              style={{ transform: 'translateZ(-100px)' }} />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" 
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-[#9742FF]/15 rounded-full blur-3xl animate-pulse" 
              style={{ animationDelay: '1s', transform: 'translateZ(-100px)' }} />
         
         {/* Elementos geométricos 3D flutuantes */}
-        <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary/20 rounded-lg animate-float-slow rotate-45"
+        <div className="absolute top-20 left-10 w-32 h-32 border-2 border-[#9742FF]/20 rounded-lg animate-float-slow rotate-45"
              style={{ transform: 'perspective(1000px) rotateX(45deg)' }} />
-        <div className="absolute bottom-20 left-1/4 w-24 h-24 border-2 border-accent/20 rounded-full animate-float-slower"
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 border-2 border-[#9742FF]/20 rounded-full animate-float-slower"
              style={{ transform: 'perspective(1000px) rotateY(45deg)' }} />
-        <div className="absolute top-1/3 right-1/4 w-40 h-40 border-2 border-secondary/20 rounded-lg animate-float-slow"
+        <div className="absolute top-1/3 right-1/4 w-40 h-40 border-2 border-[#9742FF]/15 rounded-lg animate-float-slow"
              style={{ transform: 'perspective(1000px) rotateX(-30deg) rotateY(30deg)' }} />
       </div>
 
@@ -34,10 +48,10 @@ const HeroSection = () => {
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 animate-fade-in order-2 lg:order-1">
             {/* Badge 3D */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm shadow-lg"
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#9742FF]/10 border border-[#9742FF]/30 backdrop-blur-sm shadow-lg"
                  style={{ transform: 'perspective(1000px) translateZ(20px)' }}>
-              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Agentes Autônomos de IA</span>
+              <Sparkles className="w-4 h-4 text-[#9742FF] animate-pulse" />
+              <span className="text-sm font-medium text-[#9742FF]">Agentes Autônomos de IA</span>
             </div>
 
             {/* Main Heading com efeito de profundidade */}
@@ -112,16 +126,16 @@ const HeroSection = () => {
                  style={{ transform: 'perspective(1500px) rotateY(-5deg)' }}>
               
               {/* Camadas de profundidade 3D */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/30 to-secondary/30 rounded-2xl blur-3xl transform scale-110 animate-pulse-slow"
+              <div className="absolute inset-0 bg-gradient-to-br from-[#9742FF]/30 via-[#9742FF]/20 to-[#9742FF]/30 rounded-2xl blur-3xl transform scale-110 animate-pulse-slow"
                    style={{ transform: 'translateZ(-80px)' }} />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 rounded-2xl blur-2xl transform scale-105"
+              <div className="absolute inset-0 bg-gradient-to-br from-[#9742FF]/20 via-[#9742FF]/10 to-[#9742FF]/20 rounded-2xl blur-2xl transform scale-105"
                    style={{ transform: 'translateZ(-40px)' }} />
               
               {/* Container da imagem com efeito 3D */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-primary/20 transform transition-all duration-500 hover:scale-105 hover:rotate-0"
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#9742FF]/20 transform transition-all duration-500 hover:scale-105 hover:rotate-0"
                    style={{ 
                      transform: 'translateZ(0) rotateY(5deg)',
-                     boxShadow: '0 25px 50px -12px rgba(138, 66, 255, 0.25), 0 0 60px rgba(138, 66, 255, 0.15)'
+                     boxShadow: '0 25px 50px -12px rgba(151, 66, 255, 0.25), 0 0 60px rgba(151, 66, 255, 0.15)'
                    }}>
                 <img 
                   src="/imagem_vivan.png" 
@@ -134,7 +148,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-shine" />
                 
                 {/* Badge com profundidade 3D */}
-                <div className="absolute bottom-4 left-4 right-4 bg-background/95 backdrop-blur-md rounded-xl p-4 border border-primary/20 shadow-2xl transform transition-all duration-300 hover:scale-105"
+                <div className="absolute bottom-4 left-4 right-4 bg-background/95 backdrop-blur-md rounded-xl p-4 border border-[#9742FF]/20 shadow-2xl transform transition-all duration-300 hover:scale-105"
                      style={{ transform: 'translateZ(50px)' }}>
                   <div className="flex items-center gap-3">
                     <div className="flex-shrink-0 relative">
@@ -146,8 +160,8 @@ const HeroSection = () => {
                       <p className="text-xs text-muted-foreground">Agente Autônoma de IA • Online</p>
                     </div>
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Brain className="h-4 w-4 text-primary" />
+                      <div className="w-8 h-8 rounded-full bg-[#9742FF]/10 flex items-center justify-center">
+                        <Brain className="h-4 w-4 text-[#9742FF]" />
                       </div>
                     </div>
                   </div>
@@ -155,9 +169,9 @@ const HeroSection = () => {
               </div>
 
               {/* Partículas flutuantes ao redor */}
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/20 rounded-full blur-xl animate-float-slow" />
-              <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-accent/20 rounded-full blur-xl animate-float-slower" />
-              <div className="absolute top-1/2 -right-8 w-12 h-12 bg-secondary/20 rounded-full blur-lg animate-float-slow" />
+              <div className="absolute -top-4 -left-4 w-16 h-16 bg-[#9742FF]/20 rounded-full blur-xl animate-float-slow" />
+              <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-[#9742FF]/20 rounded-full blur-xl animate-float-slower" />
+              <div className="absolute top-1/2 -right-8 w-12 h-12 bg-[#9742FF]/20 rounded-full blur-lg animate-float-slow" />
             </div>
           </div>
         </div>
@@ -167,7 +181,7 @@ const HeroSection = () => {
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce hidden lg:block"
            style={{ transform: 'perspective(1000px) translateZ(30px) translateX(-50%)' }}>
         <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full p-1 shadow-lg">
-          <div className="w-2 h-3 bg-primary rounded-full mx-auto animate-pulse" />
+          <div className="w-2 h-3 bg-[#9742FF] rounded-full mx-auto animate-pulse" />
         </div>
       </div>
 

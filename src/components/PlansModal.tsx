@@ -73,8 +73,8 @@ const PlansModal = ({ open, onOpenChange }: PlansModalProps) => {
                 <SelectItem value="clinica">
                   Clínica / Saúde
                 </SelectItem>
-                <SelectItem value="outros">
-                  Outros Nichos
+                <SelectItem value="nichadas">
+                  Soluções nichadas
                 </SelectItem>
               </SelectContent>
             </Select>

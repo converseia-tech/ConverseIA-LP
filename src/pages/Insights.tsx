@@ -66,7 +66,7 @@ const Insights = () => {
             <div className="lg:col-span-3">
               {/* Featured Article */}
               <div className="mb-12">
-                <div className="bg-gradient-talka p-1 rounded-3xl">
+                <div className="bg-gradient-CONVERSEIA p-1 rounded-3xl">
                   <div className="bg-background rounded-3xl p-8">
                     <div className="flex items-center text-muted-foreground/70 text-sm mb-4 space-x-4">
                       <span className="bg-accent text-foreground px-3 py-1 rounded-full text-xs font-medium">

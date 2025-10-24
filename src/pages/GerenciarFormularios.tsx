@@ -104,14 +104,17 @@ const GerenciarFormularios = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [showSqlDialog, setShowSqlDialog] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isTestingConnection, setIsTestingConnection] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [connectionMessage, setConnectionMessage] = useState('');
   
   // Integration settings
   const [integrationConfig, setIntegrationConfig] = useState<IntegrationConfig>({
-    supabaseUrl: import.meta.env.VITE_SUPABASE_URL || "",
-    supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || "",
-    supabaseServiceKey: import.meta.env.VITE_SUPABASE_SERVICE_KEY || "",
-    webhookN8nUrl: import.meta.env.VITE_WEBHOOK_N8N_URL || "",
-    webhookCrmUrl: import.meta.env.VITE_WEBHOOK_CRM_URL || "",
+    supabaseUrl: localStorage.getItem('supabase_url') || import.meta.env.VITE_SUPABASE_URL || "",
+    supabaseAnonKey: localStorage.getItem('supabase_anon_key') || import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+    supabaseServiceKey: localStorage.getItem('supabase_service_key') || import.meta.env.VITE_SUPABASE_SERVICE_KEY || "",
+    webhookN8nUrl: localStorage.getItem('webhook_n8n_url') || import.meta.env.VITE_WEBHOOK_N8N_URL || "",
+    webhookCrmUrl: localStorage.getItem('webhook_crm_url') || import.meta.env.VITE_WEBHOOK_CRM_URL || "",
   });
 
   // Check authentication on mount
@@ -173,25 +176,152 @@ const GerenciarFormularios = () => {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const saveSupabaseConfig = () => {
-    // Salvar no localStorage (em produção, usar backend seguro)
-    localStorage.setItem('supabase_config', JSON.stringify({
-      url: integrationConfig.supabaseUrl,
-      anonKey: integrationConfig.supabaseAnonKey,
-      serviceKey: integrationConfig.supabaseServiceKey
-    }));
-    
-    // Mostrar modal com SQL
-    setShowSqlDialog(true);
+  const testSupabaseConnection = async () => {
+    setIsTestingConnection(true);
+    setConnectionStatus('idle');
+    setConnectionMessage('🔍 Iniciando diagnóstico...');
+
+    try {
+      // ETAPA 1: Validar campos preenchidos
+      setConnectionMessage('🔍 [1/6] Validando credenciais preenchidas...');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      if (!integrationConfig.supabaseUrl || !integrationConfig.supabaseAnonKey) {
+        setConnectionStatus('error');
+        setConnectionMessage('❌ Diagnóstico Falhou na Etapa 1/6\n\n📋 Problema: Credenciais incompletas\n\n🔧 Solução: Preencha a URL e a Anon Key do Supabase');
+        setIsTestingConnection(false);
+        return;
+      }
+
+      // ETAPA 2: Validar formato da URL
+      setConnectionMessage('🔍 [2/6] Validando formato da URL...');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      if (!integrationConfig.supabaseUrl.includes('supabase.co') && 
+          !integrationConfig.supabaseUrl.includes('supabase.com') &&
+          !integrationConfig.supabaseUrl.includes('localhost')) {
+        setConnectionStatus('error');
+        setConnectionMessage('❌ Diagnóstico Falhou na Etapa 2/6\n\n📋 Problema: URL do Supabase inválida\n\n🔧 Solução: A URL deve ser no formato:\n   • https://seu-projeto.supabase.co\n   • https://seu-projeto.supabase.com\n\n💡 Onde encontrar: Supabase Dashboard > Settings > API > Project URL');
+        setIsTestingConnection(false);
+        return;
+      }
+
+      // ETAPA 3: Validar formato da Anon Key
+      setConnectionMessage('🔍 [3/6] Validando formato da Anon Key...');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      if (!integrationConfig.supabaseAnonKey.startsWith('eyJ')) {
+        setConnectionStatus('error');
+        setConnectionMessage('❌ Diagnóstico Falhou na Etapa 3/6\n\n📋 Problema: Anon Key com formato inválido\n\n🔧 Solução: A Anon Key deve começar com "eyJ"\n\n💡 Onde encontrar: Supabase Dashboard > Settings > API > Project API keys > anon public');
+        setIsTestingConnection(false);
+        return;
+      }
+
+      // ETAPA 4: Criar cliente Supabase
+      setConnectionMessage('🔍 [4/6] Criando cliente Supabase...');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(
+        integrationConfig.supabaseUrl,
+        integrationConfig.supabaseAnonKey
+      );
+
+      // ETAPA 5: Testar conexão com o banco
+      setConnectionMessage('🔍 [5/6] Testando conexão com banco de dados...');
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      const { data, error } = await supabase
+        .from('form_fields')
+        .select('count')
+        .limit(1);
+
+      if (error) {
+        // Diagnosticar tipo de erro
+        if (error.message.includes('does not exist') || error.message.includes('relation') || error.message.includes('schema cache')) {
+          setConnectionStatus('error');
+          setConnectionMessage('⚠️ Diagnóstico Concluído: 5/6 Etapas OK\n\n📋 Status: Conexão estabelecida, mas banco não configurado\n\n✅ O que funcionou:\n   • URL válida\n   • Credenciais corretas\n   • Conexão com Supabase OK\n\n❌ O que falta:\n   • Tabelas do banco não existem\n\n🔧 Próximo Passo:\n   1. Clique no botão azul "📋 Ver SQL para Criar Tabelas" que apareceu abaixo\n   2. Copie o SQL completo\n   3. Execute no SQL Editor do Supabase (Dashboard > SQL Editor > New Query)\n   4. Volte aqui e clique em "Salvar e Testar Conexão" novamente');
+          // Modal abrirá automaticamente após 1 segundo para dar tempo de ler a mensagem
+          setTimeout(() => setShowSqlDialog(true), 1000);
+        } else if (error.message.includes('Invalid API key') || error.message.includes('JWT')) {
+          setConnectionStatus('error');
+          setConnectionMessage('❌ Diagnóstico Falhou na Etapa 5/6\n\n📋 Problema: Credenciais inválidas ou expiradas\n\n🔧 Solução:\n   1. Verifique se copiou as keys corretamente\n   2. Não confunda "anon" com "service_role"\n   3. Gere novas keys no Supabase se necessário\n\n💡 Onde encontrar:\n   Supabase Dashboard > Settings > API > Project API keys');
+        } else if (error.message.includes('CORS') || error.message.includes('Access-Control')) {
+          setConnectionStatus('error');
+          setConnectionMessage('❌ Diagnóstico Falhou na Etapa 5/6\n\n📋 Problema: Erro de CORS (política de segurança)\n\n🔧 Solução:\n   1. Acesse: Supabase Dashboard > Settings > API\n   2. Em "CORS Settings", adicione a URL do seu site\n   3. Ou use "*" para permitir todos (apenas desenvolvimento)\n   4. Salve e teste novamente');
+        } else if (error.message.includes('Failed to fetch')) {
+          setConnectionStatus('error');
+          setConnectionMessage('❌ Diagnóstico Falhou na Etapa 5/6\n\n📋 Problema: Não foi possível conectar ao servidor\n\n🔧 Possíveis causas:\n   1. Projeto Supabase pausado (plano gratuito inativo)\n   2. Sem conexão com internet\n   3. Firewall bloqueando conexão\n   4. URL incorreta\n\n💡 Verifique:\n   • Projeto está ativo no dashboard do Supabase\n   • Sua conexão com a internet\n   • URL foi copiada corretamente');
+        } else {
+          setConnectionStatus('error');
+          setConnectionMessage(`❌ Diagnóstico Falhou na Etapa 5/6\n\n📋 Erro técnico: ${error.message}\n\n🔧 Sugestões:\n   1. Verifique as credenciais novamente\n   2. Confirme que o projeto está ativo no Supabase\n   3. Tente gerar novas API keys\n   4. Entre em contato com suporte se persistir`);
+        }
+        setIsTestingConnection(false);
+        return;
+      }
+
+      // ETAPA 6: Verificar dados
+      setConnectionMessage('🔍 [6/6] Verificando estrutura do banco...');
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      // Conexão bem sucedida!
+      const fieldsCount = data?.length || 0;
+      setConnectionStatus('success');
+      setConnectionMessage(`✅ Diagnóstico Completo: 6/6 Etapas OK\n\n🎉 Conexão estabelecida com sucesso!\n\n📊 Status do Sistema:\n   • URL: Válida e acessível\n   • Credenciais: Autenticadas\n   • Banco de dados: Conectado\n   • Tabelas: Criadas e funcionais\n   • Campos cadastrados: ${fieldsCount}\n\n✅ Sistema pronto para uso!\n   Agora você pode sincronizar os campos com /contratacao`);
+      
+      // Salvar credenciais no localStorage
+      localStorage.setItem('supabase_url', integrationConfig.supabaseUrl);
+      localStorage.setItem('supabase_anon_key', integrationConfig.supabaseAnonKey);
+      localStorage.setItem('supabase_service_key', integrationConfig.supabaseServiceKey);
+      localStorage.setItem('supabase_connected', 'true');
+      localStorage.setItem('supabase_last_test', new Date().toISOString());
+
+      // Resetar cache do cliente Supabase para usar novas credenciais
+      try {
+        const { resetSupabaseClient } = await import('@/lib/supabase');
+        resetSupabaseClient();
+      } catch (e) {
+        console.warn('Não foi possível resetar cache do Supabase:', e);
+      }
+
+      // Recarregar campos do Supabase
+      await loadFields();
+
+    } catch (error: any) {
+      setConnectionStatus('error');
+      
+      // Diagnosticar erro de rede/import
+      if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+        setConnectionMessage('❌ Diagnóstico Falhou: Erro de Rede\n\n📋 Problema: Não foi possível conectar ao Supabase\n\n🔧 Possíveis causas:\n   1. Sem conexão com internet\n   2. Projeto Supabase pausado/inativo\n   3. Firewall bloqueando conexão\n   4. URL do Supabase incorreta\n\n💡 Verifique:\n   • Sua conexão com a internet\n   • Status do projeto no dashboard do Supabase\n   • URL foi copiada corretamente');
+      } else if (error.message?.includes('import')) {
+        setConnectionMessage('❌ Diagnóstico Falhou: Erro Técnico\n\n📋 Problema: Erro ao carregar biblioteca Supabase\n\n🔧 Solução:\n   1. Recarregue a página\n   2. Limpe o cache do navegador\n   3. Se persistir, reinstale: npm install @supabase/supabase-js');
+      } else {
+        setConnectionMessage(`❌ Diagnóstico Falhou: Erro Inesperado\n\n📋 Erro técnico: ${error.message || 'Erro desconhecido'}\n\n🔧 Sugestões:\n   1. Recarregue a página e tente novamente\n   2. Verifique o console do navegador (F12)\n   3. Copie a mensagem de erro e contate o suporte\n\n💡 Dica: Pressione F12 para ver mais detalhes técnicos`);
+      }
+      
+      console.error('Erro detalhado no teste de conexão:', error);
+    } finally {
+      setIsTestingConnection(false);
+    }
+  };
+
+  const saveSupabaseConfig = async () => {
+    // Primeiro testa a conexão
+    await testSupabaseConnection();
   };
 
   const syncFormFields = async () => {
+    // Verificar se a conexão com Supabase está OK
+    const isConnected = localStorage.getItem('supabase_connected') === 'true';
+    if (!isConnected || connectionStatus !== 'success') {
+      alert('❌ Primeiro você precisa configurar e testar a conexão com o Supabase!');
+      return;
+    }
+
     setIsSyncing(true);
     
     try {
-      // Aqui você pode implementar a lógica de sincronização
-      // Por exemplo, salvar os campos no localStorage ou fazer uma chamada API
-      
+      // Salvar campos do formulário dinamicamente para a página /contratacao usar
       const formFields = fields.map(field => ({
         id: field.id,
         label: field.label,
@@ -200,12 +330,14 @@ const GerenciarFormularios = () => {
         nicho: field.nicho,
         step: field.step,
         order: field.order,
-        options: field.options
+        options: field.options,
+        placeholder: field.placeholder
       }));
       
       localStorage.setItem('contratacao_fields', JSON.stringify(formFields));
+      localStorage.setItem('contratacao_fields_synced_at', new Date().toISOString());
       
-      alert('✅ Campos sincronizados com sucesso! A página /contratacao agora usará estes campos.');
+      alert(`✅ ${formFields.length} campos sincronizados com sucesso!\n\nA página /contratacao agora usará estes campos dinamicamente.`);
       
     } catch (error) {
       console.error('Erro ao sincronizar:', error);
@@ -958,10 +1090,24 @@ ON CONFLICT DO NOTHING;
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Key className="h-5 w-5" />
-                    Credenciais Supabase
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Key className="h-5 w-5" />
+                      <CardTitle>Credenciais Supabase</CardTitle>
+                    </div>
+                    {connectionStatus === 'success' && (
+                      <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                        <div className="h-2 w-2 bg-green-600 rounded-full animate-pulse"></div>
+                        <span className="text-xs font-medium">Conectado</span>
+                      </div>
+                    )}
+                    {connectionStatus === 'error' && (
+                      <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                        <div className="h-2 w-2 bg-red-600 rounded-full"></div>
+                        <span className="text-xs font-medium">Desconectado</span>
+                      </div>
+                    )}
+                  </div>
                   <CardDescription>
                     Configure as credenciais para integração com o banco de dados Supabase
                   </CardDescription>
@@ -1026,17 +1172,87 @@ ON CONFLICT DO NOTHING;
                     </div>
                   </div>
 
+                  {/* Status da Conexão */}
+                  {connectionMessage && (
+                    <div className={`p-4 rounded-lg border ${
+                      connectionStatus === 'success' 
+                        ? 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800'
+                        : connectionStatus === 'idle'
+                        ? 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800'
+                        : 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800'
+                    }`}>
+                      <div className={`space-y-2 ${
+                        connectionStatus === 'success' 
+                          ? 'text-green-800 dark:text-green-200'
+                          : connectionStatus === 'idle'
+                          ? 'text-blue-800 dark:text-blue-200'
+                          : 'text-red-800 dark:text-red-200'
+                      }`}>
+                        {connectionMessage.split('\n').map((line, i) => (
+                          line.trim() ? (
+                            <p key={i} className={`text-sm ${
+                              line.startsWith('✅') || line.startsWith('🎉') || line.startsWith('📊') 
+                                ? 'font-semibold' 
+                                : line.startsWith('   •') || line.startsWith('   ') 
+                                ? 'pl-4 text-xs' 
+                                : ''
+                            }`}>
+                              {line}
+                            </p>
+                          ) : (
+                            <div key={i} className="h-2"></div>
+                          )
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="pt-4 space-y-2">
-                    <Button className="w-full" onClick={saveSupabaseConfig}>
-                      <Save className="mr-2 h-4 w-4" />
-                      Salvar Configurações do Supabase
+                    <Button 
+                      className="w-full" 
+                      onClick={saveSupabaseConfig}
+                      disabled={isTestingConnection}
+                    >
+                      {isTestingConnection ? (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          Testando Conexão...
+                        </>
+                      ) : (
+                        <>
+                          <Database className="mr-2 h-4 w-4" />
+                          Salvar e Testar Conexão
+                        </>
+                      )}
                     </Button>
+
+                    {/* Mostrar botão SQL quando conexão OK mas tabelas não existem */}
+                    {connectionStatus === 'error' && connectionMessage.includes('banco não configurado') && (
+                      <Button 
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white" 
+                        onClick={() => setShowSqlDialog(true)}
+                      >
+                        <Database className="mr-2 h-4 w-4" />
+                        📋 Ver SQL para Criar Tabelas
+                      </Button>
+                    )}
+
+                    {connectionStatus === 'success' && (
+                      <Button 
+                        className="w-full" 
+                        variant="outline"
+                        onClick={() => setShowSqlDialog(true)}
+                      >
+                        <Code className="mr-2 h-4 w-4" />
+                        Ver SQL Schema
+                      </Button>
+                    )}
                     
                     <Button 
                       className="w-full" 
                       variant="outline"
                       onClick={syncFormFields}
-                      disabled={isSyncing}
+                      disabled={isSyncing || connectionStatus !== 'success'}
                     >
                       {isSyncing ? (
                         <>
@@ -1050,6 +1266,12 @@ ON CONFLICT DO NOTHING;
                         </>
                       )}
                     </Button>
+                    
+                    {connectionStatus !== 'success' && (
+                      <p className="text-xs text-muted-foreground text-center">
+                        ⚠️ Sincronização disponível após conexão bem sucedida
+                      </p>
+                    )}
                   </div>
 
                   <div className="mt-4 p-4 bg-muted rounded-lg">

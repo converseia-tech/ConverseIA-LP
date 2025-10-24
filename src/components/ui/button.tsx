@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-talka text-foreground hover:shadow-glow hover:scale-105 active:scale-95",
+        default: "bg-gradient-CONVERSEIA text-foreground hover:shadow-glow hover:scale-105 active:scale-95",
         secondary: "bg-transparent border border-accent text-accent hover:bg-accent/10 hover:shadow-glow",
         outline: "border border-muted-foreground/20 bg-transparent text-foreground hover:bg-muted/20 hover:border-accent",
         ghost: "text-muted-foreground hover:text-foreground hover:bg-muted/20",

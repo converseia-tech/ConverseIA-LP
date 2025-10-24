@@ -163,7 +163,7 @@ const Contact = () => {
                 
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-gradient-talka rounded-xl">
+                    <div className="p-3 bg-gradient-CONVERSEIA rounded-xl">
                       <Mail className="h-6 w-6 text-foreground" />
                     </div>
                     <div>
@@ -178,7 +178,7 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-gradient-talka rounded-xl">
+                    <div className="p-3 bg-gradient-CONVERSEIA rounded-xl">
                       <Linkedin className="h-6 w-6 text-foreground" />
                     </div>
                     <div>
@@ -201,7 +201,7 @@ const Contact = () => {
                 
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-gradient-talka rounded-full flex items-center justify-center text-foreground font-bold text-sm">
+                    <div className="w-8 h-8 bg-gradient-CONVERSEIA rounded-full flex items-center justify-center text-foreground font-bold text-sm">
                       1
                     </div>
                     <div>
@@ -211,7 +211,7 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-gradient-talka rounded-full flex items-center justify-center text-foreground font-bold text-sm">
+                    <div className="w-8 h-8 bg-gradient-CONVERSEIA rounded-full flex items-center justify-center text-foreground font-bold text-sm">
                       2
                     </div>
                     <div>
@@ -221,7 +221,7 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-gradient-talka rounded-full flex items-center justify-center text-foreground font-bold text-sm">
+                    <div className="w-8 h-8 bg-gradient-CONVERSEIA rounded-full flex items-center justify-center text-foreground font-bold text-sm">
                       3
                     </div>
                     <div>
