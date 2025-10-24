@@ -14,16 +14,21 @@ const ChatWidget = () => {
     // Criar e adicionar o widget
     const widget = document.createElement('ra-chatbot-widget');
     widget.id = 'ra_wc_chatbot';
-    widget.setAttribute('slug', 'qs0VjV3e8DoFLrakFnU8jdUHuSzVyp8q7W4SKBkN');
+    widget.setAttribute('slug', 'Igmy600A3RzWy69rAJaZoJkZ6Yx4dwwIQkVPPNGa');
     document.body.appendChild(widget);
 
     // Criar e adicionar o script
+    const lastScript = document.scripts[document.scripts.length - 1];
     const script = document.createElement('script');
-    script.id = 'ra_chatbot_' + Math.floor(200 * Math.random());
+    script.id = 'ra_chatbot' + Math.floor(200 * Math.random());
     script.defer = true;
     script.src = 'https://sitewidget.net/chatbot-sdk.js';
-    script.async = true;
-    document.body.appendChild(script);
+    
+    script.onload = function() {
+      // Callback after script load (if needed)
+    };
+
+    lastScript.parentElement?.insertBefore(script, lastScript.nextSibling);
 
     // Cleanup ao desmontar
     return () => {
