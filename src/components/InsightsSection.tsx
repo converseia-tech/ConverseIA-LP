@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, CalendarBlank, Clock } from "phosphor-react";
+import { motion } from "framer-motion";
 
 const InsightsSection = () => {
   const articles = [
@@ -24,54 +25,67 @@ const InsightsSection = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-subtle">
+    <section className="section-padding bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="gradient-text">Perspectivas</span> sobre o Futuro
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">Perspectivas</span> sobre o Futuro
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {articles.map((article, index) => (
-            <div key={index} className="group">
-              <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 h-full hover:shadow-glow transition-all duration-500 hover:scale-105">
+            <motion.div 
+              key={index} 
+              className="group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <div className="bg-card border border-border hover:border-purple-500/50 rounded-2xl p-6 h-full hover:shadow-md hover:shadow-purple-500/5 transition-all duration-300">
                 {/* Article Metadata */}
-                <div className="flex items-center text-muted-foreground/70 text-sm mb-4 space-x-4">
+                <div className="flex items-center text-muted-foreground text-sm mb-4 space-x-4">
                   <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-1" />
+                    <CalendarBlank weight="bold" className="h-4 w-4 mr-1" />
                     {article.date}
                   </div>
                   <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
+                    <Clock weight="bold" className="h-4 w-4 mr-1" />
                     {article.readTime}
                   </div>
                 </div>
 
                 {/* Article Title */}
-                <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors">
+                <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-purple-400 transition-colors">
                   {article.title}
                 </h3>
 
                 {/* Article Excerpt */}
-                <p className="text-corporate-lg mb-6 leading-relaxed">
+                <p className="text-muted-foreground mb-6 leading-relaxed">
                   {article.excerpt}
                 </p>
 
                 {/* Read More Link */}
-                <div className="flex items-center text-accent group-hover:text-secondary transition-colors">
+                <div className="flex items-center text-purple-400 group-hover:text-pink-400 transition-colors">
                   <span className="text-sm font-medium">Ler artigo</span>
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight weight="bold" className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="text-center">
-          <Button size="lg" variant="secondary" className="group">
+          <Button size="lg" className="group bg-purple-600/90 hover:bg-purple-700/90 text-white">
             Explore todos os nossos Insights
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight weight="bold" className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </div>

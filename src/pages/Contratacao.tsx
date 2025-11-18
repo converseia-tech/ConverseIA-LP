@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MessageCircle, Sparkles, ArrowRight, CheckCircle, Upload } from "lucide-react";
+import { ChatCircleDots, Sparkle, ArrowRight, CheckCircle, Upload, Robot, Scales, FirstAid, Globe, ClipboardText, Target, Paperclip } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 
 interface FormData {
@@ -125,11 +126,11 @@ const Contratacao = () => {
   const handleSubmit = () => {
     // Montar mensagem para WhatsApp
     const message = `
-*🤖 NOVA SOLICITAÇÃO DE CONTRATAÇÃO - ConverseIA*
+*NOVA SOLICITAÇÃO DE CONTRATAÇÃO - ConverseIA*
 
 *NICHO:* ${formData.nicho}
 
-*📋 DADOS DA EMPRESA*
+*DADOS DA EMPRESA*
 Empresa: ${formData.nomeEmpresa}
 Responsável: ${formData.nomeResponsavel}
 Email: ${formData.email}
@@ -138,16 +139,16 @@ CNPJ: ${formData.cnpj || "Não informado"}
 Localização: ${formData.cidade} - ${formData.estado}
 Profissionais: ${formData.numProfissionais}
 
-*🎯 PERSONALIZAÇÃO DO AGENTE*
+*PERSONALIZAÇÃO DO AGENTE*
 Nome do Agente: ${formData.nomeAgente}
 Linguagem: ${formData.linguagem}
 Tom de Voz: ${formData.tomVoz}
 Canais: ${formData.canaisDesejados.join(", ")}
 
-*💬 OBSERVAÇÕES*
+*OBSERVAÇÕES*
 ${formData.observacoes || "Nenhuma observação adicional"}
 
-*📎 Arquivos Anexados:* ${formData.arquivos.length} arquivo(s)
+*Arquivos Anexados:* ${formData.arquivos.length} arquivo(s)
     `.trim();
 
     const encodedMessage = encodeURIComponent(message);
@@ -170,26 +171,32 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep1 = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Selecione seu <span className="gradient-text">segmento</span>
+          Selecione seu <span className="text-purple-500">segmento</span>
         </h2>
         <p className="text-muted-foreground">
           Escolha a área de atuação do seu negócio para personalizarmos sua experiência
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div
           onClick={() => updateFormData("nicho", "Advocacia")}
-          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-glow ${
+          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-md hover:shadow-purple-500/5 ${
             formData.nicho === "Advocacia"
               ? "border-primary bg-primary/10"
               : "border-border bg-card/50"
           }`}
         >
           <div className="text-center">
-            <div className="text-4xl mb-4">⚖️</div>
+            <Scales weight="light" className="h-12 w-12 mx-auto mb-4 text-primary" />
             <h3 className="text-xl font-bold mb-2">Advocacia</h3>
             <p className="text-sm text-muted-foreground">
               Escritórios jurídicos, advogados e departamentos legais
@@ -199,14 +206,14 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
         <div
           onClick={() => updateFormData("nicho", "Clínica")}
-          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-glow ${
+          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-md hover:shadow-purple-500/5 ${
             formData.nicho === "Clínica"
               ? "border-primary bg-primary/10"
               : "border-border bg-card/50"
           }`}
         >
           <div className="text-center">
-            <div className="text-4xl mb-4">🏥</div>
+            <FirstAid weight="light" className="h-12 w-12 mx-auto mb-4 text-primary" />
             <h3 className="text-xl font-bold mb-2">Clínica</h3>
             <p className="text-sm text-muted-foreground">
               Clínicas médicas, consultórios e centros de saúde
@@ -216,14 +223,14 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
         <div
           onClick={() => updateFormData("nicho", "Outro")}
-          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-glow ${
+          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-md hover:shadow-purple-500/5 ${
             formData.nicho === "Outro"
               ? "border-primary bg-primary/10"
               : "border-border bg-card/50"
           }`}
         >
           <div className="text-center">
-            <div className="text-4xl mb-4">🌐</div>
+            <Globe weight="light" className="h-12 w-12 mx-auto mb-4 text-primary" />
             <h3 className="text-xl font-bold mb-2">Outro Setor</h3>
             <p className="text-sm text-muted-foreground">
               Comércio, serviços, consultorias e demais áreas
@@ -236,14 +243,20 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep2 = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Dados da <span className="gradient-text">Empresa</span>
+          Dados da <span className="text-purple-500">Empresa</span>
         </h2>
         <p className="text-muted-foreground">
           Informações básicas para configurarmos seu agente
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
@@ -372,14 +385,20 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep3Advocacia = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Estrutura <span className="gradient-text">Operacional</span>
+          Estrutura <span className="text-purple-500">Operacional</span>
         </h2>
         <p className="text-muted-foreground">
           Como funciona sua operação jurídica atualmente
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-6">
         <div className="space-y-2">
@@ -460,14 +479,20 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep3Clinica = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Estrutura e <span className="gradient-text">Agendamentos</span>
+          Estrutura e <span className="text-purple-500">Agendamentos</span>
         </h2>
         <p className="text-muted-foreground">
           Como funciona sua operação clínica atualmente
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-6">
         <div className="space-y-2">
@@ -566,14 +591,20 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep3Outro = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Estrutura <span className="gradient-text">Operacional</span>
+          Estrutura <span className="text-purple-500">Operacional</span>
         </h2>
         <p className="text-muted-foreground">
           Como funciona sua operação atualmente
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-6">
         <div className="space-y-2">
@@ -694,14 +725,20 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep4 = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Personalização do <span className="gradient-text">Agente</span>
+          Personalização do <span className="text-purple-500">Agente</span>
         </h2>
         <p className="text-muted-foreground">
           Como você quer que seu agente de IA se comporte
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-6">
         <div className="space-y-2">
@@ -875,14 +912,20 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
   const renderStep5 = () => (
     <div className="space-y-6">
-      <div className="text-center mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center mb-8"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Finalização e <span className="gradient-text">Confirmação</span>
+          Finalização e <span className="text-purple-500">Confirmação</span>
         </h2>
         <p className="text-muted-foreground">
           Última etapa antes de criarmos seu agente personalizado
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-6">
         <div className="space-y-2">
@@ -898,7 +941,7 @@ ${formData.observacoes || "Nenhuma observação adicional"}
 
         <div className="space-y-2">
           <Label className="flex items-center gap-2">
-            <Upload className="h-5 w-5" />
+            <Upload weight="light" className="h-5 w-5" />
             Anexar Arquivos (opcional)
           </Label>
           <Input
@@ -950,21 +993,41 @@ ${formData.observacoes || "Nenhuma observação adicional"}
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-subtle">
+        <section className="section-padding pt-32 bg-gradient-subtle">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-4 py-2 rounded-full mb-6">
-              <Sparkles className="h-5 w-5 text-primary" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-4 py-2 rounded-full mb-6"
+            >
+              <Sparkle weight="light" className="h-5 w-5 text-primary" />
               <span className="text-sm font-medium">Contratação Online</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Configure seu <span className="gradient-text">Agente de IA</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="text-4xl sm:text-5xl font-bold mb-6"
+            >
+              Configure seu <span className="text-purple-500">Agente de IA</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              className="text-xl text-muted-foreground mb-8"
+            >
               Preencha o formulário e receba uma proposta personalizada em minutos
-            </p>
+            </motion.p>
 
             {/* Progress Bar */}
-            <div className="flex items-center justify-center gap-2 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              className="flex items-center justify-center gap-2 mb-4"
+            >
               {[1, 2, 3, 4, 5].map((step) => (
                 <div key={step} className="flex items-center">
                   <div
@@ -976,7 +1039,7 @@ ${formData.observacoes || "Nenhuma observação adicional"}
                         : "bg-muted text-muted-foreground"
                     }`}
                   >
-                    {step < currentStep ? <CheckCircle className="h-5 w-5" /> : step}
+                    {step < currentStep ? <CheckCircle weight="light" className="h-5 w-5" /> : step}
                   </div>
                   {step < 5 && (
                     <div
@@ -987,12 +1050,12 @@ ${formData.observacoes || "Nenhuma observação adicional"}
                   )}
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Form Section */}
-        <section className="section-padding">
+        <section className="pb-12 lg:pb-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-8 sm:p-12">
               {currentStep === 1 && renderStep1()}
@@ -1020,43 +1083,24 @@ ${formData.observacoes || "Nenhuma observação adicional"}
                   <Button
                     onClick={nextStep}
                     size="lg"
-                    className="w-full sm:flex-1"
+                    className="w-full sm:flex-1 bg-purple-600/90 hover:bg-purple-700/90 text-white"
                   >
                     Próxima Etapa
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight weight="light" className="ml-2 h-5 w-5" />
                   </Button>
                 ) : (
                   <Button
                     onClick={handleSubmit}
                     size="lg"
-                    className="w-full sm:flex-1"
+                    className="w-full sm:flex-1 bg-purple-600/90 hover:bg-purple-700/90 text-white"
                     disabled={!formData.aceitarTermos}
                   >
-                    <Sparkles className="mr-2 h-5 w-5" />
+                    <Sparkle weight="light" className="mr-2 h-5 w-5" />
                     Enviar Solicitação
                   </Button>
                 )}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="section-padding bg-gradient-subtle">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <MessageCircle className="h-16 w-16 mx-auto mb-6 text-primary" />
-            <h2 className="text-3xl font-bold mb-4">
-              Prefere falar com um <span className="gradient-text">especialista</span>?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Agende uma apresentação personalizada e tire todas as suas dúvidas
-            </p>
-            <Button asChild size="lg">
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Agendar Apresentação
-              </a>
-            </Button>
           </div>
         </section>
       </main>
