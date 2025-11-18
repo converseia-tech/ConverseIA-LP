@@ -6,18 +6,18 @@
 
 @layer base {
   :root {
-    /* CONVERSEIA Brand Colors - Corporate & Tech */
-    --background: 240 100% 6%; /* #0A0020 - Deep space blue */
-    --foreground: 0 0% 100%; /* Pure white */
+    /* CONVERSEIA Brand Colors - Modern & Light */
+    --background: 0 0% 100%; /* Pure white background */
+    --foreground: 240 10% 15%; /* Dark text for readability */
 
-    --card: 240 95% 8%; /* Slightly lighter than background */
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 98%; /* Very light gray for cards */
+    --card-foreground: 240 10% 15%;
 
-    --popover: 240 100% 6%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
 
     /* Brand Primary - Gradient Purple */
-    --primary: 260 100% 63%; /* #9742FF */
+    --primary: 260 100% 63%; /* #9742FF - Keep the brand purple */
     --primary-foreground: 0 0% 100%;
 
     /* Brand Secondary - Teal */
@@ -28,26 +28,26 @@
     --accent: 210 100% 58%; /* #2A8CFF */
     --accent-foreground: 0 0% 100%;
 
-    --muted: 240 70% 10%;
-    --muted-foreground: 0 0% 85%; /* White with opacity */
+    --muted: 240 5% 96%; /* Very light gray */
+    --muted-foreground: 240 5% 45%; /* Medium gray for secondary text */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 70% 15%;
-    --input: 240 70% 15%;
+    --border: 240 6% 90%; /* Light border */
+    --input: 240 6% 90%;
     --ring: 260 100% 63%;
 
     --radius: 0.75rem;
 
-    /* CONVERSEIA Gradients */
-    --gradient-primary: linear-gradient(135deg, #9742FF, #9742FF);
+    /* CONVERSEIA Gradients - Lighter versions */
+    --gradient-primary: linear-gradient(135deg, #9742FF, #B77FFF);
     --gradient-accent: linear-gradient(90deg, #9742FF, #7C3AED);
-    --gradient-subtle: linear-gradient(180deg, hsl(240 95% 8%), hsl(240 100% 6%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(240 5% 98%));
 
-    /* Corporate Effects */
-    --shadow-glow: 0 0 40px rgba(151, 66, 255, 0.3);
-    --shadow-elegant: 0 10px 30px -10px hsl(240 100% 6% / 0.8);
+    /* Corporate Effects - Softer shadows */
+    --shadow-glow: 0 0 40px rgba(151, 66, 255, 0.15);
+    --shadow-elegant: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -120,7 +120,7 @@
     content: '';
     position: absolute;
     inset: 1px;
-    background: hsl(var(--background));
+    background: white;
     border-radius: calc(var(--radius) - 1px);
   }
 

@@ -9,72 +9,64 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16 lg:pt-20">
-      {/* Background com pattern da Converseia */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0A0020] via-[#1a0f3f] to-[#2a1555]" />
+      {/* Light gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-blue-50" />
       
-      {/* Pattern overlay da Converseia */}
+      {/* Subtle pattern overlay */}
       <div 
-        className="absolute inset-0 opacity-30" 
+        className="absolute inset-0 opacity-[0.03]" 
         style={{
           backgroundImage: 'url(/pattern.png)',
           backgroundSize: '400px 400px',
-          backgroundRepeat: 'repeat',
-          mixBlendMode: 'overlay'
+          backgroundRepeat: 'repeat'
         }}
       />
       
-      {/* Gradiente overlay para suavizar */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0020]/50 to-[#0A0020]" />
+      {/* Soft gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/30" />
       
-      {/* Elementos 3D de profundidade animados */}
+      {/* Subtle floating elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Círculos de profundidade com roxo Converseia */}
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#9742FF]/20 rounded-full blur-3xl animate-pulse" 
-             style={{ transform: 'translateZ(-100px)' }} />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-[#9742FF]/15 rounded-full blur-3xl animate-pulse" 
-             style={{ animationDelay: '1s', transform: 'translateZ(-100px)' }} />
+        {/* Soft colored circles */}
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl animate-pulse" 
+             style={{ animationDelay: '1s' }} />
         
-        {/* Elementos geométricos 3D flutuantes */}
-        <div className="absolute top-20 left-10 w-32 h-32 border-2 border-[#9742FF]/20 rounded-lg animate-float-slow rotate-45"
-             style={{ transform: 'perspective(1000px) rotateX(45deg)' }} />
-        <div className="absolute bottom-20 left-1/4 w-24 h-24 border-2 border-[#9742FF]/20 rounded-full animate-float-slower"
-             style={{ transform: 'perspective(1000px) rotateY(45deg)' }} />
-        <div className="absolute top-1/3 right-1/4 w-40 h-40 border-2 border-[#9742FF]/15 rounded-lg animate-float-slow"
-             style={{ transform: 'perspective(1000px) rotateX(-30deg) rotateY(30deg)' }} />
+        {/* Minimal geometric elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 border border-purple-200/30 rounded-lg animate-float-slow rotate-45" />
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 border border-blue-200/30 rounded-full animate-float-slower" />
+        <div className="absolute top-1/3 right-1/4 w-40 h-40 border border-purple-100/30 rounded-lg animate-float-slow" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 animate-fade-in order-2 lg:order-1">
-            {/* Badge 3D */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#9742FF]/10 border border-[#9742FF]/30 backdrop-blur-sm shadow-lg"
-                 style={{ transform: 'perspective(1000px) translateZ(20px)' }}>
-              <Sparkles className="w-4 h-4 text-[#9742FF] animate-pulse" />
-              <span className="text-sm font-medium text-[#9742FF]">Agentes Autônomos de IA</span>
+            {/* Badge - cleaner design */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 border border-purple-200 shadow-sm">
+              <Sparkles className="w-4 h-4 text-purple-600 animate-pulse" />
+              <span className="text-sm font-medium text-purple-700">Agentes Autônomos de IA</span>
             </div>
 
-            {/* Main Heading com efeito de profundidade */}
-            <div className="space-y-4" style={{ transform: 'perspective(1000px) translateZ(30px)' }}>
+            {/* Main Heading - cleaner */}
+            <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight">
-                <span className="block text-foreground mb-2">Transforme sua empresa com</span>
-                <span className="block gradient-text text-shadow-lg">Inteligência Artificial</span>
+                <span className="block text-gray-900 mb-2">Transforme sua empresa com</span>
+                <span className="block gradient-text">Inteligência Artificial</span>
               </h1>
               
               {/* Subtitle */}
-              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
                 Agentes autônomos que automatizam processos, qualificam leads e liberam seu time para o que realmente importa. Conheça a Vivan, nossa agente especializada.
               </p>
             </div>
 
-            {/* CTA Buttons com efeito 3D */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-2"
-                 style={{ transform: 'perspective(1000px) translateZ(40px)' }}>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Button 
                 asChild 
                 size="lg" 
-                className="group w-full sm:w-auto text-base px-6 lg:px-8 h-12 lg:h-14 shadow-xl hover:shadow-2xl transition-all duration-300"
-                style={{ transform: 'translateZ(0)' }}
+                className="group w-full sm:w-auto text-base px-6 lg:px-8 h-12 lg:h-14 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-5 w-5" />
@@ -85,7 +77,7 @@ const HeroSection = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="w-full sm:w-auto text-base px-6 lg:px-8 h-12 lg:h-14 border-2 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full sm:w-auto text-base px-6 lg:px-8 h-12 lg:h-14 border-2 shadow-sm hover:shadow-md transition-all duration-300 bg-white"
                 onClick={() => setPlansModalOpen(true)}
               >
                 <Sparkles className="mr-2 h-4 w-4" />
@@ -93,95 +85,79 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            {/* Stats com ícones 3D */}
-            <div className="grid grid-cols-3 gap-6 lg:gap-8 pt-6 lg:pt-8 border-t border-border/40"
-                 style={{ transform: 'perspective(1000px) translateZ(20px)' }}>
+            {/* Stats - cleaner design */}
+            <div className="grid grid-cols-3 gap-6 lg:gap-8 pt-6 lg:pt-8 border-t border-gray-200">
               <div className="space-y-2 group">
                 <div className="flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                  <Zap className="h-5 w-5 text-purple-600 group-hover:scale-110 transition-transform" />
                   <div className="text-2xl lg:text-3xl font-bold gradient-text">24/7</div>
                 </div>
-                <div className="text-xs lg:text-sm text-muted-foreground">Atendimento</div>
+                <div className="text-xs lg:text-sm text-gray-600">Atendimento</div>
               </div>
               <div className="space-y-2 group">
                 <div className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-accent group-hover:scale-110 transition-transform" />
+                  <Target className="h-5 w-5 text-blue-600 group-hover:scale-110 transition-transform" />
                   <div className="text-2xl lg:text-3xl font-bold gradient-text">85%</div>
                 </div>
-                <div className="text-xs lg:text-sm text-muted-foreground">Economia</div>
+                <div className="text-xs lg:text-sm text-gray-600">Economia</div>
               </div>
               <div className="space-y-2 group">
                 <div className="flex items-center gap-2">
-                  <Brain className="h-5 w-5 text-secondary group-hover:scale-110 transition-transform" />
+                  <Brain className="h-5 w-5 text-purple-600 group-hover:scale-110 transition-transform" />
                   <div className="text-2xl lg:text-3xl font-bold gradient-text">3x</div>
                 </div>
-                <div className="text-xs lg:text-sm text-muted-foreground">Conversões</div>
+                <div className="text-xs lg:text-sm text-gray-600">Conversões</div>
               </div>
             </div>
           </div>
 
-          {/* Right - Vivan Image com efeito 3D interativo */}
-          <div className="relative order-1 lg:order-2 animate-fade-in perspective-container">
-            <div className="relative w-full max-w-md mx-auto lg:max-w-none"
-                 style={{ transform: 'perspective(1500px) rotateY(-5deg)' }}>
+          {/* Right - Vivan Image - cleaner design */}
+          <div className="relative order-1 lg:order-2 animate-fade-in">
+            <div className="relative w-full max-w-md mx-auto lg:max-w-none">
               
-              {/* Camadas de profundidade 3D */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#9742FF]/30 via-[#9742FF]/20 to-[#9742FF]/30 rounded-2xl blur-3xl transform scale-110 animate-pulse-slow"
-                   style={{ transform: 'translateZ(-80px)' }} />
-              <div className="absolute inset-0 bg-gradient-to-br from-[#9742FF]/20 via-[#9742FF]/10 to-[#9742FF]/20 rounded-2xl blur-2xl transform scale-105"
-                   style={{ transform: 'translateZ(-40px)' }} />
+              {/* Soft glow effects */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-200/40 via-purple-100/20 to-blue-200/40 rounded-2xl blur-3xl transform scale-110 animate-pulse-slow" />
               
-              {/* Container da imagem com efeito 3D */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#9742FF]/20 transform transition-all duration-500 hover:scale-105 hover:rotate-0"
-                   style={{ 
-                     transform: 'translateZ(0) rotateY(5deg)',
-                     boxShadow: '0 25px 50px -12px rgba(151, 66, 255, 0.25), 0 0 60px rgba(151, 66, 255, 0.15)'
-                   }}>
+              {/* Container da imagem */}
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-purple-100 transform transition-all duration-500 hover:scale-105 bg-white">
                 <img 
                   src="/imagem_vivan.png" 
                   alt="Vivan - Agente de IA ConverseIA" 
                   className="w-full h-auto object-cover"
-                  style={{ filter: 'contrast(1.05) brightness(1.05)' }}
                 />
                 
-                {/* Reflexo/Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-shine" />
-                
-                {/* Badge com profundidade 3D */}
-                <div className="absolute bottom-4 left-4 right-4 bg-background/95 backdrop-blur-md rounded-xl p-4 border border-[#9742FF]/20 shadow-2xl transform transition-all duration-300 hover:scale-105"
-                     style={{ transform: 'translateZ(50px)' }}>
+                {/* Badge - cleaner */}
+                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 border border-purple-100 shadow-lg">
                   <div className="flex items-center gap-3">
                     <div className="flex-shrink-0 relative">
                       <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                       <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-foreground">Vivan</p>
-                      <p className="text-xs text-muted-foreground">Agente Autônoma de IA • Online</p>
+                      <p className="text-sm font-semibold text-gray-900">Vivan</p>
+                      <p className="text-xs text-gray-600">Agente Autônoma de IA • Online</p>
                     </div>
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-[#9742FF]/10 flex items-center justify-center">
-                        <Brain className="h-4 w-4 text-[#9742FF]" />
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                        <Brain className="h-4 w-4 text-purple-600" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Partículas flutuantes ao redor */}
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-[#9742FF]/20 rounded-full blur-xl animate-float-slow" />
-              <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-[#9742FF]/20 rounded-full blur-xl animate-float-slower" />
-              <div className="absolute top-1/2 -right-8 w-12 h-12 bg-[#9742FF]/20 rounded-full blur-lg animate-float-slow" />
+              {/* Minimal floating particles */}
+              <div className="absolute -top-4 -left-4 w-16 h-16 bg-purple-200/40 rounded-full blur-xl animate-float-slow" />
+              <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-blue-200/40 rounded-full blur-xl animate-float-slower" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator com efeito 3D */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce hidden lg:block"
-           style={{ transform: 'perspective(1000px) translateZ(30px) translateX(-50%)' }}>
-        <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full p-1 shadow-lg">
-          <div className="w-2 h-3 bg-[#9742FF] rounded-full mx-auto animate-pulse" />
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce hidden lg:block">
+        <div className="w-6 h-10 border-2 border-purple-300 rounded-full p-1 shadow-sm">
+          <div className="w-2 h-3 bg-purple-500 rounded-full mx-auto animate-pulse" />
         </div>
       </div>
 

@@ -24,10 +24,10 @@ const InsightsSection = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-subtle">
+    <section className="section-padding bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
             <span className="gradient-text">Perspectivas</span> sobre o Futuro
           </h2>
         </div>
@@ -35,9 +35,9 @@ const InsightsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {articles.map((article, index) => (
             <div key={index} className="group">
-              <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 h-full hover:shadow-glow transition-all duration-500 hover:scale-105">
+              <div className="bg-white border-2 border-gray-100 rounded-2xl p-6 h-full hover:shadow-xl transition-all duration-500 hover:scale-105">
                 {/* Article Metadata */}
-                <div className="flex items-center text-muted-foreground/70 text-sm mb-4 space-x-4">
+                <div className="flex items-center text-gray-500 text-sm mb-4 space-x-4">
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-1" />
                     {article.date}
@@ -49,17 +49,17 @@ const InsightsSection = () => {
                 </div>
 
                 {/* Article Title */}
-                <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">
                   {article.title}
                 </h3>
 
                 {/* Article Excerpt */}
-                <p className="text-corporate-lg mb-6 leading-relaxed">
+                <p className="text-gray-600 mb-6 leading-relaxed">
                   {article.excerpt}
                 </p>
 
                 {/* Read More Link */}
-                <div className="flex items-center text-accent group-hover:text-secondary transition-colors">
+                <div className="flex items-center text-purple-600 group-hover:text-purple-700 transition-colors">
                   <span className="text-sm font-medium">Ler artigo</span>
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </div>

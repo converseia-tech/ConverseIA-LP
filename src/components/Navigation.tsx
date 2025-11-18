@@ -84,7 +84,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-18 lg:h-20">
           {/* Logo com transição */}
@@ -103,10 +103,10 @@ const Navigation = () => {
                 key={item.name}
                 to={item.path}
                 onClick={() => handleNavClick(item.path)}
-                className={`text-sm xl:text-base font-medium transition-all duration-300 hover:text-accent ${
+                className={`text-sm xl:text-base font-medium transition-all duration-300 hover:text-purple-600 ${
                   isActive(item.path)
-                    ? "text-accent border-b-2 border-accent pb-1"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-purple-600 border-b-2 border-purple-600 pb-1"
+                    : "text-gray-700 hover:text-gray-900"
                 }`}
               >
                 {item.name}
@@ -115,15 +115,15 @@ const Navigation = () => {
             
             {/* Dropdown Produtos */}
             <div className="relative group">
-              <button className="text-sm xl:text-base font-medium text-muted-foreground hover:text-foreground transition-all duration-300">
+              <button className="text-sm xl:text-base font-medium text-gray-700 hover:text-gray-900 transition-all duration-300">
                 Produtos ▾
               </button>
-              <div className="absolute top-full left-0 mt-2 w-56 bg-card border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                 {produtosLinks.map((link) => (
                   <Link
                     key={link.name}
                     to={link.path}
-                    className="block px-4 py-3 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -135,24 +135,24 @@ const Navigation = () => {
               href={documentacaoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm xl:text-base font-medium text-muted-foreground hover:text-foreground transition-all duration-300"
+              className="text-sm xl:text-base font-medium text-gray-700 hover:text-gray-900 transition-all duration-300"
             >
               Documentação
             </a>
             
             {/* Dropdown Parcerias */}
             <div className="relative group">
-              <button className="text-sm xl:text-base font-medium text-muted-foreground hover:text-foreground transition-all duration-300">
+              <button className="text-sm xl:text-base font-medium text-gray-700 hover:text-gray-900 transition-all duration-300">
                 Parcerias ▾
               </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                 {parceriasLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block px-4 py-3 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                   >
                     {link.name}
                   </a>
@@ -182,15 +182,15 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-card rounded-lg mt-2 border border-border mb-4">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white rounded-lg mt-2 border border-gray-200 mb-4">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
                   className={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
                     isActive(item.path)
-                      ? "text-accent bg-accent/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/20"
+                      ? "text-purple-600 bg-purple-50"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -199,14 +199,14 @@ const Navigation = () => {
               ))}
               
               {/* Produtos Mobile */}
-              <div className="px-3 py-2 border-t border-border mt-2 pt-2">
-                <p className="text-xs font-semibold text-muted-foreground mb-2">Produtos</p>
+              <div className="px-3 py-2 border-t border-gray-200 mt-2 pt-2">
+                <p className="text-xs font-semibold text-gray-500 mb-2">Produtos</p>
                 <div className="space-y-1">
                   {produtosLinks.map((link) => (
                     <Link
                       key={link.name}
                       to={link.path}
-                      className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/20 rounded transition-colors"
+                      className="block px-2 py-1.5 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded transition-colors"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.name}
@@ -219,14 +219,14 @@ const Navigation = () => {
                 href={documentacaoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 rounded-md transition-colors"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
               >
                 Documentação
               </a>
               
               {/* Parcerias Mobile */}
-              <div className="px-3 py-2 border-t border-border mt-2 pt-2">
-                <p className="text-xs font-semibold text-muted-foreground mb-2">Parcerias</p>
+              <div className="px-3 py-2 border-t border-gray-200 mt-2 pt-2">
+                <p className="text-xs font-semibold text-gray-500 mb-2">Parcerias</p>
                 <div className="space-y-1">
                   {parceriasLinks.map((link) => (
                     <a
@@ -234,7 +234,7 @@ const Navigation = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/20 rounded transition-colors"
+                      className="block px-2 py-1.5 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded transition-colors"
                     >
                       {link.name}
                     </a>
