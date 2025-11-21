@@ -37,19 +37,19 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contato" className="py-24 scroll-mt-20">
+    <section id="contato" className="py-12 sm:py-16 md:py-24 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-foreground px-4">
             Pronto para transformar seu negócio?
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Agende uma reunião com nossos especialistas
           </p>
         </motion.div>
@@ -71,13 +71,13 @@ const ContactSection = () => {
         </motion.div>
 
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-10 md:mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
             💡 Após o agendamento, você receberá um e-mail de confirmação com todos os detalhes da reunião e um link para o Google Meet.
           </p>
         </motion.div>

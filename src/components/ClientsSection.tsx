@@ -43,19 +43,19 @@ const ClientsSection = () => {
   ));
 
   return (
-    <section className="py-16 overflow-hidden">
+    <section className="py-12 sm:py-14 md:py-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h3 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-2">
+          <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2 px-4">
             Empresas que confiam em ConverseIA
           </h3>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground px-4">
             Transformando negócios em diversos setores
           </p>
         </motion.div>
@@ -63,13 +63,13 @@ const ClientsSection = () => {
         <InfiniteCarousel items={clientItems} autoplayDelay={2500} />
 
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-10 md:mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground px-4">
             Você também pode fazer parte dessa transformação. Conheça nossas soluções.
           </p>
         </motion.div>

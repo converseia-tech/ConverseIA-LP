@@ -12,42 +12,44 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center">
+    <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center px-4 py-20 sm:py-0">
       {/* Content Container - Mais centralizado verticalmente */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl mx-auto">
         {/* Large Hero Text with GooeyText effect */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4 sm:mb-6">
           <div style={{
             textShadow: '0 0 50px rgba(139, 92, 246, 0.5)',
             filter: 'contrast(1.2)',
             letterSpacing: '-0.02em',
-            minHeight: '120px'
-          }}>
+            minHeight: '80px'
+          }}
+          className="sm:min-h-[100px] md:min-h-[120px]"
+          >
             <GooeyText
               texts={["Inteligência que Transforma.", "Automação que Liberta."]}
               morphTime={1.5}
               cooldownTime={3}
-              className="font-display font-black tracking-tight leading-[0.85]"
-              textClassName="text-foreground dark:text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+              className="font-display font-black tracking-tight leading-[0.9] sm:leading-[0.85]"
+              textClassName="text-foreground dark:text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             />
           </div>
         </div>
 
         {/* Texto descritivo */}
-        <p className="text-center text-muted-foreground text-lg md:text-xl max-w-2xl mb-8 px-4">
+        <p className="text-center text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-6 sm:mb-8 px-2 sm:px-4">
           Criamos ecossistemas empresariais que geram valor e impulsionam o crescimento sustentável.
         </p>
 
         {/* CTAs - Grupo de botões */}
-        <div className="pointer-events-auto z-20 flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <div className="pointer-events-auto z-20 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full sm:w-auto px-4 sm:px-0">
           <Button 
             asChild 
             size="lg" 
-            className="bg-purple-600/90 hover:bg-purple-700 dark:bg-purple-600/80 dark:hover:bg-purple-700/90 text-white border border-purple-500/30 dark:border-purple-400/20 px-8 py-6 text-base font-semibold backdrop-blur-sm transition-all hover:scale-105 shadow-lg shadow-purple-500/20"
+            className="w-full sm:w-auto bg-purple-600/90 hover:bg-purple-700 dark:bg-purple-600/80 dark:hover:bg-purple-700/90 text-white border border-purple-500/30 dark:border-purple-400/20 px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-semibold backdrop-blur-sm transition-all hover:scale-105 shadow-lg shadow-purple-500/20"
           >
             <a href="/contratacao">
               Começar Agora
-              <ArrowRight weight="bold" className="ml-2 w-5 h-5" />
+              <ArrowRight weight="bold" className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </a>
           </Button>
 
@@ -55,10 +57,10 @@ const HeroSection = () => {
             onClick={scrollToSolutions}
             size="lg" 
             variant="outline"
-            className="border-purple-500/30 dark:border-purple-400/20 hover:bg-purple-600/10 dark:hover:bg-purple-600/10 px-8 py-6 text-base font-semibold backdrop-blur-sm transition-all hover:scale-105"
+            className="w-full sm:w-auto border-purple-500/30 dark:border-purple-400/20 hover:bg-purple-600/10 dark:hover:bg-purple-600/10 px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-semibold backdrop-blur-sm transition-all hover:scale-105"
           >
             Conheça nossas soluções
-            <ArrowDown weight="bold" className="ml-2 w-5 h-5" />
+            <ArrowDown weight="bold" className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </Button>
         </div>
       </div>
