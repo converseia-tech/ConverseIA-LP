@@ -5,7 +5,7 @@ import HeroSection from '@/components/conciarge/HeroSection';
 import TargetAudienceSection from '@/components/conciarge/TargetAudienceSection';
 import AgentsModulesSection from '@/components/conciarge/AgentsModulesSection';
 import PlatformFeaturesSection from '@/components/conciarge/PlatformFeaturesSection';
-import PricingSection from '@/components/conciarge/PricingSection';
+import { ConciargePricing } from '@/components/conciarge/ConciargePricing';
 import FAQSection from '@/components/conciarge/FAQSection';
 
 const Conciarge = () => {
@@ -26,7 +26,7 @@ const Conciarge = () => {
         <PlatformFeaturesSection />
       </div>
       <div id="planos">
-        <PricingSection />
+        <ConciargePricing />
       </div>
       <div id="faq">
         <FAQSection />

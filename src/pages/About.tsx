@@ -1,239 +1,286 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Brain, MessageSquare, Link as LinkIcon, Bot, Sparkles, Zap, Target, Eye, Heart, ExternalLink, ArrowRight } from "lucide-react";
+import { Timeline } from "@/components/ui/timeline";
+import { 
+  ScrollAnimation, 
+  ScrollScale, 
+  ScrollTranslateX, 
+  ScrollTranslateY,
+  TeamCard
+} from "@/components/ui/team-section";
+import { Brain, MessageSquare, Sparkles, Target, Users, Rocket, CheckCircle2, Eye, Heart, Bot, Zap, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+
+const whatsappLink = "https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20as%20soluções%20da%20ConverseIA";
 
 const About = () => {
-  const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Quero%20entender%20mais%20sobre%20a%20solu%C3%A7%C3%A3o%20de%20voc%C3%AAs.&type=phone_number&app_absent=0";
+  const timelineData = [
+    {
+      title: "2024",
+      content: (
+        <div>
+          <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+            Lançamos nossas soluções especializadas: <strong>ConverseIA Direito</strong> para o setor jurídico e <strong>Conciarge</strong> para o setor de saúde. 
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80"
+              alt="Setor de saúde digital"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&auto=format&fit=crop&q=80"
+              alt="Direito e advocacia digital"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&auto=format&fit=crop&q=80"
+              alt="Chatbot e atendimento digital"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&auto=format&fit=crop&q=80"
+              alt="Assistente virtual de saúde"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2025",
+      content: (
+        <div>
+          <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+            Fundação da <strong>ConverseIA</strong> com a missão de democratizar o acesso à Inteligência Artificial. 
+            Desenvolvemos nossa primeira plataforma de Agentes Autônomos, trazendo automação inteligente para empresas de todos os tamanhos.
+          </p>
+          <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+            Criamos tecnologia que vai além dos chatbots tradicionais: nossos agentes interpretam contexto, tomam decisões e se integram 
+            perfeitamente aos sistemas existentes das empresas.
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop&q=80"
+              alt="Inteligência Artificial generativa"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop&q=80"
+              alt="Agentes autônomos de IA"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80"
+              alt="Time fundador ConverseIA"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&auto=format&fit=crop&q=80"
+              alt="Desenvolvimento de plataforma"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Conquistas",
+      content: (
+        <div>
+          <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
+            Principais marcos alcançados em nossa jornada de transformação digital
+          </p>
+          <div className="mb-8 space-y-2">
+            <div className="flex gap-2 items-center text-foreground dark:text-neutral-300 text-xs md:text-sm">
+              <CheckCircle2 className="h-4 w-4 text-purple-500" />
+              +50 empresas atendidas com sucesso
+            </div>
+            <div className="flex gap-2 items-center text-foreground dark:text-neutral-300 text-xs md:text-sm">
+              <CheckCircle2 className="h-4 w-4 text-purple-500" />
+              +200 Agentes de IA implementados
+            </div>
+            <div className="flex gap-2 items-center text-foreground dark:text-neutral-300 text-xs md:text-sm">
+              <CheckCircle2 className="h-4 w-4 text-purple-500" />
+              95% de satisfação dos clientes
+            </div>
+            <div className="flex gap-2 items-center text-foreground dark:text-neutral-300 text-xs md:text-sm">
+              <CheckCircle2 className="h-4 w-4 text-purple-500" />
+              70% de redução em tempo de atendimento
+            </div>
+            <div className="flex gap-2 items-center text-foreground dark:text-neutral-300 text-xs md:text-sm">
+              <CheckCircle2 className="h-4 w-4 text-purple-500" />
+              Disponibilidade 24/7 para todos os clientes
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80"
+              alt="Crescimento e métricas"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80"
+              alt="Analytics e dashboards"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=80"
+              alt="Cliente satisfeito"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&auto=format&fit=crop&q=80"
+              alt="Equipe celebrando resultados"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-lg"
+            />
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  const teamMembers = [
+    {
+      avatar: "/Fotos_equipe/Erico_Henrique-Sócio_Fundador.JPG",
+      name: "Erico Henrique",
+      role: "Sócio Fundador",
+    },
+    {
+      avatar: "/Fotos_equipe/Victor_Medeiros-Sócio_Fundador.png",
+      name: "Victor Medeiros",
+      role: "Sócio Fundador",
+    },
+    {
+      avatar: "/Fotos_equipe/Luca_Aguiar-Desenvolvedor_RPA.JPG",
+      name: "Luca Aguiar",
+      role: "Desenvolvedor RPA",
+    },
+    {
+      avatar: "/Fotos_equipe/Thiago-Desenvolvedor_BI.JPG",
+      name: "Thiago",
+      role: "Desenvolvedor BI",
+    },
+    {
+      avatar: "/Fotos_equipe/Eliel-Desenvolvedor_Integracoes.JPG",
+      name: "Eliel",
+      role: "Desenvolvedor Integrações",
+    },
+    {
+      avatar: "/Fotos_equipe/Emanuel-Desenvolvedor_Suporte.JPG",
+      name: "Emanuel",
+      role: "Desenvolvedor Suporte",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navigation />
       <main className="pt-20">
+        {/* Hero Section */}
         <section className="section-padding">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 sm:mb-16">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 tracking-tight">
-                <span className="gradient-text">Inteligência que Transforma</span>
+            <div className="text-center mb-12 sm:mb-16 opacity-100">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 tracking-tight opacity-100">
+                <span className="bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent opacity-100">
+                  Nossa Jornada de Transformação Digital
+                </span>
               </h1>
-              <div className="w-16 sm:w-24 h-1 bg-gradient-CONVERSEIA mx-auto rounded-full mb-8"></div>
-              <p className="text-lg sm:text-xl md:text-2xl text-corporate-lg max-w-4xl mx-auto px-4 leading-relaxed">
-                Criamos Agentes Autônomos de Inteligência Artificial que atuam como verdadeiros membros da sua equipe.
+              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 mx-auto rounded-full mb-8 opacity-100"></div>
+              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto px-4 leading-relaxed opacity-100">
+                Descubra como evoluímos para nos tornar referência em automação e inteligência artificial.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="section-padding bg-gradient-subtle">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-center">
-                O poder dos <span className="gradient-text">Agentes de IA</span>
+        {/* About ConverseIA Section */}
+        <section className="py-20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                Quem é a <span className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">ConverseIA</span>?
               </h2>
-              <p className="text-lg sm:text-xl text-corporate-lg max-w-4xl mx-auto text-center px-4">
-                Vamos além dos chatbots tradicionais. Nossos agentes interpretam dados e tomam decisões.
+              <p className="text-lg text-muted-foreground mb-4 leading-relaxed text-justify">
+                Somos uma empresa especializada em desenvolver <strong>Agentes de Inteligência Artificial autônomos</strong> que funcionam como verdadeiros membros da sua equipe.
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-xl mb-4 sm:mb-6 w-fit">
-                    <MessageSquare className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">IA Conversacional</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">Agentes que dialogam com fluidez e entendem contexto.</p>
-                </div>
-              </div>
-
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-xl mb-4 sm:mb-6 w-fit">
-                    <Brain className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">Automação Inteligente</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">Automatizamos processos complexos de ponta a ponta.</p>
-                </div>
-              </div>
-
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-xl mb-4 sm:mb-6 w-fit">
-                    <LinkIcon className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">Integrações</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">Conectamos sistemas em um ecossistema unificado.</p>
-                </div>
-              </div>
-
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-xl mb-4 sm:mb-6 w-fit">
-                    <Bot className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">Especializados</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">Agentes específicos para vendas, suporte e mais.</p>
-                </div>
-              </div>
-
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-xl mb-4 sm:mb-6 w-fit">
-                    <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">Aprendizado Contínuo</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">Aprendem e melhoram com cada interação.</p>
-                </div>
-              </div>
-
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-xl mb-4 sm:mb-6 w-fit">
-                    <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">Implementação Rápida</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">Resultados imediatos e ágeis.</p>
-                </div>
-              </div>
+              <p className="text-lg text-muted-foreground mb-4 leading-relaxed text-justify">
+                Nossa missão é democratizar o acesso à IA de ponta, permitindo que empresas de todos os tamanhos automatizem processos complexos, melhorem o atendimento ao cliente e aumentem sua eficiência operacional.
+              </p>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed text-justify">
+                Com expertise em integração com sistemas existentes e um time de especialistas dedicado, transformamos desafios em oportunidades de crescimento através da tecnologia.
+              </p>
+              <Button 
+                onClick={() => {
+                  const timeline = document.getElementById('timeline');
+                  if (timeline) timeline.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+              >
+                Conheça nossa história
+                <ArrowDown className="ml-2 w-5 h-5" />
+              </Button>
             </div>
           </div>
         </section>
 
-        <section className="section-padding">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">
-                Soluções <span className="gradient-text">Especializadas</span>
-              </h2>
-            </div>
+        {/* Timeline Section */}
+        <div id="timeline">
+          <Timeline data={timelineData} />
+        </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-6 sm:p-8 h-full flex flex-col hover:shadow-glow transition-all duration-500">
-                  <div className="mb-6">
-                    <img src="/logoescurahorizontal.png" alt="ConverseIA Direito" className="h-10 sm:h-12 w-auto" />
-                    <p className="text-muted-foreground mt-2 text-sm">Setor Jurídico</p>
-                  </div>
-                  <p className="text-base sm:text-lg text-corporate-lg mb-6 flex-grow">
-                    Agentes especializados que automatizam triagem e qualificam leads em tempo real.
-                  </p>
-                  <Button asChild variant="outline" size="lg" className="w-full">
-                    <Link to="/direito">Conheça a solução</Link>
-                  </Button>
-                </div>
+        {/* Team Section */}
+        <section className="py-20">
+          <ScrollAnimation className="overflow-hidden">
+            <ScrollTranslateY className="min-h-svh flex flex-col justify-center items-center gap-6">
+              <div className="w-full">
+                <ScrollTranslateX
+                  xRange={['-200%', '0%']}
+                  inputRange={[0.4, 0.9]}
+                  className="origin-bottom flex flex-nowrap gap-4 px-4"
+                >
+                  {teamMembers.map((member, index) => (
+                    <TeamCard
+                      className="min-w-[48vw] md:min-w-[20vw] bg-card border border-border rounded-xl overflow-hidden"
+                      key={index}
+                      member={member}
+                    />
+                  ))}
+                </ScrollTranslateX>
               </div>
-
-              <div className="group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-6 sm:p-8 h-full flex flex-col hover:shadow-glow transition-all duration-500">
-                  <div className="mb-6">
-                    <img src="/Conciarge(NEGATIVO+FUNDOTRANSPARENTE)-logo5.png" alt="Conciarge" className="h-12 sm:h-16 w-auto" />
-                    <p className="text-muted-foreground mt-2 text-sm">Setor de Saúde</p>
-                  </div>
-                  <p className="text-base sm:text-lg text-corporate-lg mb-6 flex-grow">
-                    Agendamento inteligente 24/7 e comunicação empática automatizada.
-                  </p>
-                  <Button asChild variant="outline" size="lg" className="w-full">
-                    <Link to="/conciarge">Conheça a solução</Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-CONVERSEIA p-1 rounded-3xl">
-              <div className="bg-background rounded-3xl p-8 sm:p-12 text-center">
-                <Sparkles className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-6 text-accent" />
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-                  Projetos <span className="gradient-text">Personalizados</span>
-                </h3>
-                <p className="text-base sm:text-lg md:text-xl text-corporate-lg max-w-3xl mx-auto mb-8">
-                  Criamos Agentes de IA totalmente personalizados para sua operação.
+              <ScrollScale
+                inputRange={[0, 0.5]}
+                scaleRange={[1.4, 1]}
+                className="w-10/12 flex flex-col justify-center text-center items-center mx-auto origin-center py-12"
+              >
+                <h2 className="font-display text-4xl md:text-5xl font-bold">
+                  Equipe de <span className="bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent">especialistas</span>
+                </h2>
+                <p className="text-lg md:text-xl text-muted-foreground mt-4 max-w-2xl">
+                  Profissionais apaixonados por tecnologia e inovação, dedicados a transformar negócios através da IA
                 </p>
-                <Button asChild size="lg">
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                    Fale com um especialista
-                  </a>
-                </Button>
+              </ScrollScale>
+              <div className="w-full">
+                <ScrollTranslateX
+                  inputRange={[0.4, 0.9]}
+                  xRange={['100%', '-50%']}
+                  className="flex flex-nowrap gap-4 px-4"
+                >
+                  {teamMembers.map((member, index) => (
+                    <TeamCard
+                      className="min-w-[48vw] md:min-w-[20vw] bg-card border border-border rounded-xl overflow-hidden"
+                      key={index}
+                      member={member}
+                    />
+                  ))}
+                </ScrollTranslateX>
               </div>
-            </div>
-          </div>
+            </ScrollTranslateY>
+          </ScrollAnimation>
         </section>
 
-        <section className="section-padding bg-gradient-subtle">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="text-center group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-2xl mx-auto w-fit mb-4">
-                    <Target className="h-8 w-8 sm:h-10 sm:w-10 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Nossa Missão</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">
-                    Simplificar processos através de Agentes de IA.
-                  </p>
-                </div>
-              </div>
 
-              <div className="text-center group">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-2xl mx-auto w-fit mb-4">
-                    <Eye className="h-8 w-8 sm:h-10 sm:w-10 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Nossa Visão</h3>
-                  <p className="text-sm sm:text-base text-corporate-lg">
-                    Ser o principal catalisador da transformação digital.
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-center group md:col-span-2 lg:col-span-1 mx-auto w-full max-w-md lg:max-w-none">
-                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 h-full hover:shadow-glow transition-all duration-500">
-                  <div className="p-3 sm:p-4 bg-gradient-CONVERSEIA rounded-2xl mx-auto w-fit mb-4">
-                    <Heart className="h-8 w-8 sm:h-10 sm:w-10 text-foreground" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Nossos Valores</h3>
-                  <div className="space-y-3 text-left">
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Inovação Ousada</h4>
-                      <p className="text-muted-foreground text-xs sm:text-sm">Desafiamos o status quo.</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Parceria Profunda</h4>
-                      <p className="text-muted-foreground text-xs sm:text-sm">Sucesso do cliente é nossa métrica.</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Impacto Real</h4>
-                      <p className="text-muted-foreground text-xs sm:text-sm">Resultados transformadores.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section-padding">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">
-              Pronto para <span className="gradient-text">automatizar</span> sua operação?
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-corporate-lg mb-8 px-4">
-              Descubra como nossos Agentes de IA podem transformar sua empresa.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                  Falar com Especialista
-                </a>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <a href="https://converseia.gitbook.io/converseia-docs" target="_blank" rel="noopener noreferrer">
-                  Ver Documentação
-                </a>
-              </Button>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>

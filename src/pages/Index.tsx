@@ -1,17 +1,25 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
+import VivanChatSection from "@/components/VivanChatSection";
+import TechnologiesSection from "@/components/TechnologiesSection";
 import AboutSection from "@/components/AboutSection";
-import InsightsSection from "@/components/InsightsSection";
+import ClientsSection from "@/components/ClientsSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navigation />
       <main>
         <HeroSection />
+        <VivanChatSection />
+        <TechnologiesSection />
         <AboutSection />
-        <InsightsSection />
+        <ClientsSection />
+        <TestimonialsSection />
+        <ContactSection />
       </main>
       <Footer />
     </div>

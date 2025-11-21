@@ -7,7 +7,7 @@ import { AnimatedSection } from '@/components/direito/animate-section';
 import { Video } from '@/components/direito/video';
 import { Depoiment } from '@/components/direito/depoiment';
 import { TechnologyIncorporte } from '@/components/direito/TechnologyIncorporte';
-import { Plans } from '@/components/direito/plans';
+import { DireitoPricing } from '@/components/direito/DireitoPricing';
 import { FormContact } from '@/components/direito/form-contact';
 
 const Direito = () => {
@@ -37,7 +37,7 @@ const Direito = () => {
         </AnimatedSection>
 
         <AnimatedSection className="w-full py-24 max-w-6xl mx-auto scroll-mt-24" id="planos">
-          <Plans />
+          <DireitoPricing />
         </AnimatedSection>
 
         <AnimatedSection className="w-full py-24 max-w-6xl mx-auto scroll-mt-24" id="contato">
