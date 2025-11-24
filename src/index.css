@@ -11,78 +11,101 @@
 
 @layer base {
   :root {
-    /* CONVERSEIA Design System - Dark & Modern (Default Dark Theme) */
-    --background: 235 19% 11%; /* #1a1d2e - Dark navy background */
-    --foreground: 0 0% 100%; /* White text */
+    /* CONVERSEIA Design System - 2025 Future Tech (Default Dark Theme) */
+    --background: 240 20% 8%;
+    /* #0f111a - Deep void background */
+    --foreground: 0 0% 100%;
+    /* Pure white text */
 
-    --card: 235 16% 15%; /* Slightly lighter card */
+    --card: 240 18% 12%;
+    /* Slightly lighter deep blue */
     --card-foreground: 0 0% 100%;
 
-    --popover: 235 19% 11%;
+    --popover: 240 20% 8%;
     --popover-foreground: 0 0% 100%;
 
-    /* Brand Primary - Purple */
-    --primary: 270 91% 65%; /* #A855F7 - Bright purple */
+    /* Brand Primary - Electric Purple */
+    --primary: 270 95% 65%;
+    /* #A855F7 - Vibrant Purple */
     --primary-foreground: 0 0% 100%;
 
-    /* Brand Secondary - Deep Purple */
-    --secondary: 265 80% 55%; /* #8B5CF6 */
+    /* Brand Secondary - Cyber Blue */
+    --secondary: 250 90% 60%;
+    /* #6366F1 */
     --secondary-foreground: 0 0% 100%;
 
-    /* Brand Accent - Pink/Purple */
-    --accent: 280 85% 70%; /* #D946EF */
+    /* Brand Accent - Neon Pink */
+    --accent: 300 90% 65%;
+    /* #F472B6 */
     --accent-foreground: 0 0% 100%;
 
-    --muted: 235 16% 20%;
-    --muted-foreground: 220 9% 65%; /* Light gray text */
+    --muted: 240 15% 18%;
+    --muted-foreground: 240 10% 70%;
+    /* Cool gray for tech feel */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 235 16% 25%;
-    --input: 235 16% 20%;
-    --ring: 270 91% 65%;
+    --border: 240 15% 20%;
+    --input: 240 15% 16%;
+    --ring: 270 95% 65%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
+    /* More rounded, modern feel */
 
-    /* CONVERSEIA Gradients - Purple/Blue theme */
-    --gradient-primary: linear-gradient(135deg, #A855F7 0%, #8B5CF6 50%, #6366F1 100%);
-    --gradient-hero: linear-gradient(180deg, rgba(168, 85, 247, 0.15) 0%, rgba(26, 29, 46, 0) 100%);
-    --gradient-accent: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
-    --gradient-subtle: linear-gradient(180deg, #1a1d2e, #141623);
+    /* CONVERSEIA Gradients - 2025 Edition */
+    --gradient-primary: linear-gradient(135deg, #A855F7 0%, #7C3AED 50%, #4F46E5 100%);
+    --gradient-hero: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.25) 0%, rgba(15, 17, 26, 0) 70%);
+    --gradient-accent: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.15) 0%, transparent 60%);
+    --gradient-subtle: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+    --gradient-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
 
-    /* Modern Effects */
-    --shadow-glow: 0 0 60px rgba(168, 85, 247, 0.3);
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
-    --shadow-elegant: 0 10px 40px -10px rgba(168, 85, 247, 0.2);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Modern Effects - Glass & Glow */
+    --shadow-glow: 0 0 80px rgba(168, 85, 247, 0.25);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-elegant: 0 20px 60px -15px rgba(124, 58, 237, 0.3);
+    --shadow-neon: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+
+    --backdrop-blur: blur(12px);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   /* Light Mode Theme */
   .light {
-    --background: 0 0% 98%; /* Branco quase puro */
-    --foreground: 0 0% 10%; /* Preto suave - TEXTO PRINCIPAL */
+    --background: 0 0% 98%;
+    /* Branco quase puro */
+    --foreground: 0 0% 10%;
+    /* Preto suave - TEXTO PRINCIPAL */
 
-    --card: 0 0% 100%; /* White cards */
-    --card-foreground: 0 0% 10%; /* Preto suave para texto em cards */
+    --card: 0 0% 100%;
+    /* White cards */
+    --card-foreground: 0 0% 10%;
+    /* Preto suave para texto em cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%; /* Preto suave */
+    --popover-foreground: 0 0% 10%;
+    /* Preto suave */
 
     /* Brand Primary - Purple (adjusted for light mode) */
-    --primary: 270 91% 50%; /* Slightly darker purple for better contrast */
+    --primary: 270 91% 50%;
+    /* Slightly darker purple for better contrast */
     --primary-foreground: 0 0% 100%;
 
     /* Brand Secondary */
-    --secondary: 270 5% 96%; /* Light purple/gray */
-    --secondary-foreground: 0 0% 15%; /* Preto mais forte */
+    --secondary: 270 5% 96%;
+    /* Light purple/gray */
+    --secondary-foreground: 0 0% 15%;
+    /* Preto mais forte */
 
     /* Brand Accent */
     --accent: 270 5% 96%;
-    --accent-foreground: 0 0% 15%; /* Preto mais forte */
+    --accent-foreground: 0 0% 15%;
+    /* Preto mais forte */
 
     --muted: 270 5% 94%;
-    --muted-foreground: 0 0% 30%; /* Cinza escuro para melhor contraste */
+    --muted-foreground: 0 0% 30%;
+    /* Cinza escuro para melhor contraste */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -132,7 +155,7 @@
     --border: 235 16% 25%;
     --input: 235 16% 20%;
     --ring: 270 91% 65%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -154,11 +177,15 @@
   }
 
   /* Typography Hierarchy - Modern & Tech */
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     @apply font-display font-semibold tracking-tight;
   }
 
-  h4, h5, h6 {
+  h4,
+  h5,
+  h6 {
     @apply font-display font-medium tracking-tight;
   }
 
@@ -213,9 +240,12 @@
 
   /* Corporate Animations */
   @keyframes gradient-shift {
-    0%, 100% {
+
+    0%,
+    100% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
@@ -226,6 +256,7 @@
       opacity: 0;
       transform: translateY(30px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -238,28 +269,37 @@
 
   /* Animações 3D personalizadas */
   @keyframes float-slow {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0) translateZ(0);
     }
+
     50% {
       transform: translateY(-20px) translateZ(20px);
     }
   }
 
   @keyframes float-slower {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0) translateZ(0) rotate(0deg);
     }
+
     50% {
       transform: translateY(-30px) translateZ(30px) rotate(180deg);
     }
   }
 
   @keyframes pulse-slow {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 0.6;
       transform: scale(1);
     }
+
     50% {
       opacity: 0.8;
       transform: scale(1.05);
@@ -270,6 +310,7 @@
     0% {
       transform: translateX(-100%) translateY(-100%) rotate(45deg);
     }
+
     100% {
       transform: translateX(100%) translateY(100%) rotate(45deg);
     }
@@ -300,6 +341,7 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -316,7 +358,9 @@
   }
 
   /* Smooth transitions for all interactive elements */
-  button, a, .interactive {
+  button,
+  a,
+  .interactive {
     transition: var(--transition-smooth);
   }
 
@@ -326,9 +370,11 @@
   }
 
   .section-padding {
-    @apply py-12 lg:py-16;
+    @apply py-8 lg:py-12;
+    /* Reduced from py-12 lg:py-16 for tighter spacing */
   }
 }
+
 /* Radial Orbital Timeline Custom Styles */
 @layer utilities {
   .animate-ping {
@@ -336,7 +382,9 @@
   }
 
   @keyframes ping {
-    75%, 100% {
+
+    75%,
+    100% {
       transform: scale(2);
       opacity: 0;
     }

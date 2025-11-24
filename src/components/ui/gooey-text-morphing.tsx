@@ -31,8 +31,8 @@ export function GooeyText({
     const setMorph = (fraction: number) => {
       if (text1Ref.current && text2Ref.current) {
         // Suavizar transição com curva mais natural
-        const easedFraction = fraction < 0.5 
-          ? 2 * fraction * fraction 
+        const easedFraction = fraction < 0.5
+          ? 2 * fraction * fraction
           : 1 - Math.pow(-2 * fraction + 2, 2) / 2;
 
         // Text2 aparecendo (next text)
@@ -137,7 +137,7 @@ export function GooeyText({
         <span
           ref={text1Ref}
           className={cn(
-            "absolute inline-block select-none text-center text-6xl md:text-[60pt]",
+            "absolute inline-block text-center text-6xl md:text-[60pt]",
             "text-foreground",
             textClassName
           )}
@@ -145,7 +145,7 @@ export function GooeyText({
         <span
           ref={text2Ref}
           className={cn(
-            "absolute inline-block select-none text-center text-6xl md:text-[60pt]",
+            "absolute inline-block text-center text-6xl md:text-[60pt]",
             "text-foreground",
             textClassName
           )}

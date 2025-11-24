@@ -48,10 +48,10 @@ export const TestimonialSlider = ({
                 key={index}
                 show={active === index}
                 className="absolute inset-0 -z-10 h-full"
-                enter="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-700 order-first"
+                enter="transition ease-spring duration-700 order-first"
                 enterFrom="opacity-0 -rotate-[60deg]"
                 enterTo="opacity-100 rotate-0"
-                leave="transition ease-[cubic-bezier(0.68,-0.3,0.32,1)] duration-700"
+                leave="transition ease-spring duration-700"
                 leaveFrom="opacity-100 rotate-0"
                 leaveTo="opacity-0 rotate-[60deg]"
                 beforeEnter={() => heightFix()}
@@ -91,11 +91,10 @@ export const TestimonialSlider = ({
         {testimonials.map((testimonial, index) => (
           <button
             key={index}
-            className={`m-1.5 inline-flex justify-center whitespace-nowrap rounded-full px-3 py-1.5 text-xs shadow-sm transition-colors duration-150 focus-visible:outline-none focus-visible:ring focus-visible:ring-primary ${
-              active === index
+            className={`m-1.5 inline-flex justify-center whitespace-nowrap rounded-full px-3 py-1.5 text-xs shadow-sm transition-colors duration-150 focus-visible:outline-none focus-visible:ring focus-visible:ring-primary ${active === index
                 ? "bg-primary text-primary-foreground shadow-glow"
                 : "bg-card text-foreground hover:bg-primary/10 border border-border"
-            }`}
+              }`}
             onClick={() => {
               setActive(index);
               setAutorotate(false);
@@ -103,9 +102,8 @@ export const TestimonialSlider = ({
           >
             <span>{testimonial.name}</span>{" "}
             <span
-              className={`${
-                active === index ? "text-primary-foreground/70" : "text-muted-foreground"
-              }`}
+              className={`${active === index ? "text-primary-foreground/70" : "text-muted-foreground"
+                }`}
             >
               -
             </span>{" "}

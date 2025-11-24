@@ -12,7 +12,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center px-4 py-20 sm:py-0">
+    <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center px-4 py-12 sm:py-0">
       {/* Content Container - Mais centralizado verticalmente */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl mx-auto">
         {/* Large Hero Text with GooeyText effect */}
@@ -36,7 +36,7 @@ const HeroSection = () => {
         </div>
 
         {/* Texto descritivo */}
-        <p className="text-center text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-10 sm:mb-12 px-2 sm:px-4 mx-auto">
+        <p className="text-center text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-6 sm:mb-8 px-2 sm:px-4 mx-auto mt-3">
           Criamos ecossistemas empresariais que geram valor e impulsionam o crescimento sustentável.
         </p>
 
@@ -64,6 +64,17 @@ const HeroSection = () => {
           </Button>
         </div>
       </div>
+
+      {/* Scroll Indicator - Positioned closer to content */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50"
+      >
+        <span className="text-xs uppercase tracking-widest">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-primary/50 to-transparent" />
+      </motion.div>
     </div>
   );
 };

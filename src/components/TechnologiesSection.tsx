@@ -51,19 +51,19 @@ const TechnologiesSection = () => {
   ));
 
   return (
-    <section className="py-12 sm:py-14 md:py-16 overflow-hidden">
+    <section className="section-padding overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-8 sm:mb-10 md:mb-12"
+          className="text-center mb-4 sm:mb-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2 px-4">
+          <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-1 px-4">
             Tecnologias incorporadas
           </h3>
-          <p className="text-sm sm:text-base text-muted-foreground px-4">
+          <p className="text-xs sm:text-sm text-muted-foreground px-4">
             Integrações com as principais plataformas de IA e automação
           </p>
         </motion.div>

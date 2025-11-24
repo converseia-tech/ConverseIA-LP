@@ -6,7 +6,7 @@ const VivanChatSection = () => {
   const phoneNumber = "11999999999";
 
   return (
-    <section className="py-12 sm:py-16 md:py-20">
+    <section className="section-padding">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="relative bg-card/30 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-border overflow-hidden"
@@ -28,7 +28,7 @@ const VivanChatSection = () => {
                 <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto">
                   {/* Círculo de fundo com gradiente */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full blur-2xl" />
-                  
+
                   {/* Imagem */}
                   <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-border">
                     <img
@@ -37,10 +37,10 @@ const VivanChatSection = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  
+
                   {/* Indicador online */}
                   <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 flex items-center gap-2 bg-background/90 backdrop-blur-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-full border border-border">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
                     <span className="text-xs font-medium text-foreground">Online</span>
                   </div>
                 </div>

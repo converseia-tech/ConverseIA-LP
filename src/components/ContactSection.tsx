@@ -22,7 +22,7 @@ const ContactSection = () => {
       `📝 Observações: ${details.notes || "Nenhuma"}\n\n` +
       `Em breve entraremos em contato para confirmar!`
     );
-    
+
     // You could also send this to your backend:
     // await fetch('/api/schedule-meeting', {
     //   method: 'POST',
@@ -37,7 +37,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contato" className="py-12 sm:py-16 md:py-24 scroll-mt-20">
+    <section id="contato" className="section-padding scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-10 sm:mb-12 md:mb-16"
