@@ -23,7 +23,7 @@ const HeroSection = () => {
             letterSpacing: '-0.02em',
             minHeight: '80px'
           }}
-          className="sm:min-h-[100px] md:min-h-[120px]"
+            className="sm:min-h-[100px] md:min-h-[120px]"
           >
             <GooeyText
               texts={["Inteligência que Transforma.", "Automação que Liberta."]}
@@ -36,15 +36,15 @@ const HeroSection = () => {
         </div>
 
         {/* Texto descritivo */}
-        <p className="text-center text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-6 sm:mb-8 px-2 sm:px-4">
+        <p className="text-center text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-10 sm:mb-12 px-2 sm:px-4 mx-auto">
           Criamos ecossistemas empresariais que geram valor e impulsionam o crescimento sustentável.
         </p>
 
         {/* CTAs - Grupo de botões */}
         <div className="pointer-events-auto z-20 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full sm:w-auto px-4 sm:px-0">
-          <Button 
-            asChild 
-            size="lg" 
+          <Button
+            asChild
+            size="lg"
             className="w-full sm:w-auto bg-purple-600/90 hover:bg-purple-700 dark:bg-purple-600/80 dark:hover:bg-purple-700/90 text-white border border-purple-500/30 dark:border-purple-400/20 px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-semibold backdrop-blur-sm transition-all hover:scale-105 shadow-lg shadow-purple-500/20"
           >
             <a href="/contratacao">
@@ -53,13 +53,13 @@ const HeroSection = () => {
             </a>
           </Button>
 
-          <Button 
+          <Button
             onClick={scrollToSolutions}
-            size="lg" 
+            size="lg"
             variant="outline"
             className="w-full sm:w-auto border-purple-500/30 dark:border-purple-400/20 hover:bg-purple-600/10 dark:hover:bg-purple-600/10 px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-semibold backdrop-blur-sm transition-all hover:scale-105"
           >
-            Conheça nossas soluções
+            Conheça o Ecossistema ConverseIA
             <ArrowDown weight="bold" className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </Button>
         </div>

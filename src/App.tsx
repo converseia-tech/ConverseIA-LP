@@ -27,6 +27,7 @@ import FooterDemo from "./pages/FooterDemo";
 import NotFound from "./pages/NotFound";
 import ChatWidget from "./components/ChatWidget";
 import { GlobalBackground } from "./components/GlobalBackground";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <ChatWidget />
           <Routes>
             <Route path="/" element={<Index />} />

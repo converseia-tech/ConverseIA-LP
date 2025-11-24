@@ -1,10 +1,10 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Timeline } from "@/components/ui/timeline";
-import { 
-  ScrollAnimation, 
-  ScrollScale, 
-  ScrollTranslateX, 
+import {
+  ScrollAnimation,
+  ScrollScale,
+  ScrollTranslateX,
   ScrollTranslateY,
   TeamCard
 } from "@/components/ui/team-section";
@@ -21,7 +21,7 @@ const About = () => {
       content: (
         <div>
           <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Lançamos nossas soluções especializadas: <strong>ConverseIA Direito</strong> para o setor jurídico e <strong>Conciarge</strong> para o setor de saúde. 
+            Lançamos nossas soluções especializadas: <strong>ConverseIA Direito</strong> para o setor jurídico e <strong>Conciarge</strong> para o setor de saúde.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
@@ -53,11 +53,11 @@ const About = () => {
       content: (
         <div>
           <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Fundação da <strong>ConverseIA</strong> com a missão de democratizar o acesso à Inteligência Artificial. 
+            Fundação da <strong>ConverseIA</strong> com a missão de democratizar o acesso à Inteligência Artificial.
             Desenvolvemos nossa primeira plataforma de Agentes Autônomos, trazendo automação inteligente para empresas de todos os tamanhos.
           </p>
           <p className="text-foreground dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Criamos tecnologia que vai além dos chatbots tradicionais: nossos agentes interpretam contexto, tomam decisões e se integram 
+            Criamos tecnologia que vai além dos chatbots tradicionais: nossos agentes interpretam contexto, tomam decisões e se integram
             perfeitamente aos sistemas existentes das empresas.
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -211,7 +211,7 @@ const About = () => {
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed text-justify">
                 Com expertise em integração com sistemas existentes e um time de especialistas dedicado, transformamos desafios em oportunidades de crescimento através da tecnologia.
               </p>
-              <Button 
+              <Button
                 onClick={() => {
                   const timeline = document.getElementById('timeline');
                   if (timeline) timeline.scrollIntoView({ behavior: 'smooth' });
@@ -231,24 +231,9 @@ const About = () => {
         </div>
 
         {/* Team Section */}
-        <section className="py-20">
-          <ScrollAnimation className="overflow-hidden">
-            <ScrollTranslateY className="min-h-svh flex flex-col justify-center items-center gap-6">
-              <div className="w-full">
-                <ScrollTranslateX
-                  xRange={['-200%', '0%']}
-                  inputRange={[0.4, 0.9]}
-                  className="origin-bottom flex flex-nowrap gap-4 px-4"
-                >
-                  {teamMembers.map((member, index) => (
-                    <TeamCard
-                      className="min-w-[48vw] md:min-w-[20vw] bg-card border border-border rounded-xl overflow-hidden"
-                      key={index}
-                      member={member}
-                    />
-                  ))}
-                </ScrollTranslateX>
-              </div>
+        <section className="py-20 overflow-hidden">
+          <ScrollAnimation>
+            <ScrollTranslateY>
               <ScrollScale
                 inputRange={[0, 0.5]}
                 scaleRange={[1.4, 1]}
@@ -276,14 +261,14 @@ const About = () => {
                   ))}
                 </ScrollTranslateX>
               </div>
-            </ScrollTranslateY>
-          </ScrollAnimation>
-        </section>
+            </ScrollTranslateY >
+          </ScrollAnimation >
+        </section >
 
 
-      </main>
+      </main >
       <Footer />
-    </div>
+    </div >
   );
 };
 

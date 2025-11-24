@@ -25,15 +25,15 @@ const TechnologiesSection = () => {
     },
     {
       name: "N8N",
-      logo: "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png",
+      logo: "https://n8n.io/n8n-logo.png",
     },
     {
       name: "Make",
-      logo: "https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_477db83f729d63210139ec7cd29c1351/make-formerly-integromat.png",
+      logo: "https://cdn.worldvectorlogo.com/logos/make-1.svg",
     },
     {
       name: "Manus",
-      logo: "https://manus.com.br/wp-content/uploads/2023/03/logo-manus-300x72.png",
+      logo: "https://files.manuscdn.com/assets/image/brand/image/Manus-Icon.png",
     },
   ];
 
