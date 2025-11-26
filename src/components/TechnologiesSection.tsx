@@ -5,7 +5,7 @@ const TechnologiesSection = () => {
   const technologies = [
     {
       name: "OpenAI",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/2048px-ChatGPT_logo.svg.png",
+      logo: "/logo_tecnologias/openai_logo.png",
     },
     {
       name: "Gemini",
@@ -21,7 +21,7 @@ const TechnologiesSection = () => {
     },
     {
       name: "Supabase",
-      logo: "https://avatars.githubusercontent.com/u/54469796?s=200&v=4",
+      logo: "/logo_tecnologias/supabase_logo.png",
     },
     {
       name: "N8N",
@@ -29,23 +29,23 @@ const TechnologiesSection = () => {
     },
     {
       name: "Make",
-      logo: "https://cdn.worldvectorlogo.com/logos/make-1.svg",
+      logo: "/logo_tecnologias/make_logo.svg",
     },
     {
       name: "Manus",
-      logo: "https://files.manuscdn.com/assets/image/brand/image/Manus-Icon.png",
+      logo: "/logo_tecnologias/manus_logo.png",
     },
   ];
 
   const techItems = technologies.map((tech, index) => (
     <div
       key={`${tech.name}-${index}`}
-      className="flex items-center justify-center p-6 rounded-xl bg-white/80 dark:bg-white/10 backdrop-blur-sm border border-border hover:border-purple-500/30 transition-all duration-300 aspect-square"
+      className="flex items-center justify-center px-8 py-4 h-24 rounded-2xl bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 group"
     >
       <img
         src={tech.logo}
         alt={tech.name}
-        className="max-h-12 max-w-full w-auto object-contain transition-all hover:scale-110"
+        className="max-h-10 w-auto object-contain transition-all opacity-50 grayscale brightness-0 invert group-hover:opacity-100"
       />
     </div>
   ));

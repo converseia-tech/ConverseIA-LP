@@ -32,11 +32,15 @@ const Footer = () => {
 
           {/* Brand Column */}
           <div className="space-y-6">
-            <Link to="/" className="block">
+            <Link 
+              to="/" 
+              className="block" 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
               <img
-                src="/uploads/7cc4cd4d-8aaf-47ac-a7d4-aa8df6d3e4c0.png"
+                src="/logo_horizontal.png"
                 alt="CONVERSEIA"
-                className="h-10 w-auto"
+                className="h-14 w-auto transition-transform duration-300 hover:scale-110"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
@@ -92,9 +96,9 @@ const Footer = () => {
             <div className="space-y-3">
               <Input
                 placeholder="Digite seu melhor e-mail"
-                className="bg-secondary/50 border-border/50 focus:border-purple-500/50 focus:ring-purple-500/20"
+                className="bg-background border-border focus:border-purple-500 focus:ring-purple-500/20"
               />
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white shadow-lg shadow-purple-500/20">
+              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/20">
                 Inscrever-se
               </Button>
             </div>

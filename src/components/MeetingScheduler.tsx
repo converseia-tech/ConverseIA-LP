@@ -182,7 +182,7 @@ export const MeetingScheduler: React.FC<MeetingSchedulerProps> = ({
                         className={cn(
                           "relative h-12 rounded-lg text-sm font-medium transition-all duration-200",
                           isSelected && "bg-primary text-primary-foreground shadow-glow scale-105",
-                          !isSelected && !isPast && isCurrentMonth && "bg-secondary/50 text-foreground hover:bg-secondary",
+                          !isSelected && !isPast && isCurrentMonth && "bg-muted/50 text-foreground hover:bg-muted",
                           !isCurrentMonth && "text-muted-foreground/30",
                           isPast && "text-muted-foreground/30 cursor-not-allowed",
                           isToday && !isSelected && "ring-2 ring-primary ring-offset-2"
@@ -213,7 +213,10 @@ export const MeetingScheduler: React.FC<MeetingSchedulerProps> = ({
                           size="sm"
                           onClick={() => handleTimeClick(slot.time)}
                           disabled={!slot.available}
-                          className="text-xs"
+                          className={cn(
+                            "text-xs",
+                            selectedTime === slot.time && "bg-purple-600 hover:bg-purple-700 text-white"
+                          )}
                         >
                           {formatTime(slot.time)}
                         </Button>
@@ -308,7 +311,7 @@ export const MeetingScheduler: React.FC<MeetingSchedulerProps> = ({
                   <Button
                     onClick={handleSchedule}
                     disabled={!isFormValid}
-                    className="w-full"
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                     size="lg"
                   >
                     {scheduleButtonText}

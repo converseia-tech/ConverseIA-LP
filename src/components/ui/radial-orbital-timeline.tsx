@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Link as LinkIcon, Zap } from "lucide-react";
+import { ArrowRight, Link as LinkIcon, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -152,9 +152,55 @@ export default function RadialOrbitalTimeline({
     }
   };
 
+  const handleArrowHover = (direction: "left" | "right") => {
+    setAutoRotate(false);
+
+    // Find the node currently closest to the "active" position (270 degrees)
+    // or use the currently active node if one exists
+    let currentIndex = -1;
+
+    if (activeNodeId !== null) {
+      currentIndex = timelineData.findIndex((item) => item.id === activeNodeId);
+    } else {
+      // Find the node closest to 270 degrees based on current rotation
+      let minDiff = 360;
+
+      timelineData.forEach((item, index) => {
+        const angle = ((index / timelineData.length) * 360 + rotationAngle) % 360;
+        // Normalize angle to 0-360
+        const normalizedAngle = angle < 0 ? angle + 360 : angle;
+        const diff = Math.abs(normalizedAngle - 270);
+        if (diff < minDiff) {
+          minDiff = diff;
+          currentIndex = index;
+        }
+      });
+    }
+
+    if (currentIndex === -1) currentIndex = 0;
+
+    // Calculate next index
+    let nextIndex;
+    if (direction === "right") {
+      nextIndex = (currentIndex + 1) % timelineData.length;
+    } else {
+      nextIndex = (currentIndex - 1 + timelineData.length) % timelineData.length;
+    }
+
+    const nextId = timelineData[nextIndex].id;
+
+    // Only toggle if it's not already the active one
+    if (activeNodeId !== nextId) {
+      // We need to force expand, so we can't just use toggleItem if it might collapse
+      // But toggleItem logic handles "if (!prev[id])" -> expand.
+      // If we are switching to a NEW id, it will be !prev[newId] (true), so it expands.
+      toggleItem(nextId);
+    }
+  };
+
   return (
     <div
-      className="w-full h-screen flex flex-col items-center justify-center bg-transparent overflow-hidden"
+      className="w-full h-[750px] flex flex-col items-center justify-center bg-transparent overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -203,9 +249,7 @@ export default function RadialOrbitalTimeline({
                 }}
               >
                 <div
-                  className={`absolute rounded-full -inset-1 ${
-                    isPulsing ? "animate-pulse duration-1000" : ""
-                  }`}
+                  className={`absolute rounded-full -inset-1`}
                   style={{
                     background: `radial-gradient(circle, rgba(168,85,247,0.2) 0%, rgba(168,85,247,0) 70%)`,
                     width: `${item.energy * 0.5 + 40}px`,
@@ -230,7 +274,7 @@ export default function RadialOrbitalTimeline({
                     isExpanded
                       ? "border-purple-400 shadow-lg shadow-purple-500/30"
                       : isRelated
-                      ? "border-purple-400 animate-pulse"
+                      ? "border-purple-400"
                       : "border-border"
                   }
                   transition-all duration-300 transform
@@ -332,6 +376,29 @@ export default function RadialOrbitalTimeline({
             );
           })}
         </div>
+
+        {/* Navigation Arrows */}
+        <button
+          className="absolute left-4 md:left-0 z-50 p-3 rounded-full text-purple-400 transition-all hover:scale-110 hover:bg-purple-500/10 group"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleArrowHover("left");
+          }}
+          onMouseEnter={() => handleArrowHover("left")}
+        >
+          <ChevronLeft size={32} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+        </button>
+
+        <button
+          className="absolute right-4 md:right-0 z-50 p-3 rounded-full text-purple-400 transition-all hover:scale-110 hover:bg-purple-500/10 group"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleArrowHover("right");
+          }}
+          onMouseEnter={() => handleArrowHover("right")}
+        >
+          <ChevronRight size={32} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+        </button>
       </div>
     </div>
   );

@@ -78,7 +78,7 @@ const ContactSection = () => {
           transition={{ duration: 0.7, delay: 0.4 }}
         >
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
-            💡 Após o agendamento, você receberá um e-mail de confirmação com todos os detalhes da reunião e um link para o Google Meet.
+            Após o agendamento, você receberá um e-mail de confirmação com todos os detalhes da reunião e um link para o Google Meet.
           </p>
         </motion.div>
       </div>

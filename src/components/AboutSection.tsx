@@ -51,7 +51,7 @@ const AboutSection = () => {
     },
     {
       id: 5,
-      title: "ConciArge Saúde",
+      title: "ConcIArge Saúde",
       date: "Solução Setorial",
       content: "IA Concierge para clínicas e profissionais de saúde. Atendimento 24/7 com automação humanizada, agendamento inteligente e triagem básica para pacientes.",
       category: "SETORIAL",
@@ -102,7 +102,7 @@ const AboutSection = () => {
         <RadialOrbitalTimeline timelineData={ecosystemData} />
 
         {/* Footer da seção */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16 pt-4 sm:pt-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 md:pb-8 pt-0">
           <div className="text-center">
             <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
               Cada solução foi desenvolvida com expertise específica, garantindo que a IA compreenda profundamente as necessidades do seu negócio.

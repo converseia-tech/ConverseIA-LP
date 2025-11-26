@@ -32,12 +32,12 @@ const ClientsSection = () => {
   const clientItems = clients.map((client, index) => (
     <div
       key={`${client.name}-${index}`}
-      className="flex items-center justify-center p-6 rounded-xl bg-black/80 dark:bg-card/50 backdrop-blur-sm border border-border hover:border-purple-500/30 transition-all duration-300 aspect-square"
+      className="flex items-center justify-center px-8 py-4 h-24 rounded-2xl bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 group"
     >
       <img
         src={client.logo}
         alt={client.name}
-        className="max-h-14 max-w-full w-auto object-contain"
+        className="max-h-12 w-auto object-contain transition-all opacity-50 grayscale brightness-0 invert group-hover:opacity-100"
       />
     </div>
   ));

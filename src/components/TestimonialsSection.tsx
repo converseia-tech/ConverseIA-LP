@@ -11,7 +11,7 @@ const TestimonialsSection = () => {
     },
     {
       img: "/Fotos_comentários_pessoas/Dr.Lucas_Borges.jpg",
-      quote: "Estou a um bom tempo com eles e o serviço é incrível!",
+      quote: "Estou há um bom tempo com eles e o serviço é incrível! A automação transformou nosso atendimento.",
       name: "Dr. Lucas Borges",
       role: "Borges Advogados",
     },

@@ -3,19 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { List, X, Scales, Buildings, Code, Database, Globe, Sparkle } from "phosphor-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
 
-  // Animação da navbar ao scrollar - estilo Amigo
-  const navPadding = useTransform(scrollY, [0, 100], ["1.25rem", "0.875rem"]);
-  const navScale = useTransform(scrollY, [0, 100], [1, 0.98]);
-  const borderRadius = useTransform(scrollY, [0, 100], ["0px", "16px"]);
-  const navWidth = useTransform(scrollY, [0, 100], ["100%", "70%"]);
-  const navMarginTop = useTransform(scrollY, [0, 100], ["0px", "16px"]);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const scrolled = latest > 50;
+    if (scrolled !== isScrolled) {
+      setIsScrolled(scrolled);
+    }
+  });
 
   // Determina qual logo mostrar baseado na rota
   const getLogo = () => {
@@ -141,27 +142,27 @@ const Navigation = () => {
   return (
     <motion.nav
       className="fixed top-0 left-0 right-0 z-[100] flex justify-center"
-      style={{
-        paddingTop: navMarginTop,
-        paddingLeft: navMarginTop,
-        paddingRight: navMarginTop
+      animate={{
+        paddingTop: isScrolled ? "12px" : "0px",
+        paddingLeft: isScrolled ? "12px" : "0px",
+        paddingRight: isScrolled ? "12px" : "0px",
       }}
+      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <motion.div
         className="w-full max-w-[100vw] bg-background backdrop-blur-xl border border-border/50"
-        style={{
-          width: navWidth,
-          borderRadius: borderRadius,
-          scale: navScale,
+        animate={{
+          width: isScrolled ? "90%" : "100%",
+          borderRadius: isScrolled ? "12px" : "0px",
         }}
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="flex justify-between items-center"
-            style={{
-              paddingTop: navPadding,
-              paddingBottom: navPadding
+            animate={{
+              paddingTop: isScrolled ? "1rem" : "1.25rem",
+              paddingBottom: isScrolled ? "1rem" : "1.25rem",
             }}
           >
             {/* Logo */}
@@ -170,6 +171,7 @@ const Navigation = () => {
                 src={getLogo()}
                 alt="ConverseIA"
                 className="h-8 sm:h-10 lg:h-12 w-auto object-contain transition-all duration-500 ease-in-out"
+                style={{ filter: "brightness(0) saturate(100%) invert(24%) sepia(68%) saturate(4368%) hue-rotate(263deg) brightness(93%) contrast(93%)" }}
               />
             </Link>
 
@@ -351,7 +353,7 @@ const Navigation = () => {
 
             {/* Botões de Ação - Direita */}
             <div className="hidden lg:flex items-center space-x-3">
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
 
               <Button asChild size="sm" variant="ghost" className="text-sm xl:text-base px-4 xl:px-6 text-muted-foreground hover:text-purple-400">
                 <Link to="/contratacao">Login</Link>
@@ -527,9 +529,9 @@ const Navigation = () => {
                 </button>
 
                 <div className="px-3 py-2 pt-3 space-y-2">
-                  <div className="flex justify-center mb-3">
+                  {/* <div className="flex justify-center mb-3">
                     <ThemeToggle />
-                  </div>
+                  </div> */}
 
                   <Button asChild size="sm" variant="ghost" className="w-full text-muted-foreground hover:text-purple-400">
                     <Link to="/contratacao" onClick={() => setIsOpen(false)}>

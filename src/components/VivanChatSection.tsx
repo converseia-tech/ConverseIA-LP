@@ -83,7 +83,7 @@ const VivanChatSection = () => {
                     href={`https://wa.me/${whatsappNumber}?text=Olá!%20Gostaria%20de%20falar%20com%20a%20Vivan`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-6 py-3 sm:py-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white text-sm sm:text-base font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
+                    className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-6 py-3 sm:py-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-sm sm:text-base font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
                   >
                     <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>WhatsApp</span>
