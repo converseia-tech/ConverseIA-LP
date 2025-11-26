@@ -170,7 +170,7 @@ const Navigation = () => {
               <img
                 src={getLogo()}
                 alt="ConverseIA"
-                className="h-8 sm:h-10 lg:h-12 w-auto object-contain transition-all duration-500 ease-in-out"
+                className="h-8 sm:h-10 lg:h-12 w-auto object-contain transition-all duration-500 ease-in-out hover:scale-110"
                 style={{ filter: "brightness(0) saturate(100%) invert(24%) sepia(68%) saturate(4368%) hue-rotate(263deg) brightness(93%) contrast(93%)" }}
               />
             </Link>
@@ -187,10 +187,10 @@ const Navigation = () => {
                 </button>
 
                 {/* Mega Menu Dropdown */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[calc(100vw-2rem)] max-w-[650px] bg-[hsl(var(--background))] backdrop-blur-xl border border-border rounded-2xl shadow-2xl shadow-black/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[calc(100vw-2rem)] max-w-[650px] bg-background/95 backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-2xl shadow-purple-500/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
                   <div className="p-8">
                     {/* Header - Ver todas as soluções */}
-                    <button
+                    {/* <button
                       onClick={() => {
                         const element = document.getElementById('solutions');
                         if (element) {
@@ -210,7 +210,7 @@ const Navigation = () => {
                       <svg className="w-5 h-5 text-purple-400 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </button>
+                    </button> */}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                       {/* Coluna 1: Soluções Setoriais */}
@@ -335,7 +335,7 @@ const Navigation = () => {
               </a>
 
               {/* Contato */}
-              <button
+              {/* <button
                 onClick={() => {
                   if (location.pathname === '/') {
                     const element = document.getElementById('contato');
@@ -348,7 +348,7 @@ const Navigation = () => {
               >
                 Contato
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300" />
-              </button>
+              </button> */}
             </div>
 
             {/* Botões de Ação - Direita */}
@@ -455,7 +455,7 @@ const Navigation = () => {
                   </div>
 
                   {/* Ver todas */}
-                  <button
+                  {/* <button
                     onClick={() => {
                       setIsOpen(false);
                       setTimeout(() => {
@@ -471,7 +471,7 @@ const Navigation = () => {
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* Sobre nós e Insights */}
@@ -513,7 +513,7 @@ const Navigation = () => {
                 </a>
 
                 {/* Contato */}
-                <button
+                {/* <button
                   onClick={() => {
                     setIsOpen(false);
                     if (location.pathname === '/') {
@@ -526,7 +526,7 @@ const Navigation = () => {
                   className="block w-full text-left px-3 py-2 text-base font-medium text-muted-foreground hover:text-purple-400 hover:bg-purple-500/10 rounded-md transition-colors"
                 >
                   Contato
-                </button>
+                </button> */}
 
                 <div className="px-3 py-2 pt-3 space-y-2">
                   {/* <div className="flex justify-center mb-3">

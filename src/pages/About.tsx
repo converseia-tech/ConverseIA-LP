@@ -2,10 +2,6 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Timeline } from "@/components/ui/timeline";
 import {
-  ScrollAnimation,
-  ScrollScale,
-  ScrollTranslateX,
-  ScrollTranslateY,
   TeamCard
 } from "@/components/ui/team-section";
 import { Brain, MessageSquare, Sparkles, Target, Users, Rocket, CheckCircle2, Eye, Heart, Bot, Zap, ArrowDown } from "lucide-react";
@@ -231,39 +227,28 @@ const About = () => {
         </div>
 
         {/* Team Section */}
-        <section className="py-20 overflow-hidden">
-          <ScrollAnimation>
-            <ScrollTranslateY>
-              <ScrollScale
-                inputRange={[0, 0.5]}
-                scaleRange={[1.4, 1]}
-                className="w-10/12 flex flex-col justify-center text-center items-center mx-auto origin-center py-12"
-              >
-                <h2 className="font-display text-4xl md:text-5xl font-bold">
-                  Equipe de <span className="bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent">especialistas</span>
-                </h2>
-                <p className="text-lg md:text-xl text-muted-foreground mt-4 max-w-2xl">
-                  Profissionais apaixonados por tecnologia e inovação, dedicados a transformar negócios através da IA
-                </p>
-              </ScrollScale>
-              <div className="w-full">
-                <ScrollTranslateX
-                  inputRange={[0.4, 0.9]}
-                  xRange={['100%', '-50%']}
-                  className="flex flex-nowrap gap-4 px-4"
-                >
-                  {teamMembers.map((member, index) => (
-                    <TeamCard
-                      className="min-w-[48vw] md:min-w-[20vw] bg-card border border-border rounded-xl overflow-hidden"
-                      key={index}
-                      member={member}
-                    />
-                  ))}
-                </ScrollTranslateX>
-              </div>
-            </ScrollTranslateY >
-          </ScrollAnimation >
-        </section >
+        <section className="py-20 relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Equipe de <span className="bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent">especialistas</span>
+              </h2>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                Profissionais apaixonados por tecnologia e inovação, dedicados a transformar negócios através da IA
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {teamMembers.map((member, index) => (
+                <TeamCard
+                  key={index}
+                  member={member}
+                  className="bg-card/50 backdrop-blur-sm border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 group"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
 
 
       </main >

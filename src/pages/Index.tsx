@@ -8,12 +8,10 @@ import ClientsSection from "@/components/ClientsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import SolutionsSection from "@/components/SolutionsSection";
-import { GlobalBackground } from "@/components/ui/global-background";
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
-      <GlobalBackground />
       <Navigation />
       <main>
         <HeroSection />
