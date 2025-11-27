@@ -5,7 +5,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { List, X, Scales, Buildings, Code, Database, Globe, Sparkle } from "phosphor-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
-const Navigation = () => {
+const Navigation = ({ transparent = false }: { transparent?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -26,6 +26,16 @@ const Navigation = () => {
       return "/logo_conciarge.png";
     }
     return "/logo_converseia.png";
+  };
+
+  // Helper para cor do botão
+  const getButtonColorClass = () => {
+    if (location.pathname === "/direito") {
+      return "bg-[#0055fb] hover:bg-[#0044cc] text-white shadow-[0_0_20px_rgba(0,85,251,0.3)]";
+    } else if (location.pathname === "/conciarge") {
+      return "bg-[#20a5c2] hover:bg-[#1a8da6] text-white shadow-[0_0_20px_rgba(32,165,194,0.3)]";
+    }
+    return "bg-purple-600/90 hover:bg-purple-700/90 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]";
   };
 
   // Aplica paleta de cores baseada na rota - Cores originais dos sites
@@ -150,10 +160,12 @@ const Navigation = () => {
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <motion.div
-        className="w-full max-w-[100vw] bg-background backdrop-blur-xl border border-border/50"
+        className={`w-full max-w-[100vw] ${transparent && !isScrolled ? 'bg-transparent border-transparent' : 'bg-background/80 backdrop-blur-xl border-b border-white/5 lg:border-border/50'}`}
         animate={{
           width: isScrolled ? "90%" : "100%",
           borderRadius: isScrolled ? "12px" : "0px",
+          border: isScrolled ? "1px solid rgba(255,255,255,0.1)" : (transparent ? "none" : "1px solid rgba(255,255,255,0.05)"),
+          backgroundColor: isScrolled ? "rgba(10, 10, 10, 0.8)" : (transparent ? "transparent" : "rgba(10, 10, 10, 0.8)"),
         }}
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       >
@@ -186,39 +198,16 @@ const Navigation = () => {
                 </button>
 
                 {/* Mega Menu Dropdown */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[calc(100vw-2rem)] max-w-[650px] bg-background/95 backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-2xl shadow-purple-500/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[calc(100vw-2rem)] max-w-[650px] bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-purple-500/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
                   <div className="p-8">
-                    {/* Header - Ver todas as soluções */}
-                    {/* <button
-                      onClick={() => {
-                        const element = document.getElementById('solutions');
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }}
-                      className="w-full flex items-center justify-between px-4 py-3 mb-6 rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 hover:border-purple-500/40 transition-all group/all"
-                    >
-                      <div className="text-left">
-                        <div className="text-sm font-bold text-foreground group-hover/all:text-purple-400 transition-colors">
-                          Ver todas as soluções
-                        </div>
-                        <div className="text-xs text-muted-foreground/80 mt-0.5">
-                          Conheça o Ecossistema ConverseIA
-                        </div>
-                      </div>
-                      <svg className="w-5 h-5 text-purple-400 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button> */}
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                       {/* Coluna 1: Soluções Setoriais */}
                       <div>
-                        <div className="mb-5 pb-4 border-b border-border">
-                          <h3 className="text-sm font-bold text-foreground mb-1.5">
+                        <div className="mb-5 pb-4 border-b border-white/10">
+                          <h3 className="text-sm font-bold text-white mb-1.5">
                             {solucoesMenu.setoriais.title}
                           </h3>
-                          <p className="text-xs text-muted-foreground/80">
+                          <p className="text-xs text-gray-400">
                             {solucoesMenu.setoriais.description}
                           </p>
                         </div>
@@ -229,16 +218,16 @@ const Navigation = () => {
                               <Link
                                 key={item.name}
                                 to={item.path}
-                                className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 transition-all duration-200 group/item"
+                                className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all duration-200 group/item"
                               >
-                                <div className="p-2 bg-purple-500/10 rounded-lg mt-0.5 group-hover/item:bg-purple-500/20 transition-colors flex-shrink-0">
+                                <div className="p-2 bg-white/5 rounded-lg mt-0.5 group-hover/item:bg-white/10 transition-colors flex-shrink-0">
                                   <Icon weight="fill" className="w-4 h-4 text-purple-400" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <div className="font-semibold text-sm text-foreground group-hover/item:text-purple-400 transition-colors">
+                                  <div className="font-semibold text-sm text-gray-200 group-hover/item:text-purple-400 transition-colors">
                                     {item.name}
                                   </div>
-                                  <div className="text-xs text-muted-foreground/90 mt-0.5 leading-tight">
+                                  <div className="text-xs text-gray-500 mt-0.5 leading-tight">
                                     {item.description}
                                   </div>
                                 </div>
@@ -250,11 +239,11 @@ const Navigation = () => {
 
                       {/* Coluna 2: Produtos */}
                       <div>
-                        <div className="mb-5 pb-4 border-b border-border">
-                          <h3 className="text-sm font-bold text-foreground mb-1.5">
+                        <div className="mb-5 pb-4 border-b border-white/10">
+                          <h3 className="text-sm font-bold text-white mb-1.5">
                             {solucoesMenu.produtos.title}
                           </h3>
-                          <p className="text-xs text-muted-foreground/80">
+                          <p className="text-xs text-gray-400">
                             {solucoesMenu.produtos.description}
                           </p>
                         </div>
@@ -265,14 +254,14 @@ const Navigation = () => {
                               <Link
                                 key={item.name}
                                 to={item.path}
-                                className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 transition-all duration-200 group/item relative"
+                                className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all duration-200 group/item relative"
                               >
                                 <div className="p-2 bg-blue-500/10 rounded-lg mt-0.5 group-hover/item:bg-blue-500/20 transition-colors flex-shrink-0">
                                   <Icon weight="fill" className="w-4 h-4 text-blue-400" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2 mb-0.5">
-                                    <span className="font-semibold text-sm text-foreground group-hover/item:text-purple-400 transition-colors">
+                                    <span className="font-semibold text-sm text-gray-200 group-hover/item:text-purple-400 transition-colors">
                                       {item.name}
                                     </span>
                                     {item.badge && (
@@ -281,7 +270,7 @@ const Navigation = () => {
                                       </span>
                                     )}
                                   </div>
-                                  <div className="text-xs text-muted-foreground/90 leading-tight">
+                                  <div className="text-xs text-gray-500 leading-tight">
                                     {item.description}
                                   </div>
                                 </div>
@@ -332,22 +321,6 @@ const Navigation = () => {
                 Seja Parceiro
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300" />
               </a>
-
-              {/* Contato */}
-              {/* <button
-                onClick={() => {
-                  if (location.pathname === '/') {
-                    const element = document.getElementById('contato');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }
-                }}
-                className="text-sm xl:text-base font-medium text-muted-foreground hover:text-purple-400 transition-all duration-300 relative group"
-              >
-                Contato
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300" />
-              </button> */}
             </div>
 
             {/* Botões de Ação - Direita */}
@@ -355,10 +328,10 @@ const Navigation = () => {
               {/* <ThemeToggle /> */}
 
               <Button asChild size="sm" variant="ghost" className="text-sm xl:text-base px-4 xl:px-6 text-muted-foreground hover:text-purple-400">
-                <Link to="/contratacao">Login</Link>
+                <Link to="/login">Login</Link>
               </Button>
 
-              <Button asChild size="sm" className="text-sm xl:text-base px-4 xl:px-6 bg-purple-600/90 hover:bg-purple-700/90 text-white">
+              <Button asChild size="sm" className={`text-sm xl:text-base px-4 xl:px-6 transition-all duration-300 ${getButtonColorClass()}`}>
                 <Link to="/contratacao">Contrate Agora</Link>
               </Button>
             </div>
@@ -379,14 +352,14 @@ const Navigation = () => {
           {/* Mobile Navigation */}
           {isOpen && (
             <div className="lg:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-xl rounded-lg mt-2 border border-border mb-4 shadow-lg shadow-purple-500/10">
+              <div className="px-2 pt-2 pb-3 space-y-1 bg-[#0a0a0a]/95 backdrop-blur-xl rounded-lg mt-2 border border-white/10 mb-4 shadow-lg shadow-purple-500/10">
                 {/* Soluções Mobile - Organizado por categorias */}
                 <div className="px-3 py-2">
                   <p className="text-xs font-bold text-purple-400 mb-4 uppercase tracking-wider">Soluções</p>
 
                   {/* Soluções Setoriais */}
                   <div className="mb-5">
-                    <p className="text-xs font-bold text-foreground mb-3 px-2">
+                    <p className="text-xs font-bold text-white mb-3 px-2">
                       {solucoesMenu.setoriais.title}
                     </p>
                     <div className="space-y-1">
@@ -396,18 +369,18 @@ const Navigation = () => {
                           <Link
                             key={item.name}
                             to={item.path}
-                            className="flex items-start gap-3 px-3 py-3 rounded-xl hover:bg-purple-500/10 transition-colors"
+                            className="flex items-start gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition-colors"
                             onClick={() => {
                               setIsOpen(false);
                               handleNavClick(item.path);
                             }}
                           >
-                            <div className="p-2 bg-purple-500/10 rounded-lg">
+                            <div className="p-2 bg-white/5 rounded-lg">
                               <Icon weight="fill" className="w-5 h-5 text-purple-400" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="text-sm font-semibold text-foreground">{item.name}</div>
-                              <div className="text-xs text-muted-foreground/90 mt-1">{item.description}</div>
+                              <div className="text-sm font-semibold text-gray-200">{item.name}</div>
+                              <div className="text-xs text-gray-500 mt-1">{item.description}</div>
                             </div>
                           </Link>
                         );
@@ -417,7 +390,7 @@ const Navigation = () => {
 
                   {/* Produtos */}
                   <div className="mb-5">
-                    <p className="text-xs font-bold text-foreground mb-3 px-2">
+                    <p className="text-xs font-bold text-white mb-3 px-2">
                       {solucoesMenu.produtos.title}
                     </p>
                     <div className="space-y-1">
@@ -427,7 +400,7 @@ const Navigation = () => {
                           <Link
                             key={item.name}
                             to={item.path}
-                            className="flex items-start gap-3 px-3 py-3 rounded-xl hover:bg-purple-500/10 transition-colors"
+                            className="flex items-start gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition-colors"
                             onClick={() => {
                               setIsOpen(false);
                               handleNavClick(item.path);
@@ -438,39 +411,20 @@ const Navigation = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
-                                <span className="text-sm font-semibold text-foreground">{item.name}</span>
+                                <span className="text-sm font-semibold text-gray-200">{item.name}</span>
                                 {item.badge && (
                                   <span className="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">
                                     {item.badge}
                                   </span>
                                 )}
                               </div>
-                              <div className="text-xs text-muted-foreground/90">{item.description}</div>
+                              <div className="text-xs text-gray-500">{item.description}</div>
                             </div>
                           </Link>
                         );
                       })}
                     </div>
                   </div>
-
-                  {/* Ver todas */}
-                  {/* <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      setTimeout(() => {
-                        const element = document.getElementById('solutions');
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }, 0);
-                    }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-purple-400 hover:bg-purple-500/10 rounded-xl transition-colors"
-                  >
-                    Ver todas as soluções
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button> */}
                 </div>
 
                 {/* Sobre nós e Insights */}
@@ -511,33 +465,13 @@ const Navigation = () => {
                   Seja Parceiro
                 </a>
 
-                {/* Contato */}
-                {/* <button
-                  onClick={() => {
-                    setIsOpen(false);
-                    if (location.pathname === '/') {
-                      const element = document.getElementById('contato');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }
-                  }}
-                  className="block w-full text-left px-3 py-2 text-base font-medium text-muted-foreground hover:text-purple-400 hover:bg-purple-500/10 rounded-md transition-colors"
-                >
-                  Contato
-                </button> */}
-
                 <div className="px-3 py-2 pt-3 space-y-2">
-                  {/* <div className="flex justify-center mb-3">
-                    <ThemeToggle />
-                  </div> */}
-
                   <Button asChild size="sm" variant="ghost" className="w-full text-muted-foreground hover:text-purple-400">
-                    <Link to="/contratacao" onClick={() => setIsOpen(false)}>
+                    <Link to="/login" onClick={() => setIsOpen(false)}>
                       Login
                     </Link>
                   </Button>
-                  <Button asChild size="sm" className="w-full bg-purple-600/90 hover:bg-purple-700/90 text-white">
+                  <Button asChild size="sm" className={`w-full ${getButtonColorClass()}`}>
                     <Link to="/contratacao" onClick={() => setIsOpen(false)}>
                       Contrate Agora
                     </Link>

@@ -16,6 +16,7 @@ import LandingPages from "./pages/LandingPages";
 import AgentesIA from "./pages/AgentesIA";
 import ProjetosPersonalizados from "./pages/ProjetosPersonalizados";
 import Contratacao from "./pages/Contratacao";
+import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
 import GerenciarFormularios from "./pages/GerenciarFormularios";
 import DotShaderDemo from "./pages/DotShaderDemo";
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/sobre" element={<About />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="/contratacao" element={<Contratacao />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/gerenciar-formularios" element={<GerenciarFormularios />} />
             <Route path="/dot-shader-demo" element={<DotShaderDemo />} />

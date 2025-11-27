@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ChatCircleDots, Sparkle, ArrowRight, CheckCircle, Upload, Robot, Scales, FirstAid, Globe, ClipboardText, Target, Paperclip } from "phosphor-react";
-import { useNavigate } from "react-router-dom";
+import { Sparkle, ArrowRight, Upload, Scales, FirstAid, Globe, CaretLeft } from "phosphor-react";
+import { GlobalBackground } from "@/components/GlobalBackground";
 
 interface FormData {
   // Step 1
@@ -68,9 +68,6 @@ interface FormData {
 }
 
 const Contratacao = () => {
-  const navigate = useNavigate();
-  const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20apresenta%C3%A7%C3%A3o%20dos%20servi%C3%A7os%20ConverseIA.&type=phone_number&app_absent=0";
-  
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     nicho: "",
@@ -124,7 +121,6 @@ const Contratacao = () => {
   };
 
   const handleSubmit = () => {
-    // Montar mensagem para WhatsApp
     const message = `
 *NOVA SOLICITAÇÃO DE CONTRATAÇÃO - ConverseIA*
 
@@ -163,949 +159,483 @@ ${formData.observacoes || "Nenhuma observação adicional"}
       return;
     }
     setCurrentStep(prev => Math.min(prev + 1, 5));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const prevStep = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const stepVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -20 }
   };
 
   const renderStep1 = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Selecione seu <span className="text-purple-500">segmento</span>
+    <motion.div
+      variants={stepVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="space-y-8"
+    >
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-light text-white mb-4">
+          Qual é o seu <span className="font-bold text-purple-400">segmento?</span>
         </h2>
-        <p className="text-muted-foreground">
-          Escolha a área de atuação do seu negócio para personalizarmos sua experiência
+        <p className="text-slate-400 font-light">
+          Personalizaremos a experiência baseada na sua área de atuação
         </p>
-      </motion.div>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div
-          onClick={() => updateFormData("nicho", "Advocacia")}
-          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-md hover:shadow-purple-500/5 ${
-            formData.nicho === "Advocacia"
-              ? "border-primary bg-primary/10"
-              : "border-border bg-card/50"
-          }`}
-        >
-          <div className="text-center">
-            <Scales weight="light" className="h-12 w-12 mx-auto mb-4 text-primary" />
-            <h3 className="text-xl font-bold mb-2">Advocacia</h3>
-            <p className="text-sm text-muted-foreground">
-              Escritórios jurídicos, advogados e departamentos legais
-            </p>
-          </div>
-        </div>
+        {[
+          { id: "Advocacia", icon: Scales, label: "Advocacia", desc: "Escritórios e Departamentos Jurídicos", color: "blue" },
+          { id: "Clínica", icon: FirstAid, label: "Saúde", desc: "Clínicas, Consultórios e Hospitais", color: "teal" },
+          { id: "Outro", icon: Globe, label: "Outros", desc: "Comércio, Serviços e Consultorias", color: "purple" }
+        ].map((item) => {
+          const isSelected = formData.nicho === item.id;
+          const colorClasses = {
+            blue: {
+              border: "border-blue-500",
+              bg: "bg-blue-500/10",
+              hoverBorder: "hover:border-blue-500/50",
+              gradient: "from-blue-500/20",
+              iconBg: "bg-blue-500",
+              hoverIconText: "group-hover:text-blue-400"
+            },
+            teal: {
+              border: "border-teal-500",
+              bg: "bg-teal-500/10",
+              hoverBorder: "hover:border-teal-500/50",
+              gradient: "from-teal-500/20",
+              iconBg: "bg-teal-500",
+              hoverIconText: "group-hover:text-teal-400"
+            },
+            purple: {
+              border: "border-purple-500",
+              bg: "bg-purple-500/10",
+              hoverBorder: "hover:border-purple-500/50",
+              gradient: "from-purple-500/20",
+              iconBg: "bg-purple-500",
+              hoverIconText: "group-hover:text-purple-400"
+            }
+          }[item.color as "blue" | "teal" | "purple"];
 
-        <div
-          onClick={() => updateFormData("nicho", "Clínica")}
-          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-md hover:shadow-purple-500/5 ${
-            formData.nicho === "Clínica"
-              ? "border-primary bg-primary/10"
-              : "border-border bg-card/50"
-          }`}
-        >
-          <div className="text-center">
-            <FirstAid weight="light" className="h-12 w-12 mx-auto mb-4 text-primary" />
-            <h3 className="text-xl font-bold mb-2">Clínica</h3>
-            <p className="text-sm text-muted-foreground">
-              Clínicas médicas, consultórios e centros de saúde
-            </p>
-          </div>
-        </div>
-
-        <div
-          onClick={() => updateFormData("nicho", "Outro")}
-          className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-md hover:shadow-purple-500/5 ${
-            formData.nicho === "Outro"
-              ? "border-primary bg-primary/10"
-              : "border-border bg-card/50"
-          }`}
-        >
-          <div className="text-center">
-            <Globe weight="light" className="h-12 w-12 mx-auto mb-4 text-primary" />
-            <h3 className="text-xl font-bold mb-2">Outro Setor</h3>
-            <p className="text-sm text-muted-foreground">
-              Comércio, serviços, consultorias e demais áreas
-            </p>
-          </div>
-        </div>
+          return (
+            <div
+              key={item.id}
+              onClick={() => updateFormData("nicho", item.id)}
+              className={`cursor-pointer p-8 rounded-2xl border transition-all duration-300 group relative overflow-hidden ${
+                isSelected
+                  ? `${colorClasses.border} ${colorClasses.bg}`
+                  : `border-white/10 bg-white/5 ${colorClasses.hoverBorder} hover:bg-white/[0.07]`
+              }`}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient} to-transparent opacity-0 transition-opacity duration-500 ${isSelected ? 'opacity-100' : 'group-hover:opacity-50'}`} />
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-colors duration-300 ${
+                  isSelected ? `${colorClasses.iconBg} text-white` : `bg-white/10 text-slate-400 ${colorClasses.hoverIconText}`
+                }`}>
+                  <item.icon size={32} weight={isSelected ? "fill" : "light"} />
+                </div>
+                <h3 className="text-xl font-medium text-white mb-2">{item.label}</h3>
+                <p className="text-sm text-slate-400">{item.desc}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </motion.div>
   );
 
   const renderStep2 = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Dados da <span className="text-purple-500">Empresa</span>
+    <motion.div
+      variants={stepVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="space-y-8"
+    >
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-light text-white mb-4">
+          Dados da <span className="font-bold text-purple-400">Empresa</span>
         </h2>
-        <p className="text-muted-foreground">
-          Informações básicas para configurarmos seu agente
+        <p className="text-slate-400 font-light">
+          Informações essenciais para iniciarmos o setup
         </p>
-      </motion.div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="nomeEmpresa">
-            Nome da {formData.nicho === "Advocacia" ? "Escritório" : formData.nicho === "Clínica" ? "Clínica" : "Empresa"} *
-          </Label>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-3">
+          <Label className="text-slate-300">Nome da Empresa</Label>
           <Input
-            id="nomeEmpresa"
-            placeholder="Digite o nome"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
+            placeholder="Digite o nome oficial"
             value={formData.nomeEmpresa}
             onChange={(e) => updateFormData("nomeEmpresa", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="nomeResponsavel">Nome do Responsável *</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">Responsável</Label>
           <Input
-            id="nomeResponsavel"
-            placeholder="Nome completo"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
+            placeholder="Seu nome completo"
             value={formData.nomeResponsavel}
             onChange={(e) => updateFormData("nomeResponsavel", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">E-mail *</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">E-mail Corporativo</Label>
           <Input
-            id="email"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
             type="email"
-            placeholder="contato@empresa.com.br"
+            placeholder="nome@empresa.com.br"
             value={formData.email}
             onChange={(e) => updateFormData("email", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="whatsapp">WhatsApp / Telefone *</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">WhatsApp / Telefone</Label>
           <Input
-            id="whatsapp"
-            type="tel"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
             placeholder="(00) 00000-0000"
             value={formData.whatsapp}
             onChange={(e) => updateFormData("whatsapp", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="cnpj">CNPJ (opcional)</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">CNPJ (Opcional)</Label>
           <Input
-            id="cnpj"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
             placeholder="00.000.000/0000-00"
             value={formData.cnpj}
             onChange={(e) => updateFormData("cnpj", e.target.value)}
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="numProfissionais">
-            Número de {formData.nicho === "Advocacia" ? "Advogados" : formData.nicho === "Clínica" ? "Profissionais" : "Colaboradores"} *
-          </Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">Número de Colaboradores</Label>
           <Input
-            id="numProfissionais"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
             type="number"
-            placeholder="Ex: 5"
+            placeholder="Ex: 10"
             value={formData.numProfissionais}
             onChange={(e) => updateFormData("numProfissionais", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="cidade">Cidade *</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">Cidade</Label>
           <Input
-            id="cidade"
-            placeholder="São Paulo"
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
+            placeholder="Sua cidade"
             value={formData.cidade}
             onChange={(e) => updateFormData("cidade", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="estado">Estado *</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">Estado</Label>
           <Select value={formData.estado} onValueChange={(value) => updateFormData("estado", value)}>
-            <SelectTrigger id="estado">
-              <SelectValue placeholder="Selecione" />
+            <SelectTrigger className="bg-white/5 border-white/10 text-white h-12">
+              <SelectValue placeholder="UF" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="AC">Acre</SelectItem>
-              <SelectItem value="AL">Alagoas</SelectItem>
-              <SelectItem value="AP">Amapá</SelectItem>
-              <SelectItem value="AM">Amazonas</SelectItem>
-              <SelectItem value="BA">Bahia</SelectItem>
-              <SelectItem value="CE">Ceará</SelectItem>
-              <SelectItem value="DF">Distrito Federal</SelectItem>
-              <SelectItem value="ES">Espírito Santo</SelectItem>
-              <SelectItem value="GO">Goiás</SelectItem>
-              <SelectItem value="MA">Maranhão</SelectItem>
-              <SelectItem value="MT">Mato Grosso</SelectItem>
-              <SelectItem value="MS">Mato Grosso do Sul</SelectItem>
-              <SelectItem value="MG">Minas Gerais</SelectItem>
-              <SelectItem value="PA">Pará</SelectItem>
-              <SelectItem value="PB">Paraíba</SelectItem>
-              <SelectItem value="PR">Paraná</SelectItem>
-              <SelectItem value="PE">Pernambuco</SelectItem>
-              <SelectItem value="PI">Piauí</SelectItem>
-              <SelectItem value="RJ">Rio de Janeiro</SelectItem>
-              <SelectItem value="RN">Rio Grande do Norte</SelectItem>
-              <SelectItem value="RS">Rio Grande do Sul</SelectItem>
-              <SelectItem value="RO">Rondônia</SelectItem>
-              <SelectItem value="RR">Roraima</SelectItem>
-              <SelectItem value="SC">Santa Catarina</SelectItem>
-              <SelectItem value="SP">São Paulo</SelectItem>
-              <SelectItem value="SE">Sergipe</SelectItem>
-              <SelectItem value="TO">Tocantins</SelectItem>
+            <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
+              {["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"].map(uf => (
+                <SelectItem key={uf} value={uf}>{uf}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
-  const renderStep3Advocacia = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Estrutura <span className="text-purple-500">Operacional</span>
+  const renderStep3 = () => (
+    <motion.div
+      variants={stepVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="space-y-8"
+    >
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-light text-white mb-4">
+          Detalhes da <span className="font-bold text-purple-400">Operação</span>
         </h2>
-        <p className="text-muted-foreground">
-          Como funciona sua operação jurídica atualmente
+        <p className="text-slate-400 font-light">
+          Entendendo seu fluxo de trabalho atual
         </p>
-      </motion.div>
+      </div>
 
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label>Possui CRM Jurídico? *</Label>
-          <RadioGroup value={formData.possuiCRM} onValueChange={(value) => updateFormData("possuiCRM", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="crm-sim" />
-              <Label htmlFor="crm-sim" className="cursor-pointer">Sim</Label>
+      <div className="space-y-8 max-w-2xl mx-auto">
+        <div className="space-y-4">
+          <Label className="text-lg text-white font-medium">Possui CRM ou Sistema de Gestão?</Label>
+          <RadioGroup 
+            value={formData.possuiCRM} 
+            onValueChange={(value) => updateFormData("possuiCRM", value)}
+            className="grid grid-cols-2 gap-4"
+          >
+            <div className={`flex items-center justify-center p-4 rounded-xl border cursor-pointer transition-all ${formData.possuiCRM === 'sim' ? 'bg-purple-500/20 border-purple-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
+              <RadioGroupItem value="sim" id="crm-sim" className="sr-only" />
+              <Label htmlFor="crm-sim" className="cursor-pointer w-full text-center text-white">Sim</Label>
             </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="crm-nao" />
-              <Label htmlFor="crm-nao" className="cursor-pointer">Não</Label>
+            <div className={`flex items-center justify-center p-4 rounded-xl border cursor-pointer transition-all ${formData.possuiCRM === 'nao' ? 'bg-purple-500/20 border-purple-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
+              <RadioGroupItem value="nao" id="crm-nao" className="sr-only" />
+              <Label htmlFor="crm-nao" className="cursor-pointer w-full text-center text-white">Não</Label>
             </div>
           </RadioGroup>
         </div>
 
         {formData.possuiCRM === "sim" && (
-          <div className="space-y-2">
-            <Label htmlFor="qualCRM">Qual CRM você utiliza?</Label>
+          <div className="space-y-3 animate-in fade-in slide-in-from-top-4">
+            <Label className="text-slate-300">Qual sistema utiliza?</Label>
             <Input
-              id="qualCRM"
-              placeholder="Ex: ADVBOX, CPJ, Legal One"
+              className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
+              placeholder="Nome do software"
               value={formData.qualCRM}
               onChange={(e) => updateFormData("qualCRM", e.target.value)}
             />
           </div>
         )}
 
-        <div className="space-y-2">
-          <Label htmlFor="captacaoClientes">Como é feita a captação de clientes hoje?</Label>
+        <div className="space-y-3">
+          <Label className="text-slate-300">Como é feita a captação/agendamento hoje?</Label>
           <Textarea
-            id="captacaoClientes"
-            placeholder="Ex: Indicações, Google Ads, redes sociais..."
-            value={formData.captacaoClientes}
-            onChange={(e) => updateFormData("captacaoClientes", e.target.value)}
-            rows={3}
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 min-h-[120px]"
+            placeholder="Descreva brevemente seu processo atual..."
+            value={formData.captacaoClientes || formData.agendamentoAtual}
+            onChange={(e) => {
+              updateFormData("captacaoClientes", e.target.value);
+              updateFormData("agendamentoAtual", e.target.value);
+            }}
           />
         </div>
-
-        <div className="space-y-2">
-          <Label>Principais áreas de atuação (selecione todas que se aplicam)</Label>
-          <div className="grid grid-cols-2 gap-4">
-            {["Previdenciário", "Bancário", "Trabalhista", "Cível", "Criminal", "Família", "Consumidor", "Empresarial"].map((area) => (
-              <div key={area} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`area-${area}`}
-                  checked={formData.areasAtuacao.includes(area)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      updateFormData("areasAtuacao", [...formData.areasAtuacao, area]);
-                    } else {
-                      updateFormData("areasAtuacao", formData.areasAtuacao.filter(a => a !== area));
-                    }
-                  }}
-                />
-                <Label htmlFor={`area-${area}`} className="cursor-pointer">{area}</Label>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Deseja agentes diferentes por área de atuação?</Label>
-          <RadioGroup value={formData.agentesPorArea} onValueChange={(value) => updateFormData("agentesPorArea", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="agentes-sim" />
-              <Label htmlFor="agentes-sim" className="cursor-pointer">Sim, um agente para cada área</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="agentes-nao" />
-              <Label htmlFor="agentes-nao" className="cursor-pointer">Não, um agente geral</Label>
-            </div>
-          </RadioGroup>
-        </div>
       </div>
-    </div>
-  );
-
-  const renderStep3Clinica = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Estrutura e <span className="text-purple-500">Agendamentos</span>
-        </h2>
-        <p className="text-muted-foreground">
-          Como funciona sua operação clínica atualmente
-        </p>
-      </motion.div>
-
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="areaPrincipal">Área Principal da Clínica</Label>
-          <Select value={formData.setorAtuacao} onValueChange={(value) => updateFormData("setorAtuacao", value)}>
-            <SelectTrigger id="areaPrincipal">
-              <SelectValue placeholder="Selecione" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Nutrição">Nutrição</SelectItem>
-              <SelectItem value="Psicologia">Psicologia</SelectItem>
-              <SelectItem value="Estética">Estética</SelectItem>
-              <SelectItem value="Odontologia">Odontologia</SelectItem>
-              <SelectItem value="Fisioterapia">Fisioterapia</SelectItem>
-              <SelectItem value="Medicina Geral">Medicina Geral</SelectItem>
-              <SelectItem value="Outro">Outro</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="agendamentoAtual">Como realiza agendamentos atualmente?</Label>
-          <Textarea
-            id="agendamentoAtual"
-            placeholder="Ex: WhatsApp, telefone, site..."
-            value={formData.agendamentoAtual}
-            onChange={(e) => updateFormData("agendamentoAtual", e.target.value)}
-            rows={2}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label>Possui sistema de gestão ou prontuário?</Label>
-          <RadioGroup value={formData.sistemaGestao} onValueChange={(value) => updateFormData("sistemaGestao", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="sistema-sim" />
-              <Label htmlFor="sistema-sim" className="cursor-pointer">Sim</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="sistema-nao" />
-              <Label htmlFor="sistema-nao" className="cursor-pointer">Não</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {formData.sistemaGestao === "sim" && (
-          <div className="space-y-2">
-            <Label htmlFor="qualSistema">Qual sistema você utiliza?</Label>
-            <Input
-              id="qualSistema"
-              placeholder="Ex: IClinic, Ninsaúde, Clinicorp..."
-              value={formData.qualCRM}
-              onChange={(e) => updateFormData("qualCRM", e.target.value)}
-            />
-          </div>
-        )}
-
-        <div className="space-y-2">
-          <Label>Deseja que a IA realize agendamentos automáticos?</Label>
-          <RadioGroup value={formData.agendamentoAutomatico} onValueChange={(value) => updateFormData("agendamentoAutomatico", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="auto-sim" />
-              <Label htmlFor="auto-sim" className="cursor-pointer">Sim, agendamento totalmente automatizado</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="auto-nao" />
-              <Label htmlFor="auto-nao" className="cursor-pointer">Não, apenas coleta de informações</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Deseja integração com: (selecione todas que se aplicam)</Label>
-          <div className="space-y-2">
-            {["IClinic", "Google Agenda", "Planilhas Google", "Ninsaúde", "Outro"].map((integracao) => (
-              <div key={integracao} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`integracao-${integracao}`}
-                  checked={formData.integracoes.includes(integracao)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      updateFormData("integracoes", [...formData.integracoes, integracao]);
-                    } else {
-                      updateFormData("integracoes", formData.integracoes.filter(i => i !== integracao));
-                    }
-                  }}
-                />
-                <Label htmlFor={`integracao-${integracao}`} className="cursor-pointer">{integracao}</Label>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderStep3Outro = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Estrutura <span className="text-purple-500">Operacional</span>
-        </h2>
-        <p className="text-muted-foreground">
-          Como funciona sua operação atualmente
-        </p>
-      </motion.div>
-
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="setorAtuacao">Setor de Atuação</Label>
-          <Input
-            id="setorAtuacao"
-            placeholder="Ex: Vendas, Consultoria, Comércio, Educação..."
-            value={formData.setorAtuacao}
-            onChange={(e) => updateFormData("setorAtuacao", e.target.value)}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label>Possui site ou e-commerce?</Label>
-          <RadioGroup value={formData.possuiSite} onValueChange={(value) => updateFormData("possuiSite", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="site-sim" />
-              <Label htmlFor="site-sim" className="cursor-pointer">Sim</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="site-nao" />
-              <Label htmlFor="site-nao" className="cursor-pointer">Não</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {formData.possuiSite === "sim" && (
-          <div className="space-y-2">
-            <Label htmlFor="linkSite">Informe o link do site</Label>
-            <Input
-              id="linkSite"
-              type="url"
-              placeholder="https://seusite.com.br"
-              value={formData.linkSite}
-              onChange={(e) => updateFormData("linkSite", e.target.value)}
-            />
-          </div>
-        )}
-
-        <div className="space-y-2">
-          <Label>Usa CRM ou sistema de atendimento?</Label>
-          <RadioGroup value={formData.possuiCRM} onValueChange={(value) => updateFormData("possuiCRM", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="crm-outro-sim" />
-              <Label htmlFor="crm-outro-sim" className="cursor-pointer">Sim</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="crm-outro-nao" />
-              <Label htmlFor="crm-outro-nao" className="cursor-pointer">Não</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {formData.possuiCRM === "sim" && (
-          <div className="space-y-2">
-            <Label htmlFor="qualCRMOutro">Qual sistema você utiliza?</Label>
-            <Input
-              id="qualCRMOutro"
-              placeholder="Ex: RD Station, HubSpot, Pipedrive..."
-              value={formData.qualCRM}
-              onChange={(e) => updateFormData("qualCRM", e.target.value)}
-            />
-          </div>
-        )}
-
-        <div className="space-y-2">
-          <Label>Como realiza contato com clientes hoje? (selecione todas que se aplicam)</Label>
-          <div className="space-y-2">
-            {["WhatsApp", "E-mail", "Telefone", "Site", "Instagram", "Facebook"].map((canal) => (
-              <div key={canal} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`contato-${canal}`}
-                  checked={formData.contatoAtual.includes(canal)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      updateFormData("contatoAtual", [...formData.contatoAtual, canal]);
-                    } else {
-                      updateFormData("contatoAtual", formData.contatoAtual.filter(c => c !== canal));
-                    }
-                  }}
-                />
-                <Label htmlFor={`contato-${canal}`} className="cursor-pointer">{canal}</Label>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Deseja que a IA: (selecione todas que se aplicam)</Label>
-          <div className="space-y-2">
-            {[
-              "Faça triagem de clientes",
-              "Envie orçamentos automáticos",
-              "Realize follow-up automático",
-              "Qualifique leads",
-              "Agende reuniões"
-            ].map((funcionalidade) => (
-              <div key={funcionalidade} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`func-${funcionalidade}`}
-                  checked={formData.funcionalidadesIA.includes(funcionalidade)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      updateFormData("funcionalidadesIA", [...formData.funcionalidadesIA, funcionalidade]);
-                    } else {
-                      updateFormData("funcionalidadesIA", formData.funcionalidadesIA.filter(f => f !== funcionalidade));
-                    }
-                  }}
-                />
-                <Label htmlFor={`func-${funcionalidade}`} className="cursor-pointer">{funcionalidade}</Label>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 
   const renderStep4 = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Personalização do <span className="text-purple-500">Agente</span>
+    <motion.div
+      variants={stepVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="space-y-8"
+    >
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-light text-white mb-4">
+          Personalize seu <span className="font-bold text-purple-400">Agente</span>
         </h2>
-        <p className="text-muted-foreground">
-          Como você quer que seu agente de IA se comporte
+        <p className="text-slate-400 font-light">
+          Defina a personalidade e comportamento da IA
         </p>
-      </motion.div>
+      </div>
 
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="nomeAgente">Nome desejado para o Agente *</Label>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-3">
+          <Label className="text-slate-300">Nome do Agente</Label>
           <Input
-            id="nomeAgente"
-            placeholder="Ex: Julia, Assistente Legal, Dr. AI..."
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 h-12"
+            placeholder="Ex: Assistente Virtual"
             value={formData.nomeAgente}
             onChange={(e) => updateFormData("nomeAgente", e.target.value)}
-            required
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="linguagem">Linguagem Desejada</Label>
-          <Select value={formData.linguagem} onValueChange={(value) => updateFormData("linguagem", value)}>
-            <SelectTrigger id="linguagem">
+        <div className="space-y-3">
+          <Label className="text-slate-300">Tom de Voz</Label>
+          <Select value={formData.tomVoz} onValueChange={(value) => updateFormData("tomVoz", value)}>
+            <SelectTrigger className="bg-white/5 border-white/10 text-white h-12">
               <SelectValue placeholder="Selecione" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
               <SelectItem value="formal">Formal</SelectItem>
               <SelectItem value="amigavel">Amigável</SelectItem>
-              <SelectItem value="tecnica">Técnica</SelectItem>
-              <SelectItem value="acolhedora">Acolhedora</SelectItem>
-              <SelectItem value="objetiva">Objetiva</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="tomVoz">Tom de Voz</Label>
-          <Select value={formData.tomVoz} onValueChange={(value) => updateFormData("tomVoz", value)}>
-            <SelectTrigger id="tomVoz">
-              <SelectValue placeholder="Selecione" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="empatico">Empático</SelectItem>
-              <SelectItem value="direto">Direto</SelectItem>
               <SelectItem value="tecnico">Técnico</SelectItem>
-              <SelectItem value="neutro">Neutro</SelectItem>
-              <SelectItem value="institucional">Institucional</SelectItem>
-              <SelectItem value="comercial">Comercial</SelectItem>
+              <SelectItem value="empatico">Empático</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
-        <div className="space-y-2">
-          <Label>Deve direcionar para humano após triagem?</Label>
-          <RadioGroup value={formData.direcionarHumano} onValueChange={(value) => updateFormData("direcionarHumano", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="humano-sim" />
-              <Label htmlFor="humano-sim" className="cursor-pointer">Sim, sempre encaminhar para atendente</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="humano-nao" />
-              <Label htmlFor="humano-nao" className="cursor-pointer">Não, agente totalmente autônomo</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="casos" id="humano-casos" />
-              <Label htmlFor="humano-casos" className="cursor-pointer">Apenas em casos específicos</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Canais Desejados (selecione todos que se aplicam)</Label>
-          <div className="space-y-2">
-            {["WhatsApp Business", "Site / Chat Web", "CRM Interno", "Instagram Direct", "Facebook Messenger", "Telegram"].map((canal) => (
-              <div key={canal} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`canal-${canal}`}
+        <div className="col-span-1 md:col-span-2 space-y-4">
+          <Label className="text-slate-300 block mb-2">Canais de Atuação</Label>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {["WhatsApp", "Instagram", "Site", "E-mail", "Telegram", "Facebook"].map((canal) => (
+              <div 
+                key={canal}
+                onClick={() => {
+                  const newCanais = formData.canaisDesejados.includes(canal)
+                    ? formData.canaisDesejados.filter(c => c !== canal)
+                    : [...formData.canaisDesejados, canal];
+                  updateFormData("canaisDesejados", newCanais);
+                }}
+                className={`flex items-center space-x-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                  formData.canaisDesejados.includes(canal)
+                    ? "bg-purple-500/20 border-purple-500"
+                    : "bg-white/5 border-white/10 hover:bg-white/10"
+                }`}
+              >
+                <Checkbox 
                   checked={formData.canaisDesejados.includes(canal)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      updateFormData("canaisDesejados", [...formData.canaisDesejados, canal]);
-                    } else {
-                      updateFormData("canaisDesejados", formData.canaisDesejados.filter(c => c !== canal));
-                    }
-                  }}
+                  className="border-white/30 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
                 />
-                <Label htmlFor={`canal-${canal}`} className="cursor-pointer">{canal}</Label>
+                <span className="text-white">{canal}</span>
               </div>
             ))}
           </div>
         </div>
-
-        {formData.nicho === "Clínica" && (
-          <>
-            <div className="space-y-2">
-              <Label>Dados que o agente deve coletar: (selecione todos que se aplicam)</Label>
-              <div className="space-y-2">
-                {["Nome do paciente", "Motivo da consulta", "Convênio", "Horário preferencial", "CPF", "Data de nascimento"].map((dado) => (
-                  <div key={dado} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`dado-${dado}`}
-                      checked={formData.coletarDados.includes(dado)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
-                          updateFormData("coletarDados", [...formData.coletarDados, dado]);
-                        } else {
-                          updateFormData("coletarDados", formData.coletarDados.filter(d => d !== dado));
-                        }
-                      }}
-                    />
-                    <Label htmlFor={`dado-${dado}`} className="cursor-pointer">{dado}</Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label>IA deve enviar lembretes automáticos de consulta?</Label>
-              <RadioGroup value={formData.lembretesAutomaticos} onValueChange={(value) => updateFormData("lembretesAutomaticos", value)}>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="sim" id="lembrete-sim" />
-                  <Label htmlFor="lembrete-sim" className="cursor-pointer">Sim</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="nao" id="lembrete-nao" />
-                  <Label htmlFor="lembrete-nao" className="cursor-pointer">Não</Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div className="space-y-2">
-              <Label>IA deve realizar pós-consulta (feedback/satisfação)?</Label>
-              <RadioGroup value={formData.posConsulta} onValueChange={(value) => updateFormData("posConsulta", value)}>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="sim" id="pos-sim" />
-                  <Label htmlFor="pos-sim" className="cursor-pointer">Sim</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="nao" id="pos-nao" />
-                  <Label htmlFor="pos-nao" className="cursor-pointer">Não</Label>
-                </div>
-              </RadioGroup>
-            </div>
-          </>
-        )}
-
-        <div className="space-y-2">
-          <Label>Deseja relatórios automáticos de performance?</Label>
-          <RadioGroup value={formData.relatorios} onValueChange={(value) => updateFormData("relatorios", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="relatorio-sim" />
-              <Label htmlFor="relatorio-sim" className="cursor-pointer">Sim, enviar relatórios periódicos</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="relatorio-nao" />
-              <Label htmlFor="relatorio-nao" className="cursor-pointer">Não</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Deseja integração com planilhas ou API personalizada?</Label>
-          <RadioGroup value={formData.integracaoPersonalizada} onValueChange={(value) => updateFormData("integracaoPersonalizada", value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="sim" id="api-sim" />
-              <Label htmlFor="api-sim" className="cursor-pointer">Sim</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="nao" id="api-nao" />
-              <Label htmlFor="api-nao" className="cursor-pointer">Não</Label>
-            </div>
-          </RadioGroup>
-        </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   const renderStep5 = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold mb-4">
-          Finalização e <span className="text-purple-500">Confirmação</span>
+    <motion.div
+      variants={stepVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="space-y-8"
+    >
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-light text-white mb-4">
+          Últimos <span className="font-bold text-purple-400">Detalhes</span>
         </h2>
-        <p className="text-muted-foreground">
-          Última etapa antes de criarmos seu agente personalizado
+        <p className="text-slate-400 font-light">
+          Revise e envie sua solicitação
         </p>
-      </motion.div>
+      </div>
 
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="observacoes">Observações Adicionais</Label>
+      <div className="space-y-6 max-w-2xl mx-auto">
+        <div className="space-y-3">
+          <Label className="text-slate-300">Observações Extras</Label>
           <Textarea
-            id="observacoes"
-            placeholder="Conte-nos mais sobre suas necessidades, expectativas ou requisitos específicos..."
+            className="bg-white/5 border-white/10 text-white focus:border-purple-500/50 min-h-[150px]"
+            placeholder="Algum detalhe específico que não perguntamos?"
             value={formData.observacoes}
             onChange={(e) => updateFormData("observacoes", e.target.value)}
-            rows={5}
           />
         </div>
 
-        <div className="space-y-2">
-          <Label className="flex items-center gap-2">
-            <Upload weight="light" className="h-5 w-5" />
-            Anexar Arquivos (opcional)
-          </Label>
-          <Input
-            type="file"
-            multiple
-            accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx"
-            onChange={handleFileUpload}
-            className="cursor-pointer"
-          />
-          {formData.arquivos.length > 0 && (
-            <div className="text-sm text-muted-foreground mt-2">
-              {formData.arquivos.length} arquivo(s) selecionado(s)
-            </div>
-          )}
-          <p className="text-xs text-muted-foreground">
-            Você pode anexar imagens, vídeos, PDFs ou documentos que ajudem a entender melhor seu negócio
-          </p>
-        </div>
-
-        <div className="bg-card/50 border border-border rounded-xl p-6 space-y-4">
-          <h3 className="font-bold text-lg">Resumo da Solicitação</h3>
-          <div className="space-y-2 text-sm">
-            <p><strong>Nicho:</strong> {formData.nicho}</p>
-            <p><strong>Empresa:</strong> {formData.nomeEmpresa}</p>
-            <p><strong>Responsável:</strong> {formData.nomeResponsavel}</p>
-            <p><strong>Nome do Agente:</strong> {formData.nomeAgente || "A definir"}</p>
-            <p><strong>Canais:</strong> {formData.canaisDesejados.join(", ") || "A definir"}</p>
+        <div className="space-y-3">
+          <Label className="text-slate-300">Anexar Arquivos (Opcional)</Label>
+          <div className="border-2 border-dashed border-white/10 rounded-xl p-8 text-center hover:border-purple-500/50 transition-colors bg-white/[0.02]">
+            <Upload className="mx-auto h-8 w-8 text-slate-400 mb-4" />
+            <Input
+              type="file"
+              multiple
+              className="hidden"
+              id="file-upload"
+              onChange={handleFileUpload}
+            />
+            <Label htmlFor="file-upload" className="cursor-pointer text-purple-400 hover:text-purple-300">
+              Clique para selecionar arquivos
+            </Label>
+            <p className="text-xs text-slate-500 mt-2">PDF, DOC, Imagens (Max 10MB)</p>
+            {formData.arquivos.length > 0 && (
+              <div className="mt-4 text-sm text-white bg-white/10 py-2 px-4 rounded-lg inline-block">
+                {formData.arquivos.length} arquivo(s) selecionado(s)
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="flex items-start space-x-2 bg-muted/50 p-4 rounded-lg">
+        <div className="flex items-start space-x-3 p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 mt-8">
           <Checkbox
             id="termos"
             checked={formData.aceitarTermos}
-            onCheckedChange={(checked) => updateFormData("aceitarTermos", checked)}
+            onCheckedChange={(checked) => updateFormData("aceitarTermos", checked === true)}
+            className="mt-1 border-purple-500 data-[state=checked]:bg-purple-500"
           />
-          <Label htmlFor="termos" className="cursor-pointer text-sm leading-relaxed">
-            Aceito os termos de uso e autorizo o uso dos dados fornecidos para configuração e operação do Agente de IA. 
-            Estou ciente de que a ConverseIA utilizará as informações exclusivamente para personalização e otimização do serviço contratado.
+          <Label htmlFor="termos" className="text-sm text-slate-300 leading-relaxed cursor-pointer">
+            Concordo com o processamento dos meus dados para fins de contato comercial e personalização da proposta da ConverseIA.
           </Label>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
+    <div className="min-h-screen relative text-slate-200 selection:bg-purple-500/30 flex flex-col">
+      <GlobalBackground />
+      <Navigation transparent />
       
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="section-padding pt-32 bg-gradient-subtle">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-4 py-2 rounded-full mb-6"
-            >
-              <Sparkle weight="light" className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">Contratação Online</span>
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-4xl sm:text-5xl font-bold mb-6"
-            >
-              Configure seu <span className="text-purple-500">Agente de IA</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-xl text-muted-foreground mb-8"
-            >
-              Preencha o formulário e receba uma proposta personalizada em minutos
-            </motion.p>
-
-            {/* Progress Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-              className="flex items-center justify-center gap-2 mb-4"
-            >
+      <main className="flex-grow pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Progress Steps */}
+          <div className="flex justify-center mb-16">
+            <div className="flex items-center gap-4">
               {[1, 2, 3, 4, 5].map((step) => (
                 <div key={step} className="flex items-center">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
+                    className={`w-3 h-3 rounded-full transition-all duration-500 ${
                       step === currentStep
-                        ? "bg-primary text-primary-foreground scale-110"
+                        ? "bg-purple-500 scale-150 shadow-[0_0_10px_rgba(168,85,247,0.5)]"
                         : step < currentStep
-                        ? "bg-primary/50 text-primary-foreground"
-                        : "bg-muted text-muted-foreground"
+                        ? "bg-purple-500/50"
+                        : "bg-white/10"
                     }`}
-                  >
-                    {step < currentStep ? <CheckCircle weight="light" className="h-5 w-5" /> : step}
-                  </div>
+                  />
                   {step < 5 && (
-                    <div
-                      className={`w-8 sm:w-16 h-1 transition-all duration-300 ${
-                        step < currentStep ? "bg-primary" : "bg-muted"
-                      }`}
-                    />
+                    <div className={`w-8 h-[1px] mx-2 transition-colors duration-500 ${step < currentStep ? "bg-purple-500/30" : "bg-white/5"}`} />
                   )}
                 </div>
               ))}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Form Section */}
-        <section className="pb-12 lg:pb-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-8 sm:p-12">
-              {currentStep === 1 && renderStep1()}
-              {currentStep === 2 && renderStep2()}
-              {currentStep === 3 && formData.nicho === "Advocacia" && renderStep3Advocacia()}
-              {currentStep === 3 && formData.nicho === "Clínica" && renderStep3Clinica()}
-              {currentStep === 3 && formData.nicho === "Outro" && renderStep3Outro()}
-              {currentStep === 4 && renderStep4()}
-              {currentStep === 5 && renderStep5()}
-
-              {/* Navigation Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-border">
-                {currentStep > 1 && (
-                  <Button
-                    onClick={prevStep}
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto"
-                  >
-                    Voltar
-                  </Button>
-                )}
-
-                {currentStep < 5 ? (
-                  <Button
-                    onClick={nextStep}
-                    size="lg"
-                    className="w-full sm:flex-1 bg-purple-600/90 hover:bg-purple-700/90 text-white"
-                  >
-                    Próxima Etapa
-                    <ArrowRight weight="light" className="ml-2 h-5 w-5" />
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleSubmit}
-                    size="lg"
-                    className="w-full sm:flex-1 bg-purple-600/90 hover:bg-purple-700/90 text-white"
-                    disabled={!formData.aceitarTermos}
-                  >
-                    <Sparkle weight="light" className="mr-2 h-5 w-5" />
-                    Enviar Solicitação
-                  </Button>
-                )}
-              </div>
             </div>
           </div>
-        </section>
-      </main>
 
-      <Footer />
+          {/* Form Container */}
+          <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
+            <AnimatePresence mode="wait">
+              {currentStep === 1 && renderStep1()}
+              {currentStep === 2 && renderStep2()}
+              {currentStep === 3 && renderStep3()}
+              {currentStep === 4 && renderStep4()}
+              {currentStep === 5 && renderStep5()}
+            </AnimatePresence>
+
+            {/* Navigation Actions */}
+            <div className="flex justify-between items-center mt-12 pt-8 border-t border-white/5">
+              <Button
+                variant="ghost"
+                onClick={prevStep}
+                disabled={currentStep === 1}
+                className={`text-slate-400 hover:text-white hover:bg-white/5 ${currentStep === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+              >
+                <CaretLeft className="mr-2 h-4 w-4" />
+                Voltar
+              </Button>
+
+              <Button
+                onClick={currentStep === 5 ? handleSubmit : nextStep}
+                disabled={currentStep === 5 && !formData.aceitarTermos}
+                className="bg-purple-600 hover:bg-purple-500 text-white px-8 h-12 rounded-full shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] transition-all duration-300"
+              >
+                {currentStep === 5 ? (
+                  <>
+                    Finalizar Solicitação
+                    <Sparkle className="ml-2 h-4 w-4" weight="fill" />
+                  </>
+                ) : (
+                  <>
+                    Próxima Etapa
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
