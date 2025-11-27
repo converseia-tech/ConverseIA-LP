@@ -384,7 +384,6 @@ export default function RadialOrbitalTimeline({
             e.stopPropagation();
             handleArrowHover("left");
           }}
-          onMouseEnter={() => handleArrowHover("left")}
         >
           <ChevronLeft size={32} className="opacity-70 group-hover:opacity-100 transition-opacity" />
         </button>
@@ -395,7 +394,6 @@ export default function RadialOrbitalTimeline({
             e.stopPropagation();
             handleArrowHover("right");
           }}
-          onMouseEnter={() => handleArrowHover("right")}
         >
           <ChevronRight size={32} className="opacity-70 group-hover:opacity-100 transition-opacity" />
         </button>

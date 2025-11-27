@@ -5,7 +5,7 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       img: "/Fotos_comentários_pessoas/Dr_André_Buarque.jpg",
-      quote: "A Conciarge mudou a forma de trabalho da minha equipe! gerou mais economia e resultado rápido!",
+      quote: "A Conciarge mudou a forma de trabalho da minha equipe! Gerou mais economia e resultado rápido!",
       name: "Dr. André Buarque",
       role: "Clínica Elevare",
     },

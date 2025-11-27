@@ -53,7 +53,7 @@ const ClientsSection = () => {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-1 px-4">
-            Empresas que confiam em ConverseIA
+            Empresas que confiam na ConverseIA
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground px-4">
             Transformando negócios em diversos setores

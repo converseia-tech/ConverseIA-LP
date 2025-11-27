@@ -2,8 +2,8 @@ import { Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 const VivanChatSection = () => {
-  const whatsappNumber = "5511999999999";
-  const phoneNumber = "11999999999";
+  const whatsappNumber = "558191085679";
+  const phoneNumber = "558191085679";
 
   return (
     <section className="section-padding">

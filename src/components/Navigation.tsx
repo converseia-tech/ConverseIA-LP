@@ -21,11 +21,11 @@ const Navigation = () => {
   // Determina qual logo mostrar baseado na rota
   const getLogo = () => {
     if (location.pathname === "/direito") {
-      return "/Icon_3_direito.png";
+      return "/logo_direito.png";
     } else if (location.pathname === "/conciarge") {
-      return "/logo_azul_conciarge.png";
+      return "/logo_conciarge.png";
     }
-    return "/nova_logo_CONVERSEIA_que_agora_e_converseia.png";
+    return "/logo_converseia.png";
   };
 
   // Aplica paleta de cores baseada na rota - Cores originais dos sites
@@ -171,7 +171,6 @@ const Navigation = () => {
                 src={getLogo()}
                 alt="ConverseIA"
                 className="h-8 sm:h-10 lg:h-12 w-auto object-contain transition-all duration-500 ease-in-out hover:scale-110"
-                style={{ filter: "brightness(0) saturate(100%) invert(24%) sepia(68%) saturate(4368%) hue-rotate(263deg) brightness(93%) contrast(93%)" }}
               />
             </Link>
 
