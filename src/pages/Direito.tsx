@@ -15,11 +15,12 @@ const Direito = () => {
 
   // Carrossel de Clientes
   const clients = [
-    { name: "Borges Advogados", logo: "/logos_empresas/logo_borges_adv.png" },
-    { name: "Advocacia Silva", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=Silva+Adv" },
-    { name: "Melo & Associados", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=Melo+Assoc" },
-    { name: "Borges Advogados", logo: "/logos_empresas/logo_borges_adv.png" },
-    { name: "Jurídico Tech", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=Juridico+Tech" },
+    { name: "Grupo FV", logo: "/brands/grupo-fv.svg" },
+    { name: "MC Adv", logo: "/brands/mc-adv.svg" },
+    { name: "Eurofarma", logo: "/brands/eurofarma.svg" },
+    { name: "Grupo FV", logo: "/brands/grupo-fv.svg" },
+    { name: "MC Adv", logo: "/brands/mc-adv.svg" },
+    { name: "Eurofarma", logo: "/brands/eurofarma.svg" },
   ];
 
   const clientItems = clients.map((client, index) => (
@@ -37,12 +38,12 @@ const Direito = () => {
 
   // Carrossel de Integrações
   const integrations = [
-    { name: "AdvBox", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=AdvBox" },
-    { name: "Astrea", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=Astrea" },
-    { name: "Projuris", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=Projuris" },
-    { name: "PJe", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=PJe" },
-    { name: "E-saj", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=E-saj" },
-    { name: "Kurier", logo: "https://placehold.co/200x80/0a0a0a/FFFFFF/png?text=Kurier" },
+    { name: "PJe", logo: "/brands/pje.svg" },
+    { name: "TJAM", logo: "/brands/tjam.png" },
+    { name: "TJCE", logo: "/brands/tjce.png" },
+    { name: "PJe", logo: "/brands/pje.svg" },
+    { name: "TJAM", logo: "/brands/tjam.png" },
+    { name: "TJCE", logo: "/brands/tjce.png" },
   ];
 
   const integrationItems = integrations.map((tech, index) => (
