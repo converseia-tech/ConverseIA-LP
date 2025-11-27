@@ -15,12 +15,12 @@ const Conciarge = () => {
 
   // Carrossel de Clientes
   const clients = [
-    { name: "Vemed Saúde", logo: "/logos_empresas/logo_vemed_saúde.png" },
-    { name: "Rede Ame", logo: "/logos_empresas/logo_rede_ame.png" },
-    { name: "Vemed Saúde", logo: "/logos_empresas/logo_vemed_saúde.png" },
-    { name: "Rede Ame", logo: "/logos_empresas/logo_rede_ame.png" },
-    { name: "Vemed Saúde", logo: "/logos_empresas/logo_vemed_saúde.png" },
-    { name: "Rede Ame", logo: "/logos_empresas/logo_rede_ame.png" },
+    { name: "Vemed Saúde", logo: "/Logos_empresas/logo_vemed_saude.png" },
+    { name: "Rede Ame", logo: "/Logos_empresas/logo_rede_ame.png" },
+    { name: "Vemed Saúde", logo: "/Logos_empresas/logo_vemed_saude.png" },
+    { name: "Rede Ame", logo: "/Logos_empresas/logo_rede_ame.png" },
+    { name: "Vemed Saúde", logo: "/Logos_empresas/logo_vemed_saude.png" },
+    { name: "Rede Ame", logo: "/Logos_empresas/logo_rede_ame.png" },
   ];
 
   const clientItems = clients.map((client, index) => (
