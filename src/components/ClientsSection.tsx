@@ -5,27 +5,27 @@ const ClientsSection = () => {
   const clients = [
     {
       name: "Braspex",
-      logo: "/logos_empresas/logo_braspex.png",
+      logo: "/Logos_empresas/logo_braspex.png",
     },
     {
       name: "Protogas",
-      logo: "/logos_empresas/logo_protogas.png",
+      logo: "/Logos_empresas/logo_protogas.png",
     },
     {
       name: "Lucas Borges Adv",
-      logo: "/logos_empresas/logo_borges_adv.png",
+      logo: "/Logos_empresas/logo_borges_adv.png",
     },
     {
       name: "Mapion",
-      logo: "/logos_empresas/logo_mapion.png",
+      logo: "/Logos_empresas/logo_mapion.png",
     },
     {
       name: "Vemed Saúde",
-      logo: "/logos_empresas/logo_vemed_saúde.png",
+      logo: "/Logos_empresas/logo_vemed_saude.png",
     },
     {
       name: "Rede Amé",
-      logo: "/logos_empresas/logo_rede_ame.png",
+      logo: "/Logos_empresas/logo_rede_ame.png",
     },
   ];
 
