@@ -12,9 +12,6 @@ import Contact from "./pages/Contact";
 import Conciarge from "./pages/Conciarge";
 import Direito from "./pages/Direito";
 import Plataforma from "./pages/Plataforma";
-import LandingPages from "./pages/LandingPages";
-import AgentesIA from "./pages/AgentesIA";
-import ProjetosPersonalizados from "./pages/ProjetosPersonalizados";
 import Contratacao from "./pages/Contratacao";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
@@ -47,9 +44,6 @@ const App = () => (
             <Route path="/conciarge" element={<Conciarge />} />
             <Route path="/direito" element={<Direito />} />
             <Route path="/plataforma" element={<Plataforma />} />
-            <Route path="/landing-pages" element={<LandingPages />} />
-            <Route path="/agentes-ia" element={<AgentesIA />} />
-            <Route path="/projetos-personalizados" element={<ProjetosPersonalizados />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/insights/:id" element={<ArticlePage />} />
             <Route path="/sobre" element={<About />} />

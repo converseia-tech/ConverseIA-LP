@@ -292,17 +292,17 @@ export const MeetingScheduler: React.FC<MeetingSchedulerProps> = ({
                 {/* Summary */}
                 {selectedDate && selectedTime && (
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="p-4 rounded-lg bg-primary/10 border border-primary/20"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="p-4 rounded-lg bg-primary/10 border border-primary/20"
                   >
-                    <p className="text-sm font-medium mb-2">Resumo do Agendamento:</p>
-                    <p className="text-sm text-muted-foreground">
-                      📅 {format(selectedDate, "dd/MM/yyyy")}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      🕐 {formatTime(selectedTime)}
-                    </p>
+                  <p className="text-sm font-medium mb-2">Resumo do Agendamento:</p>
+                  <p className="text-sm text-muted-foreground flex items-center gap-2">
+                    <CalendarIcon className="w-4 h-4" /> {format(selectedDate, "dd/MM/yyyy")}
+                  </p>
+                  <p className="text-sm text-muted-foreground flex items-center gap-2">
+                    <Clock className="w-4 h-4" /> {formatTime(selectedTime)}
+                  </p>
                   </motion.div>
                 )}
 
