@@ -7,17 +7,15 @@ const Footer = () => {
   const whatsappLink = "https://api.whatsapp.com/send/?phone=558197849998&text=Ol%C3%A1%2C%20tudo%20bem%3F%20Quero%20entender%20mais%20sobre%20a%20solu%C3%A7%C3%A3o%20de%20voc%C3%AAs.&type=phone_number&app_absent=0";
 
   const solutions = [
-    { title: 'Direito', href: '/direito' },
-    { title: 'Saúde & Estética', href: '/conciarge' },
-    { title: 'Chat & CRM', href: '/plataforma' },
-    { title: 'Agentes IA', href: '/agentes-ia' },
+    { title: 'Clínicas de Saúde', href: '/conciarge' },
+    { title: 'Escritórios de Advocacia', href: '/direito' },
+    { title: 'Plataforma ConverseIA', href: '/plataforma' },
   ];
 
   const company = [
     { title: 'Sobre Nós', href: '/sobre' },
     { title: 'Insights', href: '/insights' },
     { title: 'Carreiras', href: '/carreiras' },
-    { title: 'Contato', href: '/contato' },
   ];
 
   const legal = [

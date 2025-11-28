@@ -257,6 +257,7 @@ const Navigation = ({ transparent = false }: { transparent?: boolean }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm xl:text-base font-medium text-muted-foreground hover:text-purple-400 transition-all duration-300 relative group"
+                style={{ display: 'none' }}
               >
                 Documentação
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300" />
@@ -386,6 +387,7 @@ const Navigation = ({ transparent = false }: { transparent?: boolean }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-purple-400 hover:bg-purple-500/10 rounded-md transition-colors"
+                  style={{ display: 'none' }}
                 >
                   Documentação
                 </a>
