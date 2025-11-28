@@ -40,12 +40,12 @@ const TechnologiesSection = () => {
   const techItems = technologies.map((tech, index) => (
     <div
       key={`${tech.name}-${index}`}
-      className="flex items-center justify-center px-8 py-4 h-24 rounded-2xl bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 group"
+      className="flex items-center justify-center px-4 sm:px-8 py-3 sm:py-4 h-20 sm:h-24 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 group"
     >
       <img
         src={tech.logo}
         alt={tech.name}
-        className="max-h-10 w-auto object-contain transition-all opacity-50 grayscale brightness-0 invert group-hover:opacity-100"
+        className="max-h-8 sm:max-h-10 w-auto object-contain transition-all opacity-50 grayscale brightness-0 invert group-hover:opacity-100"
       />
     </div>
   ));

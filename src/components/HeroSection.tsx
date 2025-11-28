@@ -31,16 +31,16 @@ const HeroSection = () => {
             textShadow: '0 0 50px rgba(139, 92, 246, 0.5)',
             filter: 'contrast(1.2)',
             letterSpacing: '-0.02em',
-            minHeight: '80px'
+            minHeight: '72px'
           }}
-            className="sm:min-h-[100px] md:min-h-[120px]"
+            className="min-h-[72px] sm:min-h-[100px] md:min-h-[120px]"
           >
             <GooeyText
               texts={["Inteligência que Transforma.", "Automação que Liberta."]}
               morphTime={1.5}
               cooldownTime={3}
               className="font-display font-black tracking-tight leading-[0.9] sm:leading-[0.85]"
-              textClassName="text-foreground dark:text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              textClassName="text-foreground dark:text-white text-[2.75rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             />
           </div>
         </motion.div>
@@ -87,13 +87,13 @@ const HeroSection = () => {
 
       {/* Scroll Indicator - Positioned closer to content */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
+        initial={{ opacity: 0, x: "-50%" }}
+        animate={{ opacity: 1, y: [0, 10, 0], x: "-50%" }}
         transition={{ 
           opacity: { delay: 1.5, duration: 1 },
           y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
         }}
-        className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50"
+        className="absolute bottom-6 sm:bottom-12 left-1/2 flex flex-col items-center gap-2 text-muted-foreground/50"
       >
         <span className="text-xs uppercase tracking-widest">Scroll</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-primary/50 to-transparent" />

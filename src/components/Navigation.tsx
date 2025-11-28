@@ -274,6 +274,28 @@ const Navigation = ({ transparent = false }: { transparent?: boolean }) => {
               </a>
             </div>
 
+            {/* Mobile Quick Navigation - Soluções & Sobre nós & Insights */}
+            <div className="flex lg:hidden items-center gap-2 sm:gap-3">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-xs sm:text-sm font-medium text-muted-foreground hover:text-purple-400 transition-all"
+              >
+                Soluções
+              </button>
+              <Link
+                to="/sobre"
+                className="text-xs sm:text-sm font-medium text-muted-foreground hover:text-purple-400 transition-all"
+              >
+                Sobre nós
+              </Link>
+              <Link
+                to="/insights"
+                className="text-xs sm:text-sm font-medium text-muted-foreground hover:text-purple-400 transition-all"
+              >
+                Insights
+              </Link>
+            </div>
+
             {/* Botões de Ação - Direita */}
             <div className="hidden lg:flex items-center space-x-3">
               {/* <ThemeToggle /> */}

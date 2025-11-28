@@ -36,9 +36,24 @@ export default function RadialOrbitalTimeline({
     y: 0,
   });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const [radius, setRadius] = useState(200);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setRadius(140);
+      } else {
+        setRadius(200);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
@@ -113,7 +128,7 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
+    // const radius = 200; // Removed hardcoded radius
     const radian = (angle * Math.PI) / 180;
 
     const x = radius * Math.cos(radian) + centerOffset.x;
@@ -379,23 +394,23 @@ export default function RadialOrbitalTimeline({
 
         {/* Navigation Arrows */}
         <button
-          className="absolute left-4 md:left-0 z-50 p-3 rounded-full text-purple-400 transition-all hover:scale-110 hover:bg-purple-500/10 group"
+          className="absolute left-0 md:left-0 z-50 p-2 md:p-3 rounded-full text-purple-400 transition-all hover:scale-110 hover:bg-purple-500/10 group bg-background/20 backdrop-blur-sm md:bg-transparent"
           onClick={(e) => {
             e.stopPropagation();
             handleArrowHover("left");
           }}
         >
-          <ChevronLeft size={32} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+          <ChevronLeft size={24} className="md:w-8 md:h-8 opacity-70 group-hover:opacity-100 transition-opacity" />
         </button>
 
         <button
-          className="absolute right-4 md:right-0 z-50 p-3 rounded-full text-purple-400 transition-all hover:scale-110 hover:bg-purple-500/10 group"
+          className="absolute right-0 md:right-0 z-50 p-2 md:p-3 rounded-full text-purple-400 transition-all hover:scale-110 hover:bg-purple-500/10 group bg-background/20 backdrop-blur-sm md:bg-transparent"
           onClick={(e) => {
             e.stopPropagation();
             handleArrowHover("right");
           }}
         >
-          <ChevronRight size={32} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+          <ChevronRight size={24} className="md:w-8 md:h-8 opacity-70 group-hover:opacity-100 transition-opacity" />
         </button>
       </div>
     </div>

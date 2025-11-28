@@ -23,16 +23,17 @@ export function InfiniteCarousel({ items, autoplayDelay = 2000 }: InfiniteCarous
   const duplicatedItems = [...items, ...items, ...items];
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full overflow-hidden px-2 sm:px-0">
       <motion.div
-        className="flex gap-4"
+        className="flex gap-3 sm:gap-4"
         animate={{ x: `-${position * (100 / items.length)}%` }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
+        style={{ willChange: 'transform' }}
       >
         {duplicatedItems.map((item, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/6"
+            className="flex-shrink-0 w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/6"
           >
             {item}
           </div>
