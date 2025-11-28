@@ -8,20 +8,13 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Insights from "./pages/Insights";
 import ArticlePage from "./pages/ArticlePage";
-import Contact from "./pages/Contact";
 import Conciarge from "./pages/Conciarge";
 import Direito from "./pages/Direito";
 import Plataforma from "./pages/Plataforma";
 import Contratacao from "./pages/Contratacao";
 import Login from "./pages/Login";
-import AdminLogin from "./pages/AdminLogin";
 import GerenciarFormularios from "./pages/GerenciarFormularios";
-import DotShaderDemo from "./pages/DotShaderDemo";
-import DotShaderShowcase from "./pages/DotShaderShowcase";
-import ArtificialHeroDemo from "./pages/ArtificialHeroDemo";
 import AetherFlowDemo from "./pages/AetherFlowDemo";
-import MiniNavbarDemo from "./pages/MiniNavbarDemo";
-import FooterDemo from "./pages/FooterDemo";
 import NotFound from "./pages/NotFound";
 import ChatWidget from "./components/ChatWidget";
 import { GlobalBackground } from "./components/GlobalBackground";
@@ -47,17 +40,10 @@ const App = () => (
             <Route path="/insights" element={<Insights />} />
             <Route path="/insights/:id" element={<ArticlePage />} />
             <Route path="/sobre" element={<About />} />
-            <Route path="/contato" element={<Contact />} />
             <Route path="/contratacao" element={<Contratacao />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/gerenciar-formularios" element={<GerenciarFormularios />} />
-            <Route path="/dot-shader-demo" element={<DotShaderDemo />} />
-            <Route path="/dot-shader-showcase" element={<DotShaderShowcase />} />
-            <Route path="/artificial-hero-demo" element={<ArtificialHeroDemo />} />
             <Route path="/aether-flow-demo" element={<AetherFlowDemo />} />
-            <Route path="/mini-navbar-demo" element={<MiniNavbarDemo />} />
-            <Route path="/footer-demo" element={<FooterDemo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
